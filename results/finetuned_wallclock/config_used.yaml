@@ -1,0 +1,23 @@
+budget:
+  answer_reserve_seconds: 5
+  init_tokens_per_sec: 40
+  levels:
+  - 10
+  - 20
+  mode: wallclock
+  safety_factor: 0.85
+data:
+  context_mode: oracle
+  n: 200
+  split: validation
+model:
+  gpu_memory_utilization: 0.9
+  max_model_len: 16384
+  name: /mnt/parscratch/users/acu25yx/checkpoints/qwen3-4b-sft-merged-v1
+  tensor_parallel_size: 1
+output_dir: results/finetuned_wallclock
+seed: 0
+systems:
+- sas
+- sequential
+temperature: 0.0

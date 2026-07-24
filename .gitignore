@@ -1,0 +1,6 @@
+# 大文件 / 可重新生成的产物，不进 git
+__pycache__/
+*.pyc
+src_backup_*/
+results/*_prebugfix/
+# checkpoints 在 fastdata 上，本来就不在项目目录里

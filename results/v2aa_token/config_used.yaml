@@ -1,0 +1,20 @@
+budget:
+  levels:
+  - 1000
+  - 2000
+  mode: token
+data:
+  context_mode: oracle
+  n: 200
+  split: validation
+model:
+  gpu_memory_utilization: 0.9
+  max_model_len: 16384
+  name: /mnt/parscratch/users/acu25yx/checkpoints/qwen3-4b-sft-merged-v2a-aligned
+  tensor_parallel_size: 1
+output_dir: results/v2aa_token
+seed: 0
+systems:
+- sas
+- sequential
+temperature: 0.0

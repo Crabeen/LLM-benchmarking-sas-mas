@@ -1,0 +1,76 @@
+nohup: ignoring input
+watching job 11020308 every 120s  (Ctrl-C to stop)
+[16:39:54] state -> RUNNING 2:37 gpu12
+[16:39:54] running 3/200
+[16:41:54] running 21/200
+[16:43:54] running 41/200
+[16:45:54] running 58/200
+[16:47:54] running 79/200
+[16:49:54] running 99/200
+[16:51:54] running 125/200
+[16:53:54] running 149/200
+[16:55:54] running 166/200
+[16:57:54] running 188/200
+[16:59:54] running 4/200
+[17:01:54] running 22/200
+[17:03:54] running 38/200
+[17:05:54] running 49/200
+[17:07:54] running 58/200
+[17:09:54] running 74/200
+[17:11:54] running 86/200
+[17:13:54] running 97/200
+[17:15:54] running 119/200
+[17:17:54] running 140/200
+[17:19:54] running 152/200
+[17:21:54] running 162/200
+[17:23:54] running 176/200
+[17:25:54] running 193/200
+[17:27:55] running 5/200
+[17:29:55] running 18/200
+[17:31:55] running 33/200
+[17:33:55] running 47/200
+[17:35:55] running 61/200
+[17:37:55] running 77/200
+[17:39:55] running 91/200
+[17:41:55] running 107/200
+[17:43:55] running 121/200
+[17:45:55] running 136/200
+[17:47:55] running 150/200
+[17:49:55] running 163/200
+[17:51:55] running 177/200
+[17:53:55] running 192/200
+[17:55:55] running 3/200
+[17:57:55] running 12/200
+[17:59:55] running 23/200
+[18:01:55] running 33/200
+[18:03:55] running 44/200
+[18:05:55] running 54/200
+[18:07:55] running 67/200
+[18:09:55] running 78/200
+[18:11:55] running 88/200
+[18:13:55] running 98/200
+[18:15:55] running 109/200
+[18:17:55] running 120/200
+[18:19:55] running 129/200
+[18:21:55] running 140/200
+[18:23:55] running 148/200
+[18:25:56] running 158/200
+[18:27:56] running 168/200
+[18:29:56] running 178/200
+[18:31:56] running 188/200
+[18:33:56] running 198/200
+[18:35:56] running 107/200
+[18:37:56] running 50/200
+[18:39:56] running 196/200
+[18:41:56] running 123/200
+[18:43:56] running 61/200
+[18:45:56] running 200/200
+[18:47:56] job 11020308 left the queue
+11020308      COMPLETED      0:0   02:08:58 
+>>> no startup errors detected; tail:
+  budget 1000: +0.200
+  budget 2000: +0.230
+
+Paired bootstrap for the gap (same questions, per-question diff):
+  budget 1000: gap +0.200, paired 95% CI [+0.125, +0.275]  (significant)
+  budget 2000: gap +0.230, paired 95% CI [+0.155, +0.300]  (significant)

@@ -1,0 +1,7 @@
+vllm>=0.8.0
+datasets==4.0.0
+pyarrow==20.0.0
+transformers>=4.51
+pyyaml
+numpy
+tqdm

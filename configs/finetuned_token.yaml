@@ -1,0 +1,25 @@
+# Paper-faithful pilot: token budget mode (Tran & Kiela protocol).
+# Run this FIRST to validate the pipeline against the paper's direction.
+
+seed: 0
+temperature: 0.0
+output_dir: results/finetuned_token
+
+model:
+  # 80GB card: Qwen/Qwen3-30B-A3B  |  40GB card: /mnt/parscratch/users/acu25yx/checkpoints/qwen3-4b-sft-merged-v1
+  # Llama family (paper's second family): deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+  name: /mnt/parscratch/users/acu25yx/checkpoints/qwen3-4b-sft-merged-v1
+  tensor_parallel_size: 1
+  max_model_len: 16384
+  gpu_memory_utilization: 0.90
+
+data:
+  split: validation
+  n: 200                # pilot; raise to 200 for the first formal run
+  context_mode: oracle # oracle | full | closed  (align with paper before formal run)
+
+systems: [sas, sequential]
+
+budget:
+  mode: token
+  levels: [1000, 2000]   # paper grid: [100, 500, 1000, 2000, 5000, 10000]

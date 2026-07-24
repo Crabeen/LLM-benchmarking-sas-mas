@@ -1,0 +1,13 @@
+INFO 07-24 14:34:52 [__init__.py:239] Automatically detected platform cuda.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/users/acu25yx/sas-mas-repro/src/rejudge.py", line 188, in <module>
+    main()
+  File "/users/acu25yx/sas-mas-repro/src/rejudge.py", line 144, in main
+    engine = Engine(model=args.judge_model,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Engine.__init__() got an unexpected keyword argument 'enforce_eager'
+judging 28 files with Qwen/Qwen3-4B
+
+srun: error: gpu11: task 0: Exited with exit code 1

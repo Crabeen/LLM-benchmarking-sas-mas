@@ -1,0 +1,10 @@
+nohup: ignoring input
+watching job 10987324 every 120s  (Ctrl-C to stop)
+[18:08:51] job 10987324 left the queue
+10987324         FAILED      1:0   00:06:00 
+>>> ERRORS FOUND in logs/sas-mas_10987324.out:
+/tmp/job.10987324/tmpwjvxss6o/main.c:6:23: fatal error: stdatomic.h: No such file or directory
+ERROR 07-22 17:26:10 [core.py:396] EngineCore failed to start.
+ERROR 07-22 17:26:10 [core.py:396]     raise CalledProcessError(retcode, cmd)
+ERROR 07-22 17:26:10 [core.py:396] CalledProcessError: Command '['/usr/bin/gcc', '/tmp/job.10987324/tmpwjvxss6o/main.c', '-O3', '-shared', '-fPIC', '-Wno-psabi', '-o', '/tmp/job.10987324/tmpwjvxss6o/cuda_utils.cpython-311-x86_64-linux-gnu.so', '-lcuda', '-L/mnt/parscratch/users/acu25yx/conda/envs/sas-mas/lib/python3.11/site-packages/triton/backends/nvidia/lib', '-L/lib64', '-L/lib', '-I/mnt/parscratch/users/acu25yx/conda/envs/sas-mas/lib/python3.11/site-packages/triton/backends/nvidia/include', '-I/tmp/job.10987324/tmpwjvxss6o', '-I/mnt/parscratch/users/acu25yx/conda/envs/sas-mas/include/python3.11']' returned non-zero exit status 1.
+    raise CalledProcessError(retcode, cmd)

@@ -1,0 +1,7 @@
+nohup: ignoring input
+watching job 11000066 every 120s  (Ctrl-C to stop)
+[23:45:13] state -> PENDING 0:00 
+[23:51:13] state -> RUNNING 0:11 gpu15
+[00:11:13] job 11000066 left the queue
+11000066      COMPLETED      0:0   00:18:22 
+>>> no startup errors detected; tail:

@@ -1,0 +1,19 @@
+budget:
+  levels:
+  - 1000
+  mode: token
+data:
+  context_mode: oracle
+  n: 3
+  split: validation
+model:
+  gpu_memory_utilization: 0.9
+  max_model_len: 16384
+  name: Qwen/Qwen3-4B
+  tensor_parallel_size: 1
+output_dir: results/smoke
+seed: 0
+systems:
+- sas
+- sequential
+temperature: 0.0

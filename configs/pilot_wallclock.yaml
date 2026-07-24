@@ -1,0 +1,29 @@
+# Thesis-extension pilot: wall-clock budget mode.
+# Same code path; only the budget block changes. Calibrate `levels` (seconds)
+# after the token pilot by looking at observed sec/q in analyze.py output —
+# pick deadlines that make roughly 1k / 2k thinking tokens feasible for SAS
+# on YOUR hardware, so token-mode and wallclock-mode results are relatable.
+
+seed: 0
+temperature: 0.0
+output_dir: results/pilot_wallclock
+
+model:
+  name: Qwen/Qwen3-4B
+  tensor_parallel_size: 1
+  max_model_len: 16384
+  gpu_memory_utilization: 0.90
+
+data:
+  split: validation
+  n: 200
+  context_mode: oracle
+
+systems: [sas, sequential]
+
+budget:
+  mode: wallclock
+  levels: [10, 20]           # seconds per question — calibrate on your GPU
+  init_tokens_per_sec: 40    # rough prior; EMA-updated from observed throughput
+  safety_factor: 0.85
+  answer_reserve_seconds: 5

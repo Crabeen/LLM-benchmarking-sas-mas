@@ -1,0 +1,31 @@
+nohup: ignoring input
+watching job 10988336 every 120s  (Ctrl-C to stop)
+[18:09:43] state -> RUNNING 8:44 gpu11
+[18:09:43] running 194/200
+[18:11:43] running 95/200
+[18:13:43] running 6/200
+[18:15:43] running 35/200
+[18:17:43] running 62/200
+[18:19:43] running 94/200
+[18:21:43] running 124/200
+[18:23:43] running 158/200
+[18:25:43] running 190/200
+[18:27:43] running 21/200
+[18:29:43] running 49/200
+[18:31:43] running 81/200
+[18:33:43] running 111/200
+[18:35:43] running 142/200
+[18:37:43] running 174/200
+[18:39:43] running 50/200
+[18:41:43] running 85/200
+[18:43:43] running 109/200
+[18:45:43] running 132/200
+[18:47:43] job 10988336 left the queue
+10988336      COMPLETED      0:0   00:45:51 
+>>> no startup errors detected; tail:
+  budget 1000: +0.080
+  budget 2000: +0.130
+
+Paired bootstrap for the gap (same questions, per-question diff):
+  budget 1000: gap +0.080, paired 95% CI [-0.005, +0.165]  (not significant)
+  budget 2000: gap +0.130, paired 95% CI [+0.050, +0.215]  (significant)
