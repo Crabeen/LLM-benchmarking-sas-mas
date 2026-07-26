@@ -4,3 +4,4 @@ __pycache__/
 src_backup_*/
 results/*_prebugfix/
 # checkpoints 在 fastdata 上，本来就不在项目目录里
+logs/

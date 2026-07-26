@@ -49,6 +49,7 @@ def main() -> None:
         tensor_parallel_size=cfg["model"].get("tensor_parallel_size", 1),
         max_model_len=cfg["model"].get("max_model_len", 16384),
         gpu_memory_utilization=cfg["model"].get("gpu_memory_utilization", 0.90),
+        enforce_eager=cfg["model"].get("enforce_eager", False),
         seed=cfg.get("seed", 0),
     )
 

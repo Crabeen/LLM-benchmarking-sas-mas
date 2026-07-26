@@ -1,0 +1,18 @@
+{
+  "questions": 1175,
+  "kept": 833,
+  "coverage": 0.709,
+  "skipped_too_long": 0,
+  "discarded_truncated_candidates": 599,
+  "think_tokens_mean": 616,
+  "think_tokens_p10_p50_p90": [
+    219,
+    514,
+    1228
+  ],
+  "ctx_keyword_rate": 0.994,
+  "k": 4,
+  "think_cap": 1536,
+  "temperature": 0.7,
+  "seed": 0
+}
