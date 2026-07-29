@@ -112,6 +112,165 @@ def aggregator_user(question: str, steps: list[dict], outputs: list[str]) -> str
     )
 
 
+# ------------------ D.3 Subtask-Parallel MAS ------------------ #
+
+SUBTASK_PLANNER_SYSTEM = (
+    "You are a planner. Decompose the question into a small set of independent "
+    "subtasks that can be solved in parallel.\n"
+    "Output strict JSON only with the following structure:\n"
+    '{"tasks": [\n'
+    '  {"id": 1, "name": "Task 1", "instruction": "What to do", '
+    '"deliverable": "What to return"}\n'
+    "]}\n"
+    "Rules:\n"
+    "- Tasks must be independent.\n"
+    "- Keep tasks minimal and directly useful.\n"
+    "- Do not answer the question yourself.\n"
+    "- Do not include commentary outside the JSON object."
+)
+
+SUBTASK_WORKER_SYSTEM = "You are a helpful assistant."
+
+
+def subtask_worker_user(question: str, task: dict) -> str:
+    return (
+        f"{question}\n\n"
+        f"Task {task['id']}:\n"
+        f"Instruction: {task['instruction']}\n"
+        f"Deliverable: {task['deliverable']}\n\n"
+        "Return only what the deliverable asks for."
+    )
+
+
+SUBTASK_AGGREGATOR_SYSTEM = (
+    "You are a reducer. You will be given outputs from multiple subtasks.\n"
+    "Synthesize them into the best possible final answer.\n"
+    "Return only the final answer."
+)
+
+
+def subtask_aggregator_user(
+    question: str, tasks: list[dict], outputs: list[str]
+) -> str:
+    task_outputs = "\n".join(
+        f"Task {task['id']} ({task['name']}): {output}"
+        for task, output in zip(tasks, outputs)
+    )
+    return (
+        f"Question: {question}\n\n"
+        f"Task outputs:\n{task_outputs}\n\n"
+        "Return the final answer only."
+    )
+
+
+# ------------------- D.4 Parallel-Roles MAS ------------------- #
+
+ROLE_WORKER_SYSTEM = (
+    "You are a role-specialized assistant.\n"
+    "Follow the assigned role instructions carefully and produce the best "
+    "partial answer for that role."
+)
+
+
+def role_worker_user(question: str, role_name: str, instructions: str) -> str:
+    return (
+        f"{question}\n\n"
+        f"Role: {role_name}\n"
+        f"Role instructions:\n{instructions}\n\n"
+        "Produce your analysis and the best partial answer for this role."
+    )
+
+
+ROLE_AGGREGATOR_SYSTEM = (
+    "You are an aggregator. Read the worker outputs and return the final "
+    "answer only.\nDo not add commentary."
+)
+
+
+def role_aggregator_user(
+    question: str, roles: list[dict], outputs: list[str]
+) -> str:
+    role_outputs = "\n".join(
+        f"{role['name']}: {output}" for role, output in zip(roles, outputs)
+    )
+    return (
+        f"Question: {question}\n\n"
+        f"Role outputs:\n{role_outputs}\n\n"
+        "Return only the final answer."
+    )
+
+
+# ------------------------ D.5 Debate MAS ----------------------- #
+
+DEBATER_SYSTEM = (
+    "You are a debater. Provide the best possible answer to the question.\n"
+    "Think step by step in private, then output only the final answer."
+)
+
+CRITIC_SYSTEM = (
+    "You are a critic. You will be given an opponent answer.\n"
+    "Point out flaws, missing constraints, or alternative reasoning.\n"
+    "Then provide a corrected improved answer.\n"
+    "Output only the final improved answer."
+)
+
+
+def critique_user(question: str, opponent_answer: str) -> str:
+    # The paper template only contains opponent_answer. The question is
+    # included here because every non-closed data mode in this repository
+    # explicitly supplies task context to each reasoning call.
+    return (
+        f"{question}\n\n"
+        f"Opponent answer:\n{opponent_answer}\n\n"
+        "Your critique and improved final answer:"
+    )
+
+
+DEBATE_AGGREGATOR_SYSTEM = (
+    "You are a judge. You will be given two candidate answers.\n"
+    "Select the better one. If both are wrong, pick the one that is closer.\n"
+    "Output only the final answer."
+)
+
+
+def debate_aggregator_user(
+    question: str, answer_a: str, answer_b: str
+) -> str:
+    return (
+        f"Question: {question}\n\n"
+        f"Answer A:\n{answer_a}\n\n"
+        f"Answer B:\n{answer_b}\n\n"
+        "Pick the better answer and output only the final answer."
+    )
+
+
+# ----------------------- D.6 Ensemble MAS ---------------------- #
+
+ENSEMBLE_WORKER_SYSTEM = (
+    "You are a helpful assistant. Solve the question independently and return "
+    "only the final answer."
+)
+
+ENSEMBLE_AGGREGATOR_SYSTEM = (
+    "You are a judge. You will be given a question and multiple candidate "
+    "answers.\n"
+    "Pick the single best answer. If all are wrong, pick the closest.\n"
+    "Output only the final answer."
+)
+
+
+def ensemble_aggregator_user(question: str, candidates: list[str]) -> str:
+    candidate_answers = "\n".join(
+        f"Candidate {i + 1}: {answer}"
+        for i, answer in enumerate(candidates)
+    )
+    return (
+        f"Question: {question}\n\n"
+        f"Candidates:\n{candidate_answers}\n\n"
+        "Output only the final answer."
+    )
+
+
 # --------------------------- D.7 Judge -------------------------- #
 
 JUDGE_SYSTEM = "You are a helpful assistant."

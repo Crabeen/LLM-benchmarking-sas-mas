@@ -31,6 +31,8 @@ class GenResult:
     answer: str
     thinking_tokens: int
     answer_tokens: int
+    prompt_tokens: int
+    answer_prompt_tokens: int
     seconds: float
     truncated: bool  # thinking phase hit the cap without emitting </think>
 
@@ -100,19 +102,36 @@ class Engine:
         think_budget: int,
         answer_max_tokens: int = 512,
         temperature: float = 0.0,
-        seed: int | None = 0,
+        seed: int | list[int] | None = 0,
     ) -> list[GenResult]:
         t0 = time.monotonic()
         prompts = [self._ensure_think_open(self._chat_prompt(m)) for m in batch_messages]
+        prompt_counts = [self._count(p) for p in prompts]
+
+        if isinstance(seed, list):
+            if len(seed) != len(prompts):
+                raise ValueError("one seed is required per batched prompt")
+            seeds: list[int | None] = seed
+        else:
+            seeds = [seed] * len(prompts)
+
+        def sampling_params(
+            max_tokens: int, *, stop: list[str] | None = None
+        ):
+            params = [
+                SamplingParams(
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                    stop=stop,
+                    seed=s,
+                )
+                for s in seeds
+            ]
+            return params[0] if len(params) == 1 else params
 
         # ---- phase 1: thinking, capped ----
         if think_budget > 0:
-            sp_think = SamplingParams(
-                max_tokens=think_budget,
-                temperature=temperature,
-                stop=[THINK_CLOSE],
-                seed=seed,
-            )
+            sp_think = sampling_params(think_budget, stop=[THINK_CLOSE])
             outs = self.llm.generate(prompts, sp_think)
             thinkings, truncs, think_counts = [], [], []
             for o in outs:
@@ -130,15 +149,16 @@ class Engine:
         answer_prompts = [
             p + th + "\n" + THINK_CLOSE + "\n\n" for p, th in zip(prompts, thinkings)
         ]
-        sp_ans = SamplingParams(
-            max_tokens=answer_max_tokens, temperature=temperature, seed=seed
-        )
+        answer_prompt_counts = [self._count(p) for p in answer_prompts]
+        sp_ans = sampling_params(answer_max_tokens)
         outs2 = self.llm.generate(answer_prompts, sp_ans)
 
         elapsed = time.monotonic() - t0
-        per = elapsed / max(1, len(prompts))  # coarse per-item time under batching
         results = []
-        for th, tc, tr, o in zip(thinkings, think_counts, truncs, outs2):
+        for th, tc, tr, pc, apc, o in zip(
+            thinkings, think_counts, truncs, prompt_counts,
+            answer_prompt_counts, outs2
+        ):
             c = o.outputs[0]
             results.append(
                 GenResult(
@@ -146,7 +166,10 @@ class Engine:
                     answer=c.text.strip(),
                     thinking_tokens=tc,
                     answer_tokens=len(c.token_ids),
-                    seconds=per,
+                    prompt_tokens=pc,
+                    answer_prompt_tokens=apc,
+                    # Parallel logical requests share this physical batch time.
+                    seconds=elapsed,
                     truncated=tr,
                 )
             )

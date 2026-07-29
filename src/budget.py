@@ -27,6 +27,9 @@ class CallRecord:
     answer_tokens: int
     seconds: float
     truncated: bool           # thinking hit its per-call cap
+    prompt_tokens: int = 0    # initial logical prompt (before generated thinking)
+    answer_prompt_tokens: int = 0  # phase-2 prompt, including generated thinking
+    parallel_group: str | None = None
 
 
 class BudgetController(ABC):
@@ -60,14 +63,55 @@ class BudgetController(ABC):
     def consume(self, record: CallRecord) -> None:
         self.calls.append(record)
 
+    def consume_batch(
+        self, records: list[CallRecord], batch_seconds: float
+    ) -> None:
+        """Record logical calls executed in one physical batched invocation.
+
+        Architectures use this for workers that are parallel at the orchestration
+        level. ``batch_seconds`` is passed separately because every logical
+        request shares the same end-to-end batch latency.
+        """
+        for record in records:
+            self.consume(record)
+
     # ---- diagnostics (logged for every question regardless of mode) ----
     def summary(self) -> dict:
+        prompt = sum(c.prompt_tokens for c in self.calls)
+        answer_prompt = sum(c.answer_prompt_tokens for c in self.calls)
+        thinking = sum(c.thinking_tokens for c in self.calls)
+        answer = sum(c.answer_tokens for c in self.calls)
+        parallel_groups = {
+            c.parallel_group for c in self.calls if c.parallel_group is not None
+        }
+        serial_calls = sum(c.parallel_group is None for c in self.calls)
+        by_role = {}
+        for c in self.calls:
+            by_role[c.role] = {
+                "prompt_tokens": c.prompt_tokens,
+                "answer_prompt_tokens": c.answer_prompt_tokens,
+                "thinking_tokens": c.thinking_tokens,
+                "answer_tokens": c.answer_tokens,
+                "seconds": c.seconds,
+                "truncated": c.truncated,
+                "parallel_group": c.parallel_group,
+            }
         return {
             "n_calls": len(self.calls),
-            "thinking_tokens_total": sum(c.thinking_tokens for c in self.calls),
-            "answer_tokens_total": sum(c.answer_tokens for c in self.calls),
+            "n_model_invocations": serial_calls + len(parallel_groups),
+            "prompt_tokens_total": prompt,
+            "answer_prompt_tokens_total": answer_prompt,
+            "thinking_tokens_total": thinking,
+            "answer_tokens_total": answer,
+            "completion_tokens_total": thinking + answer,
+            "logical_tokens_total": prompt + thinking + answer,
+            # The engine performs two forwards per logical call. This field
+            # counts both prompt phases and both generated phases.
+            "processed_tokens_total": prompt + answer_prompt + thinking + answer,
             "wall_seconds_total": round(self.elapsed, 3),
             "any_truncated": any(c.truncated for c in self.calls),
+            "parallel_groups": sorted(parallel_groups),
+            "by_role": by_role,
             "per_call": [vars(c) for c in self.calls],
         }
 
@@ -154,6 +198,21 @@ class WallClockBudget(BudgetController):
         if record.seconds > 0.2 and total_tokens > 0:
             observed = total_tokens / record.seconds
             self.tps = 0.7 * self.tps + 0.3 * observed  # EMA update
+
+    def consume_batch(
+        self, records: list[CallRecord], batch_seconds: float
+    ) -> None:
+        # For parallel requests use average per-sequence throughput rather than
+        # updating the EMA once per logical worker with duplicated latency.
+        self.calls.extend(records)
+        if batch_seconds <= 0.2 or not records:
+            return
+        mean_tokens = sum(
+            r.thinking_tokens + r.answer_tokens for r in records
+        ) / len(records)
+        if mean_tokens > 0:
+            observed = mean_tokens / batch_seconds
+            self.tps = 0.7 * self.tps + 0.3 * observed
 
 
 def make_budget(cfg: dict) -> BudgetController:
