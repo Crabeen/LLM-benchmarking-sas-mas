@@ -43,6 +43,10 @@ def main() -> None:
     out_dir = Path(cfg["output_dir"])
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "config_used.yaml").write_text(yaml.dump(cfg))
+    if cfg.get("role_tags"):
+        from . import role_tags
+        role_tags.apply_sequential_tags()
+        print("[v4] sequential role tags applied to prompts")
 
     engine = Engine(
         model=cfg["model"]["name"],
