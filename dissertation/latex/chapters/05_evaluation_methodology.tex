@@ -4,11 +4,11 @@
 \section{Lexical evaluation}
 \label{sec:lexical}
 
-The first evaluation layer scores final answers deterministically against the benchmark's own gold answer and its supplied aliases, under three comparison rules: normalised exact match (EM), token-level F1, and normalised containment. Let $n(x)$ lowercase a string, remove ASCII punctuation and the articles \emph{a}, \emph{an}, and \emph{the}, collapse whitespace, and split the result into tokens. For prediction $p$ and accepted reference set $G$ (gold answer plus supplied aliases),
+The first evaluation layer scores final answers deterministically against the benchmark's own gold answer and its supplied aliases, under three comparison rules: normalised exact match (EM), token-level F1, and normalised containment. Let $n(x)$ be the normalised string obtained by lowercasing, removing ASCII punctuation and the articles \emph{a}, \emph{an}, and \emph{the}, and collapsing whitespace. Let $\tau(x)$ be the multiset of whitespace-delimited tokens in $n(x)$. For prediction $p$ and accepted reference set $G$ (gold answer plus supplied aliases),
 \begin{equation}
   \mathrm{EM}(p,G)=\max_{g\in G}\mathbb{I}[n(p)=n(g)].
 \end{equation}
-For each $g$, the token multiset overlap is $m_g=|n(p)\cap n(g)|$. Precision is $P_g=m_g/|n(p)|$, recall is $R_g=m_g/|n(g)|$, and
+For each $g$, the token multiset overlap is $m_g=|\tau(p)\cap\tau(g)|$. Precision is $P_g=m_g/|\tau(p)|$, recall is $R_g=m_g/|\tau(g)|$, and
 \begin{equation}
   \mathrm{F1}(p,G)=\max_{g\in G}\frac{2P_gR_g}{P_g+R_g},
 \end{equation}
@@ -25,7 +25,7 @@ where $\subseteq_{\mathrm{sub}}$ denotes substring inclusion. A prediction there
   \centering
   \small
   \caption[Concrete final-answer scoring examples]{Concrete examples of final-answer scoring under the three
-  lexical rules of \Cref{sec:lexical}. F1 is shown against the best accepted alias. The third row shows
+  lexical rules of \Cref{sec:lexical}. F1 is shown against the best accepted alias. The first three rows are constructed demonstrations. The third shows
   containment crediting an answer the output rejects; the fourth is a real Debate final output from the
   frozen 2WikiMultiHopQA run \citep{ho2020twowiki}, and shows why exact match is uninformative for architectures that answer in a
   sentence.}
@@ -45,9 +45,18 @@ where $\subseteq_{\mathrm{sub}}$ denotes substring inclusion. A prediction there
   \end{tabularx}
 \end{table}
 
+For a second real example with a stable identifier, MuSiQue item
+\path{4hop3__193820_466199_128875_72134} has gold string ``1839'' and the stored
+prediction ``The town WLUJ is licensed in, Randolph County, North Carolina, became the capitol of the state where Brantley York was born in 1839.'' Normalisation gives $n(g)=\text{``1839''}$ and the following value for $n(p)$:
+\begin{quote}
+  \small\ttfamily\raggedright
+  town wluj is licensed in randolph county north carolina became capitol of state where brantley york was born in 1839
+\end{quote}
+Consequently containment is one while EM is zero. This is a provenance example of the implemented lexical rule, not a claim that every statement surrounding the answer is factually correct \citep{trivedi2022musique}.
+
 The choice among these rules is consequential, and the dissertation follows the reproduction protocol of \citet{tran2026single} in reporting \emph{normalised containment} as the headline benchmark figure. The fourth row of \Cref{tab:scoring-examples} shows why. Several of the architectures evaluated here, Debate most of all, answer in a full sentence rather than an answer span, so strict EM records almost none of their correct answers: across the frozen MuSiQue runs at 1,000 tokens, Debate scores 0.030 under EM and 0.510 under containment. An EM-only benchmark would therefore measure output formatting at least as much as reasoning, and would not be comparable across architectures.
 
-Containment buys that comparability at a known cost. It credits any output in which an accepted string appears, including one that mentions the answer and then rejects it, as the third row of \Cref{tab:scoring-examples} shows. The headline accuracies in \Cref{chap:benchmark-results} are therefore upper bounds on final-answer correctness, and \Cref{tab:metric-sensitivity} reports EM and F1 alongside containment so that the size of the gap is visible for every system. This limitation is also a direct motivation for the rest of the evaluation: a metric that cannot distinguish an endorsed answer from a rejected mention is exactly the metric that cannot locate a coordination failure. The pipeline additionally records an LLM final-answer judgement using the fixed rubric inherited from the reproduction protocol; it is semantically flexible but model-dependent and can abstain or misparse, and is reported only as a continuity measure. Human labels are reserved for the targeted process claims where the distinction between informational presence and commitment is decisive.
+Containment buys that comparability at a known cost. It can over-credit an output that mentions an accepted answer and then rejects it, as the third row of \Cref{tab:scoring-examples} shows. It can also under-credit a valid semantic equivalent that is absent from the benchmark's finite reference set. The headline values in \Cref{chap:benchmark-results} are therefore lexical containment rates, not calibrated upper or lower bounds on semantic correctness. \Cref{tab:metric-sensitivity} reports EM and F1 alongside containment so that metric sensitivity is visible. This limitation is also a direct motivation for the rest of the evaluation: a metric that cannot distinguish an endorsed answer from a rejected mention cannot locate a coordination failure. The pipeline additionally records an LLM final-answer judgement using the fixed rubric inherited from the reproduction protocol; it is semantically flexible but model-dependent and can abstain or misparse, and is reported only as a continuity measure. Human labels are reserved for the targeted process claims where the distinction between informational presence and commitment is decisive.
 
 These lexical metrics do not reliably locate intermediate correctness. A worker may express the answer in a sentence rather than an answer field; an agent may use a valid semantic equivalent absent from the alias list; and debate outputs may mention both correct and incorrect candidates. Lexical scores are consequently interpreted as final-output evidence, not as evidence of when the system first reached a correct state.
 
@@ -65,7 +74,7 @@ The screen produces four families of descriptive outputs:
 
 \begin{enumerate}[leftmargin=*]
   \item final semantic accuracy, discovery rate, candidate-oracle accuracy, preservation, and aggregation regret for each dataset, model, architecture, and budget;
-  \item the first stage at which a terminally incorrect trajectory becomes wrong, using architecture-specific stage order;
+  \item a mutually exclusive rule-based attribution of terminal failures to no detected Discovery, revision, worker-chain, picker, or aggregator classes;
   \item transitions from Debate proposals to revisions and from revisions to the picker, together with Sequential worker and aggregator transitions;
   \item associations between wall time, realised thinking tokens, truncation, discovery, and post-discovery loss.
 \end{enumerate}
@@ -75,11 +84,11 @@ The machine screen is explicitly not treated as error-free annotation. It is use
 \section{Calibration and the need for a targeted audit}
 \label{sec:calibration}
 
-Against human correctness labels, the judge initially achieved 91.9\% accuracy and Cohen's $\kappa=0.829$ on a general calibration set. Coverage and the false-positive/false-negative directions were inspected separately rather than folded into one ambiguously named statistic. Those results suggested that large-scale semantic screening was feasible. Performance was not uniform, however: cases involving Debate beneficial flips and Sequential losses were weaker. A targeted sensitivity audit of difficult transitions later found only 73.9\% exact agreement across 199 resolved stage labels ($\kappa=0.478$) and 50.5\% exact agreement across 99 resolved transition pairs (multiclass $\kappa=0.364$).
+The initial calibration concerned Discovery on 200 stratified stage records, not ordinary final-answer accuracy and not Endorsement. One machine-uncertain record and two Discovery-positive records whose cited evidence could not be located in the evaluated stage were excluded by the evidence-valid rule. On the remaining 197 records, 181 labels agreed with the human labels: 91.9\% accuracy, 98.5\% coverage relative to all 200 records, and Cohen's $\kappa=0.829$. Without the evidence-valid exclusions, the judge decided 199 records and achieved 91.0\% accuracy. Here \emph{grounded} means only that the judge's cited numbered statement can be located in the stage text; it does not independently verify the factual relation, the sufficiency of the oracle passages, or Endorsement correctness. No numerical pass threshold had been preregistered for this earlier calibration, so full-trace use was an operational decision based on the disclosed diagnostics. Performance was not uniform: the stratified sample itself included transition-enriched categories, and Discovery accuracy was 70.0\% for Debate beneficial-flip records and 80.0\% for Sequential \ctow{} records. A targeted sensitivity audit of difficult transitions later found only 73.9\% exact agreement across 199 resolved stage labels ($\kappa=0.478$) and 50.5\% exact agreement across 99 resolved transition pairs (multiclass $\kappa=0.364$).
 
 This difference is not paradoxical. General calibration is dominated by ordinary correct and wrong outputs. Transition-enriched cases place the decision boundary precisely where a judge is most likely to fail: partial evidence, answer mentions without commitment, disagreement between proposals, and truncated conclusions. Because a transition is a compound of two labels, one stage error can change the transition class. The targeted result therefore supersedes the broad calibration result for transition-level inference.
 
-A Qwen2.5-72B-Instruct judge was also evaluated as a stronger alternative. It reached 87.0\% stage accuracy ($\kappa=0.723$) and 79.0\% exact transition accuracy (multiclass $\kappa=0.701$) on the targeted set, with no parse or grounding failures. Although better, it did not pass the fixed acceptance thresholds. It is not used to relabel the full trace population. The decision to retain human labels was made from the reliability criteria rather than from whether machine estimates supported the desired hypothesis.
+A Qwen2.5-72B-Instruct judge was also evaluated as a stronger alternative. It reached 87.0\% stage accuracy ($\kappa=0.723$) and 79.0\% exact transition accuracy (multiclass $\kappa=0.701$) on the targeted set, with no parse or grounding failures. The later targeted acceptance rule, recorded in \path{analysis/semantic_transition_sensitivity/qwen72b_gptq_v2.score.json}, required stage accuracy $\geq0.90$, stage $\kappa\geq0.75$, transition accuracy $\geq0.80$, transition $\kappa\geq0.75$, and accuracy $\geq0.70$ in every stratum. Qwen failed the first four aggregate thresholds and is not used to relabel the full trace population. This rule is distinct from the earlier operational Discovery calibration. The decision to retain human labels was made from the disclosed reliability criteria rather than from whether machine estimates supported the desired hypothesis.
 
 \section{Human audit scope and sampling}
 \label{sec:audit-sampling}
@@ -150,7 +159,7 @@ Completeness checks confirmed that all 105 rows labelled Discovery \correct{} in
 
 \section{Agreement analysis}
 
-Exact agreement and Cohen's kappa are computed separately for Discovery and Endorsement \citep{cohen1960coefficient}. For hidden repeats, the two blind copies of the same stage are compared. For human-machine agreement, the 400 non-repeat human labels are aligned to the frozen Mistral labels. Percentile bootstrap intervals with resampling at the stage-record level describe uncertainty in kappa \citep{efron1994bootstrap}. Agreement direction is also retained: human \correct{}/machine \wrong{} indicates an over-strict machine judgement, while human \wrong{}/machine \correct{} indicates an over-broad judgement.
+Exact agreement and Cohen's kappa are computed separately for Discovery and Endorsement \citep{cohen1960coefficient}. For hidden repeats, the two blind copies of the same stage are compared. For human-machine agreement, the 400 non-repeat human labels are aligned to the frozen Mistral labels. Percentile bootstrap intervals with resampling at the stage-record level describe uncertainty in kappa \citep{efron1994bootstrap}. Because each audited item contributes two or three source/final stage records, this bootstrap does not adjust for within-item dependence and is reported as a descriptive interval. Agreement direction is also retained: human \correct{}/machine \wrong{} indicates an over-strict machine judgement, while human \wrong{}/machine \correct{} indicates an over-broad judgement.
 
 Transition agreement is more demanding than stage agreement and is reported separately in the targeted sensitivity analysis. A pair is exactly correct only when both source and destination produce the same transition class under human and machine labels. This is why an approximately 80\% stage agreement cannot be interpreted as 80\% reliable transition counts.
 
@@ -158,11 +167,11 @@ Transition agreement is more demanding than stage agreement and is reported sepa
 
 For each audited item, the source and final Endorsement states form one of four primary transitions: \correct$\rightarrow$\correct, \ctow, \wtoc, or \wrong$\rightarrow$\wrong. The three \uncertain{} stage labels are handled under a conservative primary rule that maps \uncertain{} to \wrong{}. Two sensitivity rules are also reported: exclude any item containing \uncertain{}, and map \uncertain{} to \correct{}. The substantive Debate-Sequential harmful-rate ordering is required to remain stable under all three rules.
 
-Population estimates use the frozen stratum sizes as described in \Cref{chap:framework}. A weighted contrast subtracts the Sequential harmful rate from the Debate harmful rate. Approximate 95\% confidence intervals use the finite-population stratified variance. Because sample selection included greedy balancing rather than pure random sampling inside every stratum, intervals are treated as descriptive. No claim of conventional randomised-treatment causality is made.
+Population estimates use the frozen stratum sizes as described in \Cref{chap:framework}: 1,185 eligible Debate and 1,037 eligible Sequential item-configurations. The primary harmful quantity is the joint population probability $P(E^{\mathrm{src}}=\correct,E^{\mathrm{final}}=\wrong)$ over the corresponding eligible frame, not a rate conditioned only on correct sources and not a proportion of all 1,600 runs per architecture. A weighted contrast subtracts the Sequential joint harmful rate from the Debate rate. The secondary conditional quantity $P(E^{\mathrm{final}}=\wrong\mid E^{\mathrm{src}}=\correct)$ is obtained from the weighted \ctow{} count divided by the weighted \correct$\rightarrow$\correct plus \ctow{} counts. Approximate 95\% confidence intervals for the primary joint rates use the finite-population stratified variance. Because sample selection included greedy balancing rather than pure random sampling inside every stratum, intervals are treated as descriptive. No claim of conventional randomised-treatment causality is made.
 
 \section{Budget and resource statistics}
 
-Budget outcomes are compared within matched items using two-sided exact McNemar tests. Discordant counts identify questions that change from wrong to correct and from correct to wrong when the cap rises from 1,000 to 2,000. Mean paired changes in wall time and realised thinking tokens are reported alongside accuracy differences.
+Budget outcomes are compared within matched item-configurations using two-sided exact McNemar tests. Discordant counts identify runs that change from wrong to correct and from correct to wrong when the cap rises from 1,000 to 2,000. The pooled tests combine architecture and model conditions, so the same benchmark question can contribute more than one paired observation; their $p$-values do not adjust for this question-level clustering and are interpreted as exploratory. Architecture-level tests reduce but do not remove the same dependence across model variants. Mean paired changes in wall time and realised thinking tokens are reported alongside accuracy differences.
 
 Resource associations use fixed-effect stratification over dataset, model variant, budget, and system. Exposure is defined relative to the within-stratum median for wall time or thinking-token use. Adjusted odds ratios compare semantic discovery and post-discovery drop between high- and low-exposure observations. A separate model tests whether truncation at a destination stage is associated with a \ctow{} transition conditional on a correct source. These analyses are diagnostic. Slower or longer outputs may be consequences of difficult items or unstable trajectories rather than causes of error.
 

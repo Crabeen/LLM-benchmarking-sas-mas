@@ -13,9 +13,9 @@ Edit the four metadata commands near the top of `main.tex`:
 - `\degreeprogramme`
 - `\submissiondate`
 
-The current main-text count is approximately 17,100 words including tables and
-figure captions, or about 15,800 words of running prose, in both cases excluding
-the bibliography and appendices.
+The current main-text count is approximately 18,300 words including tables and
+figure captions, excluding the bibliography and appendices. This is a repository
+quality-control estimate rather than an institutional word-count ruling.
 
 The bibliography uses `unsrtnat`, so reference numbers follow the order of first
 citation in the text rather than alphabetical order. Abbreviations and notation are

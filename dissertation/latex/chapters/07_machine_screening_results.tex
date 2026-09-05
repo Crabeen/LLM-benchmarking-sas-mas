@@ -18,21 +18,21 @@ The full-trace Mistral screen indicates that independent-candidate architectures
 
 The semantic diversity statistic supports this interpretation. Frozen MuSiQue Parallel Roles has diversity rate 0.650 and a mean of four distinct candidate texts, while its final semantic accuracy is only 0.600. Ensemble has mean 3.835 distinct candidates and final accuracy 0.660. Diversity is therefore a resource, not an outcome. It creates selection opportunities and selection risk simultaneously.
 
-Sequential behaves differently. On frozen MuSiQue at 1,000 tokens, candidate-oracle accuracy is 0.625 and final accuracy is 0.475, but the meaning of a candidate is tied to the last worker rather than independent full answers. On 2Wiki, final accuracy can exceed the worker oracle summary (0.865 final versus 0.805 oracle at 1,000), producing negative regret. This is consistent with an aggregator synthesising partial or implicit findings into a correct final response. Negative regret does not imply perfect preservation; it indicates that the final stage sometimes creates answer-equivalent content not credited at the designated source candidates.
+Sequential behaves differently. In this machine-screened breadth analysis, its candidate oracle is an any-correct summary over the worker outputs, whereas the human final-boundary audit uses only the last worker as its source. These quantities must not be conflated. On frozen MuSiQue at 1,000 tokens, the worker-set oracle is 0.625 and final accuracy is 0.475. On 2Wiki, final accuracy exceeds the worker-set oracle (0.865 versus 0.805 at 1,000), producing negative regret. This is consistent with an aggregator synthesising partial or implicit findings into a correct final response. Negative regret does not imply perfect preservation; it indicates that the final stage sometimes creates answer-equivalent content not credited in any individual worker output.
 
-\section{Machine-screened failure localisation}
+\section{Machine-screened terminal-failure attribution}
 
-Across 8,000 MAS item-configurations, the first-error-stage screen classifies 5,876 trajectories as finally correct under the machine label and 2,124 as terminal failures (26.6\%). Among all configurations, 946 (11.8\%) first fail at proposal or initial worker output, 73 (0.9\%) at Debate revision, 75 (0.9\%) within the Sequential worker chain, 173 (2.2\%) at the Debate final picker, and 857 (10.7\%) at final aggregation. The last category includes Ensemble, Parallel Roles, Sequential, and Subtask Parallel and is the largest pooled localised failure point.
+Across 8,000 MAS item-configurations, the rule-based screen classifies 5,876 trajectories as finally correct under the machine label and 2,124 as terminal failures (26.6\%). Of all configurations, 946 (11.8\%) end wrong with no correct intermediate Discovery detected; the implementation assigns these directly to the initial/proposal category rather than locating a first causal error step. Among the remaining terminal failures, 73 (0.9\%) are assigned to Debate revision, 75 (0.9\%) to the Sequential worker chain, 173 (2.2\%) to the Debate final picker, and 857 (10.7\%) to final aggregation. The last category includes Ensemble, Parallel Roles, Sequential, and Subtask Parallel and is the largest pooled assigned boundary class.
 
 \begin{table}[htbp]
   \centering
-  \caption[Machine-screened first-error rates]{Machine-screened first-error locations as count (percentage of the architecture's 1,600 item-configurations). The final row uses all 8,000 MAS item-configurations. These are descriptive screening estimates, not human-validated prevalence.}
+  \caption[Machine-screened terminal-failure attribution]{Mutually exclusive rule-based terminal-failure classes as count (percentage of the architecture's 1,600 item-configurations). ``No detected discovery'' means that the final output is wrong and no correct intermediate Discovery was detected; it is not a stepwise localisation of the first causal error. The final row uses all 8,000 MAS item-configurations. These are descriptive screening estimates, not human-validated prevalence.}
   \label{tab:first-error}
   \scriptsize
   \setlength{\tabcolsep}{2.5pt}
   \begin{tabular}{@{}lrrrrrr@{}}
     \toprule
-    System & Initial & Revision & Worker chain & Picker & Aggregator & Any terminal failure \\
+    System & \shortstack{No detected\\discovery} & Revision & Worker chain & Picker & Aggregator & \shortstack{Any terminal\\failure} \\
     \midrule
     Debate & 77 (4.8) & 73 (4.6) & 0 (0.0) & 173 (10.8) & 0 (0.0) & 323 (20.2) \\
     Ensemble & 66 (4.1) & 0 (0.0) & 0 (0.0) & 0 (0.0) & 316 (19.8) & 382 (23.9) \\

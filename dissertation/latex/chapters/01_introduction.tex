@@ -13,7 +13,7 @@ The same decomposition also introduces new failure surfaces. A correct answer ma
 
 This distinction matters for both scientific and engineering reasons. Scientifically, claims that ``agents reason better together'' concern a mechanism, not only an endpoint. If several agents discover more correct candidates but the system cannot preserve them, the architecture has generated information without converting it into a reliable decision. Engineering decisions are also different under these two diagnoses. A discovery problem may call for better retrieval, more diverse prompts, or a stronger base model. A preservation problem instead calls for provenance-aware aggregation, protected evidence, calibrated confidence, or a less destructive revision policy. Treating both as final-answer error hides the intervention point.
 
-Compute matching creates a second difficulty. A multi-agent graph naturally uses more model invocations than a single-agent baseline. Comparing systems without controlling computation can therefore reward the architecture that simply spends more. Conversely, assigning the same nominal token budget does not guarantee equal effective reasoning: agents can repeat context, emit boilerplate, terminate early, or spend tokens reconciling redundant outputs. Recent work by \citet{tran2026single} directly challenges the assumption that multi-agent decomposition improves multi-hop reasoning when thinking-token budgets are matched. That work establishes \emph{that} the multi-agent systems it evaluates fail to beat a compute-matched single-agent baseline, but it scores only the final answer. It therefore identifies the failure without explaining it: the reader cannot tell whether no component ever produced a correct answer, or whether one was produced and then discarded at a later coordination step. Those two diagnoses call for different remedies, and a final-answer metric cannot separate them. The present dissertation reproduces that comparison with an open 4-billion-parameter model and supplies the missing explanation by measuring discovery, preservation, and endorsement at each architecture stage.
+Compute matching creates a second difficulty. A multi-agent graph naturally uses more model invocations than a single-agent baseline. Comparing systems without controlling computation can therefore reward the architecture that simply spends more. Conversely, assigning the same nominal token budget does not guarantee equal effective reasoning: agents can repeat context, emit boilerplate, terminate early, or spend tokens reconciling redundant outputs. Recent work by \citet{tran2026single} directly challenges the assumption that multi-agent decomposition improves multi-hop reasoning when thinking-token budgets are matched. That work provides an information-theoretic account of communication bottlenecks, context-degradation experiments, architecture-level diagnostics, and a qualitative error analysis in addition to final-answer comparisons. The present dissertation builds on those accounts with a narrower process measurement: in this controlled Qwen3-4B setting, it operationalises Discovery and Endorsement separately and quantifies selected source-to-final transitions using a blinded, stratified human audit.
 
 \section{Prior work in brief}
 
@@ -40,9 +40,11 @@ Decomposition is in any case not an exclusively multi-agent property, since a si
 answer its own subquestions \citep{zhou2023leasttomost,khot2023decomposed}.
 
 Two recent results motivate this project directly. \citet{tran2026single} show that the multi-agent advantage
-can disappear once thinking-token budgets are matched, and \citet{cemri2025why} catalogue failures across
-several multi-agent frameworks, arguing that many are organisational rather than deficiencies of the
-underlying model. Neither traces the loss of a particular correct answer to a particular coordination step.
+can disappear once thinking-token budgets are matched and provide theoretical and empirical accounts of
+communication and context effects. \citet{cemri2025why} catalogue failures across several multi-agent
+frameworks, arguing that many are organisational rather than deficiencies of the underlying model. The
+present project complements these broader explanations by assigning explicit Discovery and Endorsement
+states to observable role outputs and estimating transitions at two named final coordination boundaries.
 
 The evaluation literature supplies both the task and the instruments. Multi-hop question answering provides
 questions intended to require combining facts, from HotpotQA \citep{yang2018hotpotqa} to the stricter
@@ -54,11 +56,11 @@ feasible at scale \citep{zheng2023judge,liu2023geval}, but carry documented bias
 self-preference \citep{wang2024fair,panickssery2024selfpref}, so their validity on a new label definition
 cannot be assumed.
 
-Taken together, this work motivates both the promise and the cost of decomposition, but stops either at
-outcome measurement or at framework-level taxonomy. What is missing is a compute-matched, architecture-aware
-account of where a correct answer is lost between its first appearance and the system's final commitment, with
-human rather than machine labels at the points where machine error would be most damaging. That is the gap
-this dissertation addresses.
+Taken together, this work motivates both the promise and the cost of decomposition. The specific opportunity
+addressed here is to connect compute-matched outcomes to an architecture-aware operational measure of whether
+answer-equivalent content is available and endorsed before and after a named coordination boundary. Human
+labels are used for the two boundaries where machine error would be most damaging; the remaining architecture
+patterns are retained as machine-screened diagnostics rather than claimed as human-validated prevalence.
 
 \section{Problem statement}
 
@@ -73,7 +75,7 @@ Automated semantic judges make this analysis scalable, but their errors can be e
 The study addresses three research questions.
 
 \begin{description}[leftmargin=1.5cm,style=nextline]
-  \item[RQ1] Under matched thinking-token budgets, how do single-agent and multi-agent architectures differ in final-answer performance, answer discovery, and answer preservation on multi-hop question answering?
+  \item[RQ1] Under matched thinking-token budgets, how do the SAS and five MAS architectures differ in final-answer performance, and what Discovery and preservation patterns are observed within the MAS traces?
   \item[RQ2] When a correct answer is available before the final decision, where do Debate and Sequential architectures lose or recover it, and are these transitions supported by human annotation?
   \item[RQ3] Do larger nominal thinking budgets and higher observed resource use improve semantic outcomes, or can additional computation coincide with lower discovery and higher post-discovery loss?
 \end{description}
@@ -96,4 +98,4 @@ The numerical contributions should be read with their stated scope. The human au
 
 \section{Dissertation structure}
 
-\Cref{chap:related} positions the work in research on multi-agent reasoning, multi-hop QA, process evaluation, and automated judging. \Cref{chap:framework} defines the state-transition framework and the metrics used throughout. \Cref{chap:design} describes models, datasets, architectures, budgets, and the execution protocol, while \Cref{chap:evaluation} explains lexical scoring, semantic screening, calibration, blind human annotation, and statistical analysis. The results then follow the progression of the research. \Cref{chap:benchmark-results} first reports the matched-budget benchmark, the completed fine-tuning intervention, and the budget comparison. \Cref{chap:machine-results} asks why the outcome pattern occurs by using the full-trace Mistral screen to examine discovery, preservation, and failure location. \Cref{chap:human-results} evaluates judge reliability and reports the human-audited transition estimates. \Cref{chap:discussion} interprets the combined evidence and derives design implications. \Cref{chap:limitations} bounds the claims, and \Cref{chap:conclusion} answers the research questions and identifies the most defensible next steps.
+\Cref{chap:related} positions the work in research on multi-agent reasoning, multi-hop QA, process evaluation, and automated judging. \Cref{chap:framework} defines the state-transition framework and the metrics used throughout. \Cref{chap:design} describes models, datasets, architectures, budgets, and the execution protocol, while \Cref{chap:evaluation} explains lexical scoring, semantic screening, calibration, blind human annotation, and statistical analysis. The results then follow the progression of the research. \Cref{chap:benchmark-results} first reports the matched-budget benchmark, the completed fine-tuning intervention, and the budget comparison. \Cref{chap:machine-results} uses the full-trace Mistral screen to examine Discovery, preservation, and rule-based terminal-failure attribution. \Cref{chap:human-results} evaluates judge reliability and reports the human-audited transition estimates. \Cref{chap:discussion} interprets the combined evidence and derives design implications. \Cref{chap:limitations} bounds the claims, and \Cref{chap:conclusion} answers the research questions and identifies the most defensible next steps.

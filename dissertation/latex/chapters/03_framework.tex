@@ -3,11 +3,11 @@
 
 \section{From a final prediction to a state trajectory}
 
-For item $i$, let an architecture produce a sequence of observable stage texts
+For item $i$, let an architecture produce a sequence of observable pre-final stage texts
 \begin{equation}
-  T_i = \left(s_{i1}, s_{i2}, \ldots, s_{ik}, f_i\right),
+  S_i = \left(s_{i1}, s_{i2}, \ldots, s_{ik}\right),
 \end{equation}
-where $f_i$ is the final output and the preceding stages depend on the architecture. Each stage is mapped to two labels: discovery $D(s) \in \{\correct,\wrong,\uncertain\}$ and endorsement $E(s) \in \{\correct,\wrong,\uncertain\}$. The labels are defined relative to the reference answer and accepted aliases.
+and let $T_i=(S_i,f_i)$ denote the complete observable trace including final output $f_i$. The pre-final stages depend on the architecture. Each stage is mapped to two labels: discovery $D(s) \in \{\correct,\wrong,\uncertain\}$ and endorsement $E(s) \in \{\correct,\wrong,\uncertain\}$. The labels are defined relative to the reference answer and accepted aliases. This transformation adds derived labels and analysis tables to the existing benchmark runs; it does not create a new benchmark dataset.
 
 Discovery is \correct{} when the stage contains an answer-equivalent statement or enough explicit relational content to identify the answer. It is \wrong{} when this support is absent or supports a different answer. Endorsement is \correct{} when the answer-bearing statement commits to the reference answer, and \wrong{} when it commits elsewhere or explicitly rejects the reference answer. \uncertain{} is reserved for genuinely unresolvable cases, principally truncation inside the answer-bearing statement. The distinction is asymmetric: endorsement implies an answer decision, while discovery may be present in text that does not make a final commitment.
 
@@ -30,7 +30,7 @@ For Debate, two agents first produce proposals and then revised answers after ex
 \end{equation}
 where the ordering is $\correct > \uncertain > \wrong$ for availability. The target is the final picker. This boundary measures whether the picker converts a correct revised option into the final answer. A separate machine-screened analysis examines proposal-to-revision changes, but the primary human transition estimate concerns the revision oracle to picker boundary.
 
-For Sequential, workers receive the accumulated state in order. The source is the last worker output and the target is the final aggregator. This captures whether the aggregator preserves the chain's final answer state. Earlier worker transitions are useful diagnostics but are harder to interpret as homogeneous trials because workers may be assigned different subquestions.
+For Sequential, workers receive the accumulated state in order. In the human final-boundary audit, the source is the last worker output and the target is the final aggregator. This captures whether the aggregator preserves the chain's final answer state. The separate machine-screened candidate oracle is an any-correct summary over all worker outputs; it measures worker-set availability and is not the same quantity as the human source label. Earlier worker transitions are useful diagnostics but are harder to interpret as homogeneous trials because workers may be assigned different subquestions.
 
 For Parallel Roles and Ensemble, the natural source is the oracle over the candidate set and the target is the aggregator. For Subtask Parallel, candidate outputs are partial findings rather than complete answers, so oracle accuracy is not directly comparable with full-answer candidates. These three architectures remain in the benchmark and semantic screen, but are not included in the primary human transition audit.
 
@@ -40,11 +40,11 @@ Final lexical performance is scored against the benchmark's own gold answer and 
 
 For $N$ evaluated items, semantic discovery rate is
 \begin{equation}
-  \mathrm{DiscoveryRate} = \frac{1}{N}\sum_{i=1}^{N} \mathbb{I}\left[\exists s \in T_i : D(s)=\correct\right].
+  \mathrm{DiscoveryRate} = \frac{1}{N}\sum_{i=1}^{N} \mathbb{I}\left[\exists s \in S_i : D(s)=\correct\right].
 \end{equation}
 Candidate-oracle accuracy restricts the maximum to the architecture's designated candidate stages. Final semantic accuracy is the proportion for which $D(f_i)=\correct$ under the screening protocol. Among items with a correct discovered state, preservation rate is
 \begin{equation}
-  \mathrm{Preservation} = P\left(D(f_i)=\correct \mid \exists s \in T_i : D(s)=\correct\right),
+  \mathrm{Preservation} = P\left(D(f_i)=\correct \mid \exists s \in S_i : D(s)=\correct\right),
 \end{equation}
 and drop rate is its complement. Aggregation regret measures the difference between what the candidate set made available and what the system finally delivered,
 \begin{equation}
@@ -62,7 +62,7 @@ The rates $P(H_i=1)$ and $P(B_i=1)$ quantify damage and recovery at the final co
 
 \section{Weighting the human audit}
 
-The audit deliberately oversamples transitions that are rare in the full machine-screened population. Raw sample proportions therefore do not estimate population prevalence. Let $h$ index the frozen sampling strata, $N_h$ be the number of eligible items in a stratum, $n_h$ the audited sample, and $\bar{y}_h$ the audited transition rate. The finite-population weighted estimate is
+The audit deliberately oversamples transitions that are rare in the full machine-screened population. Raw sample proportions therefore do not estimate population prevalence. After the documented exclusions, the eligible sampling frames contain 1,185 Debate item-configurations and 1,037 Sequential item-configurations. Let $h$ index the frozen sampling strata, $N_h$ be the number of eligible items in a stratum, $n_h$ the audited sample, and $\bar{y}_h$ the audited transition rate. The finite-population weighted estimate is
 \begin{equation}
   \hat{p} = \sum_h W_h\bar{y}_h, \qquad W_h = \frac{N_h}{\sum_h N_h}.
   \label{eq:weighting}
@@ -79,11 +79,11 @@ The project distinguishes three levels of evidence.
 
 \begin{enumerate}[leftmargin=*]
   \item \textbf{Direct benchmark evidence}: exact match, F1, token use, truncation flags, and wall time are computed deterministically from recorded outputs and traces.
-  \item \textbf{Machine-screened semantic evidence}: a Mistral judge labels all relevant stages. These data support broad patterns, candidate selection for audit, and descriptive failure localisation.
+  \item \textbf{Machine-screened semantic evidence}: a Mistral judge labels all relevant stages. These data support broad patterns, candidate selection for audit, and descriptive terminal-failure attribution.
   \item \textbf{Human-audited transition evidence}: blinded human labels, hidden repeats, and frozen weights support the primary Debate and Sequential transition rates.
 \end{enumerate}
 
-This hierarchy follows from observed transfer failure. The judge performed strongly on a broad calibration set but materially worse on difficult transition-enriched examples. A second, stronger Qwen2.5-72B judge improved agreement but still failed the predetermined acceptance thresholds. Rather than selecting whichever machine result best supports a narrative, the analysis retains the human audit as controlling evidence and presents machine outputs with explicit caveats.
+This hierarchy follows from observed transfer failure. The judge performed strongly on a broad calibration set but materially worse on difficult transition-enriched examples. No numerical pass threshold had been registered for the earlier Discovery calibration, so its use was an operational decision. For the later targeted candidate-judge test, the acceptance rule was frozen in the scoring artefact before the result was interpreted: stage accuracy $\geq0.90$, stage $\kappa\geq0.75$, transition accuracy $\geq0.80$, transition $\kappa\geq0.75$, and accuracy $\geq0.70$ in every stratum. Qwen2.5-72B improved agreement but failed four of the aggregate criteria. The analysis consequently retains the human audit as controlling evidence and presents machine outputs with explicit caveats.
 
 \section{Interpretive hypotheses}
 

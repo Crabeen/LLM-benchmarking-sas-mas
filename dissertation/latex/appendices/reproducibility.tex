@@ -28,7 +28,7 @@ File & Role in the dissertation \\
 \endhead
 \path{analysis/diagnostics/*/metrics.csv} & Lexical final accuracy, F1, candidate diversity, and preliminary stage diagnostics by run. \\
 \path{analysis/semantic_diagnostics/semantic_metrics.csv} & Full-trace semantic discovery, oracle, final, preservation, regret, and architecture counters. \\
-\path{analysis/semantic_diagnostics/first_error_stage.csv} & Machine-screened first terminal failure locations. \\
+\path{analysis/semantic_diagnostics/first_error_stage.csv} & Machine-screened rule-based terminal-failure attribution. Rows with a wrong final answer and no detected correct intermediate Discovery are assigned to the initial/proposal class; the file does not establish a first causal error step. \\
 \path{analysis/semantic_diagnostics/budget_pair_tests.csv} & Matched 1,000-versus-2,000-token outcome tests and paired resource changes. \\
 \path{analysis/semantic_diagnostics/budget_wallclock_overall.csv} & Architecture-level wall time, realised tokens, truncation, discovery, preservation, and final accuracy. \\
 \path{analysis/semantic_diagnostics/resource_associations.csv} & Fixed-effect stratified resource and truncation odds ratios. \\
@@ -46,7 +46,7 @@ File & Role in the dissertation \\
 
 \section{Reproduction sequence}
 
-The analysis can be reproduced in five stages. First, run the fixed benchmark configurations and retain complete stage traces. Second, apply lexical scoring and deterministic alias normalisation. Third, generate the semantic screen with the frozen judge prompt and retain uncertain outputs rather than coercing them. Fourth, reconstruct the frozen audit strata and join the completed blind sheet only after annotation. Fifth, compute weighted transitions under the three uncertain-label rules and regenerate the tables and figures.
+The intended end-to-end reproduction sequence has five stages. First, run the fixed benchmark configurations and retain complete stage traces. Second, apply lexical scoring and deterministic alias normalisation. Third, generate the semantic screen with the frozen judge prompt and retain uncertain outputs rather than coercing them. Fourth, reconstruct the frozen audit strata and join the completed blind sheet only after annotation. Fifth, compute weighted transitions under the three uncertain-label rules and regenerate the tables and figures. The committed benchmark, lexical, screening, training, and figure paths support the corresponding executable steps; the final two audit-summary stages remain subject to the provenance gap below.
 
 The supplied LaTeX project contains a figure-generation script that reads the committed CSV summaries and writes vector PDF figures. Running that script does not re-judge any model output and therefore cannot change semantic labels.
 

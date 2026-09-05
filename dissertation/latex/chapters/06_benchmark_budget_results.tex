@@ -3,11 +3,11 @@
 
 \section{Final-answer benchmark}
 
-The lexical benchmark establishes the outcome pattern before intermediate states are considered. The metric reported throughout this chapter, and referred to as \emph{final normalised accuracy}, is the normalised containment of \Cref{eq:containment}: after lowercasing, punctuation removal, article removal and whitespace collapse, a prediction counts as correct when the gold answer or one of the benchmark's accepted aliases appears as a substring of it. \Cref{tab:scoring-examples} shows worked examples of predictions that do and do not match. Containment rather than exact match is used because it follows the reproduction protocol and because several architectures answer in a sentence rather than an answer span, which strict exact match barely credits; \Cref{tab:metric-sensitivity} quantifies that difference for every system. The corresponding cost is that containment credits an output that mentions an accepted answer and then rejects it, so the accuracies below are upper bounds on final-answer correctness. On the harder MuSiQue subset, the frozen SAS achieves final normalised accuracy of 0.560 at the 1,000-token budget and 0.525 at 2,000. Debate is the strongest MAS in this condition, at 0.510 and 0.535 respectively. Sequential is substantially lower, at 0.335 and 0.340. Fine-tuning does not reverse the broad ranking: at 1,000 tokens the \texttt{v3b} SAS scores 0.545, Debate 0.505, and Sequential 0.380.
+The lexical benchmark establishes the outcome pattern before intermediate states are considered. The metric reported throughout this chapter, and referred to as \emph{final normalised accuracy}, is the normalised containment of \Cref{eq:containment}: after lowercasing, punctuation removal, article removal and whitespace collapse, a prediction counts as correct when the gold answer or one of the benchmark's accepted aliases appears as a substring of it. \Cref{tab:scoring-examples} shows worked examples of predictions that do and do not match. Containment rather than exact match is used because it follows the reproduction protocol and because several architectures answer in a sentence rather than an answer span, which strict exact match barely credits; \Cref{tab:metric-sensitivity} quantifies that difference for selected benchmark cells. Containment can credit a rejected answer mention and can miss valid equivalents absent from the reference set, so the values below are lexical outcome rates rather than calibrated bounds on semantic correctness. On the harder MuSiQue subset, the frozen SAS achieves 0.560 at the 1,000-token budget and 0.525 at 2,000. Among the MAS, Ensemble is highest at 1,000 tokens (0.520 versus Debate's 0.510), while Debate is highest at 2,000 tokens (0.535). Sequential is substantially lower, at 0.335 and 0.340. Fine-tuning does not produce a stable alternative ordering: at 1,000 tokens the \texttt{v3b} SAS scores 0.545, Ensemble 0.515, Debate 0.505, and Sequential 0.380.
 
 \begin{table}[htbp]
   \centering
-  \caption[MuSiQue final normalised accuracy]{MuSiQue final normalised accuracy by model, architecture, and thinking-token budget ($n=200$ per cell). The metric is normalised containment (\Cref{eq:containment}); \Cref{tab:metric-sensitivity} gives the same cells under exact match and F1.}
+  \caption[MuSiQue final normalised accuracy]{MuSiQue final normalised accuracy by model, architecture, and thinking-token budget ($n=200$ per cell). The metric is normalised containment (\Cref{eq:containment}); \Cref{tab:metric-sensitivity} gives exact match and F1 for the frozen 1,000-token cells.}
   \label{tab:musique-lexical}
   \begin{tabular}{@{}llrr@{}}
     \toprule
@@ -26,6 +26,34 @@ The lexical benchmark establishes the outcome pattern before intermediate states
         & Parallel Roles & 0.415 & 0.445 \\
         & Sequential & 0.380 & 0.340 \\
         & Subtask Parallel & 0.410 & 0.390 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The same architecture-specific comparison for the \texttt{v3b} model appears in
+\Cref{tab:sas-gap-v3b}. It is derived from the committed diagnostic CSVs and requires no new model runs. The dataset reversal remains: every MAS has an equal or higher lexical error rate than SAS on MuSiQue, whereas Debate, Parallel Roles, and Ensemble have lower rates than SAS on 2WikiMultiHopQA.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption[Final-answer error rates for v3b, SAS versus each MAS]{Final-answer error rate
+  ($1-\mathrm{containment}$) for \texttt{v3b}, $n=200$ per cell. Parentheses give the
+  difference from the SAS error rate in the same cell, in percentage points; positive means
+  more errors than SAS.}
+  \label{tab:sas-gap-v3b}
+  \begin{tabular}{@{}lrrcrr@{}}
+    \toprule
+    & \multicolumn{2}{c}{MuSiQue} & & \multicolumn{2}{c}{2WikiMultiHopQA} \\
+    \cmidrule(r){2-3}\cmidrule(l){5-6}
+    System & 1,000 & 2,000 & & 1,000 & 2,000 \\
+    \midrule
+    SAS (baseline) & 0.455 & 0.470 & & 0.160 & 0.155 \\
+    \addlinespace
+    Sequential & 0.620 ($+16.5$) & 0.660 ($+19.0$) & & 0.205 ($+4.5$) & 0.190 ($+3.5$) \\
+    Subtask Parallel & 0.590 ($+13.5$) & 0.610 ($+14.0$) & & 0.195 ($+3.5$) & 0.190 ($+3.5$) \\
+    Parallel Roles & 0.585 ($+13.0$) & 0.555 ($+8.5$) & & 0.135 ($-2.5$) & 0.130 ($-2.5$) \\
+    Debate & 0.495 ($+4.0$) & 0.470 ($+0.0$) & & 0.070 ($-9.0$) & 0.085 ($-7.0$) \\
+    Ensemble & 0.485 ($+3.0$) & 0.490 ($+2.0$) & & 0.145 ($-1.5$) & 0.150 ($-0.5$) \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -101,7 +129,7 @@ The final-answer results establish what happened but cannot determine whether an
 
 \section{Budget effects}
 
-The matched budget analysis provides no evidence that doubling the nominal thinking allowance improves aggregate MAS outcomes. Across 3,997 resolved discovery pairs, machine-screened semantic discovery falls from 0.8419 at 1,000 tokens to 0.8284 at 2,000. There are 138 wrong-to-correct changes but 192 correct-to-wrong changes; the exact McNemar $p$-value is 0.0035. Across all 4,000 final pairs, machine-screened semantic final accuracy falls from 0.7408 to 0.7282, with 241 wrong-to-correct and 291 correct-to-wrong changes ($p=0.0335$). Mean wall time rises by 4.83 seconds and mean realised thinking increases by approximately 495 tokens.
+The matched budget analysis provides no evidence that doubling the nominal thinking allowance improves aggregate MAS outcomes. Across 3,997 resolved discovery pairs, machine-screened semantic discovery falls from 0.8419 at 1,000 tokens to 0.8284 at 2,000. There are 138 wrong-to-correct changes but 192 correct-to-wrong changes; the exact McNemar $p$-value is 0.0035. Across all 4,000 final pairs, machine-screened semantic final accuracy falls from 0.7408 to 0.7282, with 241 wrong-to-correct and 291 correct-to-wrong changes ($p=0.0335$). These pooled $p$-values treat condition-level pairs as independent even when the same benchmark question appears under more than one architecture or model condition; they are therefore exploratory summaries rather than cluster-adjusted confirmatory tests. Mean wall time rises by 4.83 seconds and mean realised thinking increases by approximately 495 tokens.
 
 \begin{figure}[htbp]
   \centering
