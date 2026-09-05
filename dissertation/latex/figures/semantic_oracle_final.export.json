@@ -1,0 +1,40 @@
+{
+  "notice": "Export completed with explicit settings. This report does not establish visual, accessibility, scientific-integrity, or journal-submission compliance.",
+  "outputs": [
+    {
+      "format": "pdf",
+      "kind": "vector-container",
+      "path": "/sessions/rcw-0138j8c9fpskz6npgeqtou4z/figs_out/semantic_oracle_final.pdf",
+      "size_bytes": 17896
+    }
+  ],
+  "provenance": {
+    "notes": "Subtask Parallel omitted: its worker outputs are partial findings, not full-answer candidates",
+    "raw_data": "analysis/semantic_diagnostics/semantic_metrics.csv",
+    "transformations": [
+      "filtered to model_variant=frozen, budget=1000"
+    ],
+    "uncertainty": "machine-screened point estimates; no interval reported"
+  },
+  "schema_version": "1.0",
+  "settings": {
+    "bbox_inches": null,
+    "dpi": 600.0,
+    "facecolor": "white",
+    "figure_size_inches": [
+      5.511811023622047,
+      3.0708661417322833
+    ],
+    "font_mode": "truetype",
+    "formats": [
+      "pdf"
+    ],
+    "pad_inches": 0.1,
+    "transparent": false
+  },
+  "versions": {
+    "matplotlib": "3.10.9",
+    "pillow": "12.2.0"
+  },
+  "warnings": []
+}

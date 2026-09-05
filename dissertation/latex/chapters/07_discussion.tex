@@ -64,7 +64,7 @@ The work also extends self-consistency research \citep{wang2023selfconsistency}.
 
 \section{Recommended next experiment}
 
-The highest-value next experiment is a controlled selector replacement. Freeze the existing Debate revised candidates and compare three final decisions: the current generative picker, deterministic evidence matching against the oracle context, and a human selection. Because candidate generation remains identical, differences estimate selector quality without confounding from new proposals. The primary outcome should be human-audited \ctow{} and \wtoc{} rates, supplemented by final exact match and latency.
+The highest-value next experiment is a controlled selector replacement. Freeze the existing Debate revised candidates and compare three final decisions: the current generative picker, deterministic evidence matching against the oracle context, and a human selection. Because candidate generation remains identical, differences estimate selector quality without confounding from new proposals. The primary outcome should be human-audited \ctow{} and \wtoc{} rates, supplemented by final normalised accuracy and latency.
 
 For Sequential, the corresponding experiment is a structured evidence ledger. Workers write entities, relations, and citations into immutable fields while retaining a free-text explanation. The final aggregator receives both the ledger and the transcript. A factorial ablation can test transcript only, ledger only, and both. This directly evaluates whether state persistence reduces worker-chain loss and whether the aggregator's beneficial transitions are maintained.
 

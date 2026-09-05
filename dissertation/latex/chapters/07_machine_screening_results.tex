@@ -5,7 +5,7 @@ The benchmark results in \Cref{chap:benchmark-results} establish final performan
 
 \section{Semantic discovery, oracle coverage, and aggregation regret}
 
-The full-trace Mistral screen indicates that independent-candidate architectures frequently make the correct answer available before the final decision. For frozen MuSiQue at 1,000 tokens, Debate has final semantic accuracy 0.720 and candidate-oracle accuracy 0.845, giving aggregation regret of 0.125. Ensemble has final accuracy 0.660 and oracle accuracy 0.960, a regret of 0.300. Parallel Roles is more extreme: final accuracy 0.600 versus oracle accuracy 0.915, a regret of 0.315. These gaps are too large to describe as candidate-generation failure alone.
+The full-trace Mistral screen indicates that independent-candidate architectures frequently make the correct answer available before the final decision. Aggregation regret, defined in \Cref{eq:regret} as candidate-oracle accuracy minus final semantic accuracy, is the quantity that separates the two. For frozen MuSiQue at 1,000 tokens, Debate has final semantic accuracy 0.720 and candidate-oracle accuracy 0.845, giving aggregation regret of 0.125. Ensemble has final accuracy 0.660 and oracle accuracy 0.960, a regret of 0.300. Parallel Roles is more extreme: final accuracy 0.600 versus oracle accuracy 0.915, a regret of 0.315. These gaps are too large to describe as candidate-generation failure alone.
 
 \begin{figure}[htbp]
   \centering
@@ -22,28 +22,30 @@ Sequential behaves differently. On frozen MuSiQue at 1,000 tokens, candidate-ora
 
 \section{Machine-screened failure localisation}
 
-Across 8,000 MAS item-configurations, the first-error-stage screen classifies 5,876 trajectories as finally correct under the machine label and 2,124 as terminal failures. Among all configurations, 946 first fail at proposal or initial worker output, 73 at Debate revision, 75 within the Sequential worker chain, 173 at the Debate final picker, and 857 at final aggregation. The last category includes Ensemble, Parallel Roles, Sequential, and Subtask Parallel and is the largest localised failure point.
+Across 8,000 MAS item-configurations, the first-error-stage screen classifies 5,876 trajectories as finally correct under the machine label and 2,124 as terminal failures (26.6\%). Among all configurations, 946 (11.8\%) first fail at proposal or initial worker output, 73 (0.9\%) at Debate revision, 75 (0.9\%) within the Sequential worker chain, 173 (2.2\%) at the Debate final picker, and 857 (10.7\%) at final aggregation. The last category includes Ensemble, Parallel Roles, Sequential, and Subtask Parallel and is the largest pooled localised failure point.
 
 \begin{table}[htbp]
   \centering
-  \caption[Machine-screened first-error locations]{Machine-screened first-error location over 8,000 MAS item-configurations. Counts are descriptive screening estimates, not human-validated totals.}
+  \caption[Machine-screened first-error rates]{Machine-screened first-error locations as count (percentage of the architecture's 1,600 item-configurations). The final row uses all 8,000 MAS item-configurations. These are descriptive screening estimates, not human-validated prevalence.}
   \label{tab:first-error}
-  \small
-  \setlength{\tabcolsep}{4pt}
+  \scriptsize
+  \setlength{\tabcolsep}{2.5pt}
   \begin{tabular}{@{}lrrrrrr@{}}
     \toprule
-    System & Proposal & Revision & Worker chain & Picker & Aggregator & Final correct \\
+    System & Initial & Revision & Worker chain & Picker & Aggregator & Any terminal failure \\
     \midrule
-    Debate & 77 & 73 & 0 & 173 & 0 & 1,277 \\
-    Ensemble & 66 & 0 & 0 & 0 & 316 & 1,218 \\
-    Parallel Roles & 77 & 0 & 0 & 0 & 336 & 1,187 \\
-    Sequential & 376 & 0 & 75 & 0 & 94 & 1,055 \\
-    Subtask Parallel & 350 & 0 & 0 & 0 & 111 & 1,139 \\
+    Debate & 77 (4.8) & 73 (4.6) & 0 (0.0) & 173 (10.8) & 0 (0.0) & 323 (20.2) \\
+    Ensemble & 66 (4.1) & 0 (0.0) & 0 (0.0) & 0 (0.0) & 316 (19.8) & 382 (23.9) \\
+    Parallel Roles & 77 (4.8) & 0 (0.0) & 0 (0.0) & 0 (0.0) & 336 (21.0) & 413 (25.8) \\
+    Sequential & 376 (23.5) & 0 (0.0) & 75 (4.7) & 0 (0.0) & 94 (5.9) & 545 (34.1) \\
+    Subtask Parallel & 350 (21.9) & 0 (0.0) & 0 (0.0) & 0 (0.0) & 111 (6.9) & 461 (28.8) \\
     \midrule
-    All & 946 & 73 & 75 & 173 & 857 & 5,876 \\
+    All & 946 (11.8) & 73 (0.9) & 75 (0.9) & 173 (2.2) & 857 (10.7) & 2,124 (26.6) \\
     \bottomrule
   \end{tabular}
 \end{table}
+
+These rates make the architecture denominators explicit: for example, Sequential's 94 aggregator losses are 5.9\% of its 1,600 screened item-configurations, whereas Ensemble's 316 aggregation failures are 19.8\%. They should not be compared with a supposed SAS ``aggregation rate'': SAS has no picker or aggregator, and the same Mistral pre-final-Discovery-to-final-Endorsement screen has not yet been completed for its 1,600 traces.
 
 Within Debate, the screen counts 278 harmful proposal-to-revision flips and 169 beneficial flips. A targeted human sensitivity audit exactly confirmed 13 of 24 resolved sampled harmful flips and 11 of 25 beneficial flips. A descriptive projection retained the direction harmful greater than beneficial, but the modest confirmation rates mean the raw full-trace counts cannot be presented as exact semantic totals. Similarly, the machine screen identifies 142 Sequential items where the worker chain ends wrong after earlier discovery and 94 in which the aggregator loses a correct last-worker answer. Only 8 of 25 sampled machine-labelled Sequential \ctow{} transitions were exactly confirmed in the targeted audit, mainly because the judge over-called source correctness.
 

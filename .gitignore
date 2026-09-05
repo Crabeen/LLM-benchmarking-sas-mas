@@ -40,3 +40,11 @@ slurm-*.out
 *.synctex.gz
 *.toc
 output/pdf/main.pdf
+
+# Local dissertation revision backups and failed atomic-write placeholders
+dissertation/latex/.bak/
+dissertation/latex/.bak2/
+dissertation/latex/*.bak
+dissertation/latex/figures/.*.pdf
+output/pdf/tmp*.tmp
+output/cloud_revision_package_*.zip

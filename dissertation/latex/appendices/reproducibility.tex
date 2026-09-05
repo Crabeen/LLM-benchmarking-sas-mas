@@ -13,6 +13,12 @@ The frozen and fine-tuned all-architecture token benchmarks are configured in:
 
 Each records seed, decoding settings, model path, context mode, evaluation size, systems, architecture limits, and budget levels. The corresponding wall-clock configurations preserve the architecture definitions while changing the budget mode.
 
+\section{Figure generation}
+
+The figures are produced by two scripts in \path{dissertation/latex/}. \path{generate_figures.py} draws the two schematics (\Cref{fig:architecture-example} and \Cref{fig:pipeline}) with ReportLab. \path{generate_data_figures.py} draws the four data figures from the committed analysis CSV files using Matplotlib, together with the export and inspection helpers of the \emph{scientific-visualization} Agent Skill (K-Dense, MIT licence); set the \path{SCIVIZ_SKILL} environment variable to a checkout of that skill before running it. Each data figure is written with a companion \path{*.export.json} manifest recording its source file, the transformations applied, and how uncertainty is defined.
+
+All figures are black on white. Series are separated by hatch pattern, marker shape and line style rather than by colour, so no information is lost in monochrome reproduction.
+
 \section{Derived evidence files}
 
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}p{0.55\textwidth}@{}}
@@ -26,11 +32,15 @@ File & Role in the dissertation \\
 \path{analysis/semantic_diagnostics/budget_pair_tests.csv} & Matched 1,000-versus-2,000-token outcome tests and paired resource changes. \\
 \path{analysis/semantic_diagnostics/budget_wallclock_overall.csv} & Architecture-level wall time, realised tokens, truncation, discovery, preservation, and final accuracy. \\
 \path{analysis/semantic_diagnostics/resource_associations.csv} & Fixed-effect stratified resource and truncation odds ratios. \\
+\path{analysis/cloud_revision_package/FROZEN_MISTRAL_SCREENING_PROMPT.md} & Readable frozen copy of the Mistral v4 system prompt, user-message template, model identifier, and inference settings. \\
 \path{analysis/final_transition_endorsement_audit/blind_stage_review_400.csv} & Completed blind human labels for the 400 non-repeat records, with repeat material maintained in round files. \\
 \path{analysis/final_transition_endorsement_audit/final_transition_audit_key.jsonl} & Frozen unblinding key joining record identifiers to architecture, item, role, and stratum. \\
 \path{analysis/final_transition_endorsement_audit/unblind/item_level_unblinded_160.csv} & Item-level audit table containing the 15 documented truncation, human-state, human-transition, machine-state, and machine-transition fields used for the final boundary analysis. \\
 \path{analysis/final_transition_endorsement_audit/UNBLIND_REPORT.md} & Agreement, weighted transition estimates, uncertainty sensitivity, and audit checks. \\
 \path{analysis/final_transition_endorsement_audit/CODEBOOK_REV4.md} & Final decision rules used for Discovery and Endorsement. \\
+\path{data/sft_train_v3.jsonl.stats.json} & Frozen v3b data-construction counts, coverage, sampling settings, and reasoning-length summary. \\
+\path{src/build_sft_data_v3.py}, \path{src/train_lora_v3.py}, \path{src/merge_lora_v3.py} & Executable v3b rejection-sampling, completion-only LoRA training, and merge procedures. \\
+\path{src/repair_final_audit_truncation_metadata.py} & Verified repair that restores unavailable final-stage truncation values to NA and recomputes the tri-state union without changing labels. \\
 \bottomrule
 \end{longtable}
 
@@ -39,6 +49,8 @@ File & Role in the dissertation \\
 The analysis can be reproduced in five stages. First, run the fixed benchmark configurations and retain complete stage traces. Second, apply lexical scoring and deterministic alias normalisation. Third, generate the semantic screen with the frozen judge prompt and retain uncertain outputs rather than coercing them. Fourth, reconstruct the frozen audit strata and join the completed blind sheet only after annotation. Fifth, compute weighted transitions under the three uncertain-label rules and regenerate the tables and figures.
 
 The supplied LaTeX project contains a figure-generation script that reads the committed CSV summaries and writes vector PDF figures. Running that script does not re-judge any model output and therefore cannot change semantic labels.
+
+The final 160-item output tables are committed, but this package does not contain a standalone provenance script for the complete final unblinding and weighted-summary derivation. The earlier 100-pair sensitivity script must not be described as though it generated those tables. The narrow truncation-metadata repair listed above is independently asserted against the frozen audit key; it does not reconstruct or alter the human labels, strata, weights, or transition estimates.
 
 \section{Scope exclusions}
 

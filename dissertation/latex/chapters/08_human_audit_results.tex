@@ -1,11 +1,11 @@
 \chapter{Human Audit and Transition Results}
 \label{chap:human-results}
 
-This chapter reports the controlling evidence for the final coordination boundary in Debate and Sequential. The audit contains 160 distinct item-configurations drawn from 160 distinct benchmark question identifiers: 80 Debate runs and 80 Sequential runs. These item-configurations produce 400 non-repeat stage records, and 20 blinded duplicate records are inserted only to measure intra-rater repeatability. The item-level dataset contains 15 named fields of mixed type; these are not 15 independent binary error labels.
+This chapter reports the controlling evidence for the final coordination boundary in Debate and Sequential. The audit contains 160 distinct item-configurations drawn from 160 distinct benchmark question identifiers: 80 Debate runs and 80 Sequential runs. These item-configurations produce 400 non-repeat stage records, and 20 blinded duplicate records are inserted only to measure intra-rater repeatability. The item-level dataset contains 15 named fields of mixed type; these are not 15 independent binary error labels, and their grouping is set out in \Cref{tab:audit-fields}.
 
 \section{Human audit reliability}
 
-The 20 hidden repeated stages produced exact agreement of 20/20 on both Discovery and Endorsement, with $\kappa=1.000$ and bootstrap intervals $[1.000,1.000]$. This shows perfect repeatability for the inserted records. It does not show independent inter-annotator validity because the same annotator labelled both blind copies.
+The hidden repeats are the 20 stage records that were duplicated under fresh blind identifiers and reinserted into the annotation set, as described in \Cref{sec:audit-sampling}; a repeat is a blinded duplicate of an existing record used only for intra-rater quality control, never a new question, run or stage (\Cref{chap:design}). The 20 hidden repeated stages produced exact agreement of 20/20 on both Discovery and Endorsement, with $\kappa=1.000$ and bootstrap intervals $[1.000,1.000]$. This shows perfect repeatability for the inserted records. It does not show independent inter-annotator validity because the same annotator labelled both blind copies.
 
 Against the frozen Mistral stage labels, human agreement is 330/400 (82.5\%) for Discovery and 322/400 (80.5\%) for Endorsement. Cohen's kappa is 0.632 (95\% bootstrap CI $[0.557,0.705]$) for Discovery and 0.617 ($[0.541,0.691]$) for Endorsement. These values support use of Mistral for broad screening and sampling, but the 70 Discovery disagreements and 78 Endorsement disagreements are not negligible in a transition analysis.
 
@@ -27,6 +27,64 @@ Against the frozen Mistral stage labels, human agreement is 330/400 (82.5\%) for
 
 Across all 420 annotation rows, the 14 cases with Discovery \correct{} and Endorsement \wrong{} demonstrate why a single semantic-correctness label is insufficient. The stage contains the answer but does not support the system selecting it. A presence-oriented judge is likely to over-credit precisely these cases.
 
+\section{Raw audit composition across all 15 fields}
+
+The next three tables report every named item-level field. They describe the transition-enriched audit sample and therefore do not estimate population prevalence. The final-stage truncation flag is unavailable in the frozen key for all 160 item-configurations. The repaired export retains these values as \texttt{NA}; it does not reinterpret missing metadata as ``not truncated.'' Three-valued \path{any_truncated} is true when a known component flag is true and remains \texttt{NA} when no known flag is true but the final flag is missing.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption[Trace-integrity fields in the audit sample]{Raw trace-integrity and truncation metadata in the 160-item audit sample. Each architecture has $N=80$. T/F/NA denote true, false, and unavailable. These are descriptors, not independent failure outcomes.}
+  \label{tab:audit-truncation-fields}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    Field & Debate & Sequential \\
+    \midrule
+    \path{question_any_truncated} & T=65 (81.3\%), F=15 & T=44 (55.0\%), F=36 \\
+    \path{source_truncated} & T=58 (72.5\%), F=22 & T=29 (36.3\%), F=51 \\
+    \path{final_truncated} & NA=80 & NA=80 \\
+    \path{any_truncated} & T=65 (81.3\%), NA=15 & T=44 (55.0\%), NA=36 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption[Human fields in the audit sample]{Raw distributions of the six human state and transition fields. C/W/U denote correct, wrong, and uncertain. Counts reflect the deliberately transition-enriched sample; population interpretation uses frozen-stratum weighting.}
+  \label{tab:audit-human-fields}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.35\textwidth}XX@{}}
+    \toprule
+    Field & Debate ($N=80$) & Sequential ($N=80$) \\
+    \midrule
+    \path{human_source_discovery} & C=57, W=23 & C=47, W=33 \\
+    \path{human_source_endorsement} & C=54, U=1, W=25 & C=44, U=1, W=35 \\
+    \path{human_final_discovery} & C=38, W=42 & C=47, W=33 \\
+    \path{human_final_endorsement} & C=35, W=45 & C=46, W=34 \\
+    \path{human_endorsement_transition_raw} & C$>$C=35, C$>$W=19, U$>$W=1, W$>$W=25 & C$>$C=40, C$>$W=4, U$>$W=1, W$>$C=6, W$>$W=29 \\
+    \path{human_discovery_to_final_endorsement_raw} & C$>$C=35, C$>$W=22, W$>$W=23 & C$>$C=40, C$>$W=7, W$>$C=6, W$>$W=27 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption[Machine fields in the audit sample]{Raw distributions of the five frozen Mistral fields in the same audit sample. These fields defined or described the machine-stratified sample and are not five additional human-confirmed outcomes.}
+  \label{tab:audit-machine-fields}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.35\textwidth}XX@{}}
+    \toprule
+    Field & Debate ($N=80$) & Sequential ($N=80$) \\
+    \midrule
+    \path{machine_source_discovery} & C=67, W=13 & C=58, W=22 \\
+    \path{machine_source_endorsement} & C=59, W=21 & C=45, W=35 \\
+    \path{machine_final_discovery} & C=42, W=38 & C=49, W=31 \\
+    \path{machine_final_endorsement} & C=21, W=59 & C=35, W=45 \\
+    \path{machine_transition} & C$>$C=20, C$>$W=39, W$>$C=1, W$>$W=20 & C$>$C=20, C$>$W=25, W$>$C=15, W$>$W=20 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
 \section{Human transition estimates}
 
 The raw audited item transitions differ sharply by architecture. Debate contains 35 \correct$\rightarrow$\correct, 19 \ctow, zero \wtoc, 25 \wrong$\rightarrow$\wrong, and one \uncertain$\rightarrow$\wrong item. Sequential contains 40 \correct$\rightarrow$\correct, four \ctow, six \wtoc, 29 \wrong$\rightarrow$\wrong, and one \uncertain$\rightarrow$\wrong item. Because rare machine-defined transition strata were oversampled, the weighted rates rather than these raw proportions are used for population interpretation.
@@ -47,6 +105,7 @@ Using source Discovery rather than source Endorsement gives a weighted probabili
 The uncertain-label sensitivity analysis does not reverse the main harmful-rate ordering. Under \uncertain$\rightarrow$\wrong, exclusion of uncertain-bearing items, and \uncertain$\rightarrow$\correct, Debate's harmful rate is 5.45\%, 5.51\%, and 6.58\%, while Sequential's is 0.59\%, 0.60\%, and 2.20\%. The absolute Sequential estimate is more sensitive because one uncertain case has greater influence in a low-rate architecture, but Debate remains higher under every rule.
 
 \section{Scope of the human comparison}
+\label{sec:scope-human}
 
 The human transition audit supports a comparison of the final coordination boundaries in Debate and Sequential; it does not by itself explain why SAS outperforms a MAS in a particular benchmark condition. SAS remains part of the final-performance benchmark in \Cref{chap:benchmark-results}. A cross-architecture process comparison should apply the same machine-screening pipeline to SAS and use pre-final Discovery to final Endorsement as the common transition, because SAS has no equivalent multi-agent picker or aggregator. Unless that additional analysis is completed and reported, the dissertation should not claim that SAS wins because it experiences a lower human-audited transition rate.
 

@@ -11,9 +11,15 @@ The complete benchmark therefore contains
 \end{equation}
 item-configurations. Removing the single-agent baseline leaves 8,000 MAS configurations, from which 26,873 intermediate stage outputs are available for semantic screening. The design uses the validation split and a fixed random seed of zero. Oracle context is supplied for each question, so retrieval quality is held outside the scope of the comparison.
 
+\subsection{Units, keys, and data hierarchy}
+
+A \emph{benchmark question} is identified by dataset and the dataset's original question identifier. An \emph{experimental condition} is one dataset $\times$ model variant $\times$ system $\times$ budget combination; there are 48 such conditions. An \emph{item-configuration} is one benchmark question executed under one condition and the fixed seed. Its complete recorded execution is a \emph{trace}. A \emph{stage record} is one observable architecture-level text associated with a named role or saved output position; it is not an individual latent reasoning step or a token. A \emph{repeat} is a blinded duplicate of an existing stage record used only for intra-rater quality control, not a new question, run, or stage.
+
+The 9,600 total therefore count item-configurations, not distinct questions or stages: 1,600 belong to SAS and 8,000 to the five MAS architectures. Different architectures expose different numbers of stage records, which is why the MAS traces contain 26,873 screened intermediate stages rather than a constant multiple of 8,000. Within an SAS raw record, pre-final \path{trace.thinking} and the returned \path{prediction} originate from the same invocation but are stored as distinguishable observable texts. They would form the source and final records in a future architecture-neutral process audit.
+
 \begin{table}[htbp]
   \centering
-  \caption{Factorial benchmark design.}
+  \caption[Factorial benchmark design]{Factorial benchmark design.}
   \label{tab:design}
   \begin{tabularx}{\textwidth}{@{}lX@{}}
     \toprule
@@ -30,23 +36,9 @@ item-configurations. Removing the single-agent baseline leaves 8,000 MAS configu
   \end{tabularx}
 \end{table}
 
-\section{Datasets}
-
-MuSiQue constructs multi-hop questions from connected single-hop components and applies checks intended to prevent models from answering through only one component \citep{trivedi2022musique}. It is the harder dataset for the evaluated 4B model and therefore offers room for differences in discovery and aggregation. 2WikiMultiHopQA uses evidence from multiple Wikipedia pages and supplies supporting-fact annotations \citep{ho2020twowiki}. It produces substantially higher final accuracy in this experiment and helps reveal whether coordination losses persist when the underlying questions are easier for the model.
-
-The use of oracle context narrows the experimental claim. The systems are not evaluated as end-to-end retrieval-augmented QA pipelines. Instead, they receive the passages needed to answer and are tested on their ability to combine evidence and maintain a correct answer through the computational graph. This improves comparability across architectures because one system cannot gain merely from a different retrieval query, but it also means the results do not estimate performance under realistic retrieval noise.
-
-All systems use the same selected items within a dataset. This pairing is essential for the budget comparison: for a given model, dataset, and architecture, the 1,000- and 2,000-token runs can be compared on the identical question. Three Subtask Parallel records lacked a resolved semantic discovery label in the paired screen, leaving 3,997 discovery pairs rather than 4,000; final semantic accuracy retains all 4,000 MAS pairs.
-
-\section{Model variants}
-
-The base model is Qwen3-4B \citep{yang2025qwen3}. The frozen condition uses the public checkpoint without task-specific parameter updates. The \texttt{v3b} condition uses a merged supervised fine-tuning checkpoint developed within the project. It was trained through a low-rank adaptation workflow, a parameter-efficient approach derived from LoRA \citep{hu2021lora}, and then merged for inference. The fine-tuning data were designed to preserve the single-agent reasoning format rather than directly train every multi-agent role.
-
-This choice creates a controlled but limited contrast. It tests whether the observed architecture patterns survive a project-specific adaptation of the same base family; it does not establish generality across unrelated model families or parameter scales. The later \texttt{v4} role-conditioned experiments described in project notes are intentionally excluded from the main dissertation because they were not part of the completed, audited evidence chain. Including incomplete fine-tuning arms would expand the narrative without a correspondingly validated result.
-
-For both variants, the configured maximum model length is 16,384 tokens, tensor parallel size is one, and the main benchmark uses deterministic decoding. The experiment records actual thinking tokens and truncation indicators at stage level, allowing the analysis to distinguish nominal limits from realised use.
-
 \section{Systems}
+
+This section is placed before the datasets and model variants because the architectures are referred to throughout the earlier chapters. It expands the operational summary in \Cref{tab:architecture-overview} and the worked example in \Cref{fig:architecture-example} with the implementation detail actually used in the experiment, including the limits on plan length and parallel task count.
 
 \subsection{Single-agent system}
 
@@ -71,6 +63,26 @@ Two agents produce initial proposals, observe the opposing proposal, and issue r
 \subsection{Ensemble}
 
 The Ensemble produces four candidate answers using a sampling temperature of 0.7 and passes them to an aggregator. This is the most direct candidate-coverage architecture. It is expected to yield a high oracle accuracy because several stochastic samples explore different answer paths. Its main weakness should therefore appear as aggregation regret when the final component fails to use an available correct candidate.
+
+\section{Datasets}
+
+MuSiQue constructs multi-hop questions from connected single-hop components and applies checks intended to prevent models from answering through only one component \citep{trivedi2022musique}. It is the harder dataset for the evaluated 4B model and therefore offers room for differences in discovery and aggregation. 2WikiMultiHopQA uses evidence from multiple Wikipedia pages and supplies supporting-fact annotations \citep{ho2020twowiki}. It produces substantially higher final accuracy in this experiment and helps reveal whether coordination losses persist when the underlying questions are easier for the model.
+
+The use of oracle context narrows the experimental claim. The systems are not evaluated as end-to-end retrieval-augmented QA pipelines. Instead, they receive the passages needed to answer and are tested on their ability to combine evidence and maintain a correct answer through the computational graph. This improves comparability across architectures because one system cannot gain merely from a different retrieval query, but it also means the results do not estimate performance under realistic retrieval noise.
+
+All systems use the same selected items within a dataset. This pairing is essential for the budget comparison: for a given model, dataset, and architecture, the 1,000- and 2,000-token runs can be compared on the identical question. Three Subtask Parallel records lacked a resolved semantic discovery label in the paired screen, leaving 3,997 discovery pairs rather than 4,000; final semantic accuracy retains all 4,000 MAS pairs.
+
+\section{Model variants}
+
+The base model is Qwen3-4B \citep{yang2025qwen3}. The frozen condition uses the public checkpoint without task-specific parameter updates. The \texttt{v3b} condition uses a merged supervised fine-tuning checkpoint developed within the project. It was trained through a low-rank adaptation workflow, a parameter-efficient approach derived from LoRA \citep{hu2021lora}, and then merged for inference. The fine-tuning data were designed to preserve the single-agent reasoning format rather than directly train every multi-agent role.
+
+The \texttt{v3b} objective is completion-only causal language modelling on naturally terminated, correct SAS trajectories. Training data were constructed from 1,175 four-hop MuSiQue training questions with oracle context. For each question the frozen model sampled up to four reasoning traces at temperature 0.7 and top-$p$ 0.95 with a 1,536-token thinking cap; cap-truncated candidates were discarded. A deterministic answer phase was then checked against the gold answer and aliases using the project's normalised-containment filter, and the earliest correct sample was retained. This produced 833 examples (70.9\% question coverage); 599 sampled candidates were discarded for reaching the cap. Retained reasoning lengths had mean 616 tokens and 10th/50th/90th percentiles of 219/514/1,228 tokens. This rejection design preferentially retains questions the frozen model can already solve and is consequently an adaptation experiment rather than evidence of new knowledge.
+
+The prompt tokens were masked from the loss, while the completion, naturally positioned \texttt{</think>} marker, final answer, and end-of-sequence token were supervised. Sequences were capped at 4,096 tokens. LoRA used rank 16, scaling factor 32, dropout 0.05, and targeted the query, key, value, output, gate, up, and down projection modules. Training used bfloat16, learning rate $10^{-4}$, two epochs, per-device batch size 2, gradient accumulation 8 (effective batch size 16 on one device), gradient checkpointing, and seed 0. The final adapter was merged into the Qwen3-4B base weights for inference. These settings are recorded in the construction and training scripts cited in \Cref{app:reproducibility}.
+
+This choice creates a controlled but limited contrast. It tests whether the observed architecture patterns survive a project-specific adaptation of the same base family; it does not establish generality across unrelated model families or parameter scales. The later \texttt{v4} role-conditioned experiments described in project notes are intentionally excluded from the main dissertation because they were not part of the completed, audited evidence chain. Including incomplete fine-tuning arms would expand the narrative without a correspondingly validated result.
+
+For both variants, the configured maximum model length is 16,384 tokens, tensor parallel size is one, and the main benchmark uses deterministic decoding. The experiment records actual thinking tokens and truncation indicators at stage level, allowing the analysis to distinguish nominal limits from realised use.
 
 \section{Budget controller and resource measurement}
 

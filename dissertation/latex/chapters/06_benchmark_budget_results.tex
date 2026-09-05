@@ -3,11 +3,11 @@
 
 \section{Final-answer benchmark}
 
-The lexical benchmark establishes the outcome pattern before intermediate states are considered. On the harder MuSiQue subset, the frozen SAS achieves final normalised accuracy of 0.560 at the 1,000-token budget and 0.525 at 2,000. Debate is the strongest MAS in this condition, at 0.510 and 0.535 respectively. Sequential is substantially lower, at 0.335 and 0.340. Fine-tuning does not reverse the broad ranking: at 1,000 tokens the \texttt{v3b} SAS scores 0.545, Debate 0.505, and Sequential 0.380.
+The lexical benchmark establishes the outcome pattern before intermediate states are considered. The metric reported throughout this chapter, and referred to as \emph{final normalised accuracy}, is the normalised containment of \Cref{eq:containment}: after lowercasing, punctuation removal, article removal and whitespace collapse, a prediction counts as correct when the gold answer or one of the benchmark's accepted aliases appears as a substring of it. \Cref{tab:scoring-examples} shows worked examples of predictions that do and do not match. Containment rather than exact match is used because it follows the reproduction protocol and because several architectures answer in a sentence rather than an answer span, which strict exact match barely credits; \Cref{tab:metric-sensitivity} quantifies that difference for every system. The corresponding cost is that containment credits an output that mentions an accepted answer and then rejects it, so the accuracies below are upper bounds on final-answer correctness. On the harder MuSiQue subset, the frozen SAS achieves final normalised accuracy of 0.560 at the 1,000-token budget and 0.525 at 2,000. Debate is the strongest MAS in this condition, at 0.510 and 0.535 respectively. Sequential is substantially lower, at 0.335 and 0.340. Fine-tuning does not reverse the broad ranking: at 1,000 tokens the \texttt{v3b} SAS scores 0.545, Debate 0.505, and Sequential 0.380.
 
 \begin{table}[htbp]
   \centering
-  \caption[MuSiQue final lexical accuracy]{MuSiQue final normalised lexical accuracy by model, architecture, and thinking-token budget ($n=200$ per cell).}
+  \caption[MuSiQue final normalised accuracy]{MuSiQue final normalised accuracy by model, architecture, and thinking-token budget ($n=200$ per cell). The metric is normalised containment (\Cref{eq:containment}); \Cref{tab:metric-sensitivity} gives the same cells under exact match and F1.}
   \label{tab:musique-lexical}
   \begin{tabular}{@{}llrr@{}}
     \toprule
@@ -32,6 +32,67 @@ The lexical benchmark establishes the outcome pattern before intermediate states
 
 On 2WikiMultiHopQA, absolute performance is much higher. In the frozen condition, Debate reaches 0.935 and 0.930 at the two budgets, compared with SAS at 0.860 and 0.845. This is an important counterexample to any universal statement that a single agent always wins: an MAS can outperform the SAS on a particular dataset and condition. The dissertation's claim is narrower. Multi-agent decomposition often increases candidate availability, but that gain is inconsistent and can be lost at later coordination stages. Relative performance depends on dataset difficulty, model variant, architecture, and budget.
 
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption[Sensitivity of the benchmark to the lexical rule]{Final-answer accuracy for the frozen
+  model at the 1,000-token budget under each of the three lexical rules of \Cref{sec:lexical}
+  ($n=200$ per cell). Containment is the headline metric used elsewhere in this chapter. The EM
+  column shows why: architectures that answer in a sentence rather than an answer span are barely
+  credited by exact match, so an EM-only ranking would largely measure output format.}
+  \label{tab:metric-sensitivity}
+  \begin{tabular}{@{}lrrrcrrr@{}}
+    \toprule
+    & \multicolumn{3}{c}{MuSiQue} & & \multicolumn{3}{c}{2WikiMultiHopQA} \\
+    \cmidrule(r){2-4}\cmidrule(l){6-8}
+    System & Contain. & EM & F1 & & Contain. & EM & F1 \\
+    \midrule
+    SAS & 0.560 & 0.290 & 0.371 & & 0.860 & 0.200 & 0.431 \\
+    Sequential & 0.335 & 0.125 & 0.204 & & 0.825 & 0.055 & 0.302 \\
+    Subtask Parallel & 0.425 & 0.155 & 0.220 & & 0.830 & 0.060 & 0.294 \\
+    Parallel Roles & 0.425 & 0.225 & 0.314 & & 0.870 & 0.290 & 0.526 \\
+    Debate & 0.510 & 0.030 & 0.075 & & 0.935 & 0.005 & 0.123 \\
+    Ensemble & 0.520 & 0.420 & 0.511 & & 0.870 & 0.335 & 0.518 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Error rates relative to the single-agent baseline}
+
+The comparison that matters for RQ1 is between the single-agent baseline and each architecture separately, rather than between SAS and a pooled multi-agent average. \Cref{tab:sas-gap} reports the final-answer error rate for every system alongside its difference from the SAS error rate in the same dataset, budget and model cell.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption[Final-answer error rates, SAS versus each MAS]{Final-answer error rate
+  ($1-\mathrm{containment}$) for the single-agent baseline and each multi-agent architecture,
+  frozen model, $n=200$ per cell. Values in parentheses are the difference from the SAS error rate
+  in the same cell, in percentage points; positive means the architecture makes more final-answer
+  errors than the single-agent baseline. The sign is not constant across datasets: on MuSiQue every
+  architecture except Debate at the larger budget is worse than SAS, whereas on 2WikiMultiHopQA
+  Debate, Ensemble and Parallel Roles are all better than SAS.}
+  \label{tab:sas-gap}
+  \begin{tabular}{@{}lrrcrr@{}}
+    \toprule
+    & \multicolumn{2}{c}{MuSiQue} & & \multicolumn{2}{c}{2WikiMultiHopQA} \\
+    \cmidrule(r){2-3}\cmidrule(l){5-6}
+    System & 1,000 & 2,000 & & 1,000 & 2,000 \\
+    \midrule
+    SAS (baseline) & 0.440 & 0.475 & & 0.140 & 0.155 \\
+    \addlinespace
+    Sequential & 0.665 ($+22.5$) & 0.660 ($+18.5$) & & 0.175 ($+3.5$) & 0.210 ($+5.5$) \\
+    Subtask Parallel & 0.575 ($+13.5$) & 0.575 ($+10.0$) & & 0.170 ($+3.0$) & 0.170 ($+1.5$) \\
+    Parallel Roles & 0.575 ($+13.5$) & 0.610 ($+13.5$) & & 0.130 ($-1.0$) & 0.135 ($-2.0$) \\
+    Debate & 0.490 ($+5.0$) & 0.465 ($-1.0$) & & 0.065 ($-7.5$) & 0.070 ($-8.5$) \\
+    Ensemble & 0.480 ($+4.0$) & 0.495 ($+2.0$) & & 0.130 ($-1.0$) & 0.140 ($-1.5$) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Two patterns are visible. First, the ordering is dataset-dependent rather than architectural. On MuSiQue the single agent is better than every multi-agent system except Debate at the 2,000-token budget, and the penalties are large: Sequential makes 22.5 percentage points more final-answer errors than SAS at 1,000 tokens. On 2WikiMultiHopQA the ordering partly reverses, with Debate making 7.5 points fewer errors than SAS. Any claim that decomposition simply helps or simply hurts is therefore too coarse.
+
+Second, the spread between architectures is wider than the gap between SAS and the best architecture. On MuSiQue at 1,000 tokens the five multi-agent error rates range from 0.480 to 0.665, a spread of 18.5 points, while the gap between SAS and the best multi-agent system is 4.0 points. Which multi-agent design is chosen therefore matters more than whether a multi-agent design is chosen at all, which is the observation that motivates locating failures at specific architectural boundaries in \Cref{chap:machine-results} and \Cref{chap:human-results}. These are final-answer comparisons only; the corresponding process-level comparison is not available for SAS, for the reason given in \Cref{sec:scope-human}.
+
 \subsection{Fine-tuning as an attempted intervention}
 
 The \texttt{v3b} comparison is treated as an attempted intervention after the initial frozen-model benchmark rather than as a separate model family. On MuSiQue, its changes are mixed. At 1,000 tokens, SAS changes from 0.560 to 0.545, Debate from 0.510 to 0.505, and Sequential from 0.335 to 0.380. At 2,000 tokens, SAS changes from 0.525 to 0.530, Debate from 0.535 to 0.530, and Sequential remains at 0.340. These cells do not show a consistent reversal of the SAS--MAS pattern. Because \texttt{v3b} was trained primarily on single-agent-style data, this result does not test whether architecture-conditioned training for planners, critics, or aggregators would succeed.
@@ -45,7 +106,7 @@ The matched budget analysis provides no evidence that doubling the nominal think
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{figures/budget_tradeoff.pdf}
-  \caption[Matched budget outcomes]{Matched aggregate outcomes at 1,000 and 2,000 nominal thinking tokens. The larger budget increases mean wall time while reducing machine-screened discovery and final semantic accuracy.}
+  \caption[Matched budget outcomes]{Matched aggregate outcomes at 1,000 and 2,000 nominal thinking tokens. Panel (a) plots the paired rates; its vertical axis does not start at zero, which a point encoding permits and which keeps the small paired differences visible. Panel (b) shows the discordant pairs behind the exact McNemar tests: at both outcomes more items move from correct to wrong than the reverse. Mean wall time rises by 4.83 seconds per item over the same pairs.}
   \label{fig:budget}
 \end{figure}
 

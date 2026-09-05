@@ -2,14 +2,62 @@
 \label{chap:evaluation}
 
 \section{Lexical evaluation}
+\label{sec:lexical}
 
-The first evaluation layer scores final answers with normalised exact match and token-level F1. Normalisation lowercases text, removes punctuation and articles, collapses whitespace, and checks accepted aliases where provided by the dataset. Exact match is one when the normalised prediction equals an accepted answer. Token F1 is the harmonic mean of token precision and recall against the best-matching accepted answer.
+The first evaluation layer scores final answers deterministically against the benchmark's own gold answer and its supplied aliases, under three comparison rules: normalised exact match (EM), token-level F1, and normalised containment. Let $n(x)$ lowercase a string, remove ASCII punctuation and the articles \emph{a}, \emph{an}, and \emph{the}, collapse whitespace, and split the result into tokens. For prediction $p$ and accepted reference set $G$ (gold answer plus supplied aliases),
+\begin{equation}
+  \mathrm{EM}(p,G)=\max_{g\in G}\mathbb{I}[n(p)=n(g)].
+\end{equation}
+For each $g$, the token multiset overlap is $m_g=|n(p)\cap n(g)|$. Precision is $P_g=m_g/|n(p)|$, recall is $R_g=m_g/|n(g)|$, and
+\begin{equation}
+  \mathrm{F1}(p,G)=\max_{g\in G}\frac{2P_gR_g}{P_g+R_g},
+\end{equation}
+with a score of zero when no tokens overlap. Taking the maximum over aliases prevents a harmless accepted name or date form from being penalised merely because it differs from the canonical gold string.
 
-These metrics provide a deterministic benchmark and permit direct architecture comparisons. They do not, however, reliably score intermediate outputs. A worker may express the answer in a sentence rather than an answer field; an agent may use an alias absent from the literal gold string; and debate outputs may mention both correct and incorrect candidates. Lexical scores are therefore interpreted as the primary final-output benchmark but not as evidence of when the system first reached a correct state.
+Normalised containment relaxes the equality test to a substring test on the same normalised strings,
+\begin{equation}
+  \mathrm{Contain}(p,G)=\max_{g\in G}\mathbb{I}\left[n(g)\neq\varnothing \ \wedge\ n(g)\subseteq_{\mathrm{sub}} n(p)\right],
+  \label{eq:containment}
+\end{equation}
+where $\subseteq_{\mathrm{sub}}$ denotes substring inclusion. A prediction therefore counts as correct under containment whenever an accepted answer string appears anywhere in the normalised output, regardless of the surrounding sentence.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption[Concrete final-answer scoring examples]{Concrete examples of final-answer scoring under the three
+  lexical rules of \Cref{sec:lexical}. F1 is shown against the best accepted alias. The third row shows
+  containment crediting an answer the output rejects; the fourth is a real Debate final output from the
+  frozen 2WikiMultiHopQA run \citep{ho2020twowiki}, and shows why exact match is uninformative for architectures that answer in a
+  sentence.}
+  \label{tab:scoring-examples}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}rrr>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Gold/accepted alias & Model prediction & EM & Cont. & F1 & Interpretation \\
+    \midrule
+    Little Buddha & Little Buddha & 1 & 1 & 1.00 & Exact normalised match; all three rules agree. \\
+    \addlinespace[0.3em]
+    22 February 1981; February 22, 1981 & Curtis Bernhardt died on February 22, 1981. & 0 & 1 & 0.60 & The accepted date is present, but explanatory tokens prevent EM. \\
+    \addlinespace[0.3em]
+    Paris & Paris is plausible, but the evidence supports Lyon. & 0 & 1 & 0.25 & Containment finds ``Paris'' in an output that rejects it. This is the case that motivates separating Discovery from Endorsement. \\
+    \addlinespace[0.3em]
+    Course For Collision & Course for Collision was released earlier. It aired in 1967, while Little Buddha was released in 1993. Therefore, **Course for Collision** predates **Little Buddha** by over two decades. & 0 & 1 & 0.19 & A substantively correct answer. EM scores it zero and F1 scores it 0.19 because the answer is embedded in a full sentence with markup. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The choice among these rules is consequential, and the dissertation follows the reproduction protocol of \citet{tran2026single} in reporting \emph{normalised containment} as the headline benchmark figure. The fourth row of \Cref{tab:scoring-examples} shows why. Several of the architectures evaluated here, Debate most of all, answer in a full sentence rather than an answer span, so strict EM records almost none of their correct answers: across the frozen MuSiQue runs at 1,000 tokens, Debate scores 0.030 under EM and 0.510 under containment. An EM-only benchmark would therefore measure output formatting at least as much as reasoning, and would not be comparable across architectures.
+
+Containment buys that comparability at a known cost. It credits any output in which an accepted string appears, including one that mentions the answer and then rejects it, as the third row of \Cref{tab:scoring-examples} shows. The headline accuracies in \Cref{chap:benchmark-results} are therefore upper bounds on final-answer correctness, and \Cref{tab:metric-sensitivity} reports EM and F1 alongside containment so that the size of the gap is visible for every system. This limitation is also a direct motivation for the rest of the evaluation: a metric that cannot distinguish an endorsed answer from a rejected mention is exactly the metric that cannot locate a coordination failure. The pipeline additionally records an LLM final-answer judgement using the fixed rubric inherited from the reproduction protocol; it is semantically flexible but model-dependent and can abstain or misparse, and is reported only as a continuity measure. Human labels are reserved for the targeted process claims where the distinction between informational presence and commitment is decisive.
+
+These lexical metrics do not reliably locate intermediate correctness. A worker may express the answer in a sentence rather than an answer field; an agent may use a valid semantic equivalent absent from the alias list; and debate outputs may mention both correct and incorrect candidates. Lexical scores are consequently interpreted as final-output evidence, not as evidence of when the system first reached a correct state.
 
 \section{Semantic stage screen}
 
-A Mistral instruction model was prompted to label intermediate and final stage texts using the reference answer, aliases, question, and relevant evidence. The final prompt revision applied the same semantic-discovery rule across stages. For each stage, the judge returned a structured label and evidence rationale. Outputs that did not parse or lacked a resolvable basis were marked uncertain rather than silently coerced to correct or wrong.
+Human annotation cannot be applied to the whole trace population, which is why a machine screen exists at all. The five multi-agent architectures produce 26,873 intermediate stage records across 8,000 item-configurations, and each record has to be read in full and labelled on two axes against the question and the accepted answers; that is far beyond what a single annotator can complete. Uniform random sampling is not a workable substitute either, because the events this dissertation is about are rare. Harmful and beneficial final-boundary transitions together account for a low single-digit percentage of items, so a random sample small enough to annotate by hand would contain too few of them to estimate their rates with any precision.
+
+The screen resolves both problems at once. It supplies a complete, if imperfect, labelling of every stage, which is what makes the breadth analysis in \Cref{chap:machine-results} possible; and it partitions the population into transition strata from which rare cases can be deliberately oversampled for human review and then reweighted back to population rates by \Cref{eq:weighting}. The screen is therefore a sampling instrument as much as a measurement in its own right. Because the audit's population estimates depend on the strata it defines, its reliability is tested rather than assumed (\Cref{sec:calibration} and \Cref{chap:human-results}).
+
+A Mistral instruction model was prompted to label intermediate and final stage texts using the reference answer, aliases, question, and numbered stage statements. The frozen judge was Mistral-Small-3.2-24B-Instruct-2506, prompt version \path{stage_discovery_and_endorsement_v4_indexed_evidence}, with temperature 0 and JSON-object output. The final prompt revision applied the same semantic-discovery rule across stages and required evidence-statement identifiers for every correct Discovery label. For each stage, the judge returned both semantic labels, grounded evidence identifiers, an extracted endorsed answer, and reason codes. Outputs that did not parse or lacked a resolvable basis were marked uncertain or parse error rather than silently coerced to correct or wrong. The complete prompt is reproduced in \Cref{app:screening-materials}, together with a full worked example showing the numbered statements a judge receives for one reasoning trace and the JSON it returns.
 
 The full screen covers all 8,000 MAS item-configurations and 26,873 intermediate stages. When the final output text was identical to a recorded stage, its label was reused to avoid unnecessary stochastic re-judging; 2,297 final labels were reused and 5,703 were judged separately. Six uncertain intermediate labels were excluded pairwise from affected transition calculations.
 
@@ -25,20 +73,22 @@ The screen produces four families of descriptive outputs:
 The machine screen is explicitly not treated as error-free annotation. It is used to summarise all traces and to create informative sampling strata for human review.
 
 \section{Calibration and the need for a targeted audit}
+\label{sec:calibration}
 
-The judge initially achieved 91.9\% evidence-valid accuracy and Cohen's $\kappa=0.829$ on a general calibration set. Those numbers suggested that large-scale semantic screening was feasible. Performance was not uniform, however: cases involving Debate beneficial flips and Sequential losses were weaker. A targeted sensitivity audit of difficult transitions later found only 73.9\% agreement across 199 resolved stage labels ($\kappa=0.478$) and 50.5\% exact agreement across 99 resolved transition pairs (multiclass $\kappa=0.364$).
+Against human correctness labels, the judge initially achieved 91.9\% accuracy and Cohen's $\kappa=0.829$ on a general calibration set. Coverage and the false-positive/false-negative directions were inspected separately rather than folded into one ambiguously named statistic. Those results suggested that large-scale semantic screening was feasible. Performance was not uniform, however: cases involving Debate beneficial flips and Sequential losses were weaker. A targeted sensitivity audit of difficult transitions later found only 73.9\% exact agreement across 199 resolved stage labels ($\kappa=0.478$) and 50.5\% exact agreement across 99 resolved transition pairs (multiclass $\kappa=0.364$).
 
 This difference is not paradoxical. General calibration is dominated by ordinary correct and wrong outputs. Transition-enriched cases place the decision boundary precisely where a judge is most likely to fail: partial evidence, answer mentions without commitment, disagreement between proposals, and truncated conclusions. Because a transition is a compound of two labels, one stage error can change the transition class. The targeted result therefore supersedes the broad calibration result for transition-level inference.
 
 A Qwen2.5-72B-Instruct judge was also evaluated as a stronger alternative. It reached 87.0\% stage accuracy ($\kappa=0.723$) and 79.0\% exact transition accuracy (multiclass $\kappa=0.701$) on the targeted set, with no parse or grounding failures. Although better, it did not pass the fixed acceptance thresholds. It is not used to relabel the full trace population. The decision to retain human labels was made from the reliability criteria rather than from whether machine estimates supported the desired hypothesis.
 
 \section{Human audit scope and sampling}
+\label{sec:audit-sampling}
 
 The definitive audit focuses on Debate and Sequential because their final coordination boundaries are well defined and because the machine screen indicated substantively different transition patterns. The frozen machine-labelled population was divided into architecture and transition strata. Rare candidate transitions were oversampled so the audit would include enough difficult cases to diagnose judge direction and component behaviour. Within-stratum selection was fixed before human labels were unblinded.
 
-The final sample contains 160 unique items: 80 Debate and 80 Sequential. Each Debate item contributes two revised candidates and one final picker output; each Sequential item contributes the last worker and final aggregator output. This gives 400 non-repeat stage records. Twenty stage records were duplicated under new blind identifiers and inserted as hidden repeats, giving 420 annotated rows in total. The repeat positions and item identities were not visible during annotation.
+The final sample contains 160 distinct audited item-configurations drawn from 160 distinct benchmark question identifiers: 80 Debate runs and 80 Sequential runs. Each Debate item-configuration contributes two revised candidates and one final picker output; each Sequential item-configuration contributes the last worker and final aggregator output. This gives 400 non-repeat stage records. Twenty stage records were duplicated under new blind identifiers and inserted as hidden repeats, giving 420 annotation rows in total. The repeat positions and item identities were not visible during annotation.
 
-The audit is a single-annotator study. Hidden repeats therefore measure intra-rater repeatability, not agreement between independent annotators. The sampling design estimates transition rates for the frozen population only after stratum weighting; the raw 80-item architecture counts are diagnostic and are not direct prevalence estimates.
+The audit is a single-annotator study. Hidden repeats therefore measure intra-rater repeatability, not agreement between independent annotators. The sampling design estimates transition rates for the population defined by the frozen machine-screening and sampling snapshot only after stratum weighting; the raw 80-item architecture counts are diagnostic and are not direct prevalence estimates.
 
 \section{Item-level audit schema and the ``15 fields''}
 
@@ -55,7 +105,7 @@ At the architecture-aligned source boundary, the Debate source state pools the t
     \toprule
     Group & Fields & Scale and analytical role \\
     \midrule
-    Truncation descriptors (4) & \path{question_any_truncated}, \path{source_truncated}, \path{final_truncated}, \path{any_truncated} & Boolean flags for any truncated call in the original item trace, the audited source boundary, the final destination, and their union, respectively. The union is derived rather than an independent error. \\
+    Truncation descriptors (4) & \path{question_any_truncated}, \path{source_truncated}, \path{final_truncated}, \path{any_truncated} & Boolean/NA flags for any truncated call in the item-configuration trace, the audited source boundary, the final destination, and their three-valued union. The final-stage metadata are unavailable in this audit snapshot; the union is derived rather than an independent error. \\
     \addlinespace[0.4em]
     Human semantic states (4) & \path{human_source_discovery}, \path{human_source_endorsement}, \path{human_final_discovery}, \path{human_final_endorsement} & Human C/W/U judgements at the source and final stages on the two semantic axes. \\
     \addlinespace[0.4em]

@@ -1,0 +1,40 @@
+{
+  "notice": "Export completed with explicit settings. This report does not establish visual, accessibility, scientific-integrity, or journal-submission compliance.",
+  "outputs": [
+    {
+      "format": "pdf",
+      "kind": "vector-container",
+      "path": "/sessions/rcw-0138j8c9fpskz6npgeqtou4z/figs_out/human_transition_rates.pdf",
+      "size_bytes": 19222
+    }
+  ],
+  "provenance": {
+    "notes": "Debate beneficial rate is 0.00% with a zero-width interval",
+    "raw_data": "analysis/final_transition_endorsement_audit/UNBLIND_REPORT.md section 4 (weighted, primary U->W rule)",
+    "transformations": [
+      "finite-population stratum weighting; see eq. 3.7"
+    ],
+    "uncertainty": "approximate 95% finite-population stratified intervals; descriptive, not confirmatory"
+  },
+  "schema_version": "1.0",
+  "settings": {
+    "bbox_inches": null,
+    "dpi": 600.0,
+    "facecolor": "white",
+    "figure_size_inches": [
+      5.15748031496063,
+      2.677165354330709
+    ],
+    "font_mode": "truetype",
+    "formats": [
+      "pdf"
+    ],
+    "pad_inches": 0.1,
+    "transparent": false
+  },
+  "versions": {
+    "matplotlib": "3.10.9",
+    "pillow": "12.2.0"
+  },
+  "warnings": []
+}

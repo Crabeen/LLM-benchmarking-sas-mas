@@ -34,8 +34,8 @@
 \newcommand{\studentname}{Youheng Xie}
 \newcommand{\supervisorname}{Robert Loftin}
 \newcommand{\degreeprogramme}{MSc Artificial Intelligence}
-\newcommand{\submissiondate}{August 2026}
-\newcommand{\reportedwordcount}{approximately 12,100 words}
+\newcommand{\submissiondate}{September 2026}
+\newcommand{\reportedwordcount}{approximately 17,100 words}
 
 \hypersetup{
   pdftitle={\thesistitle},
@@ -51,6 +51,12 @@
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{2}
 \captionsetup{font=small,labelfont=bf}
+% Top-align float-only pages so a large figure does not sit in a well of
+% white space.
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{12pt plus 1fil}
+\makeatother
 \renewcommand{\arraystretch}{1.15}
 
 \pagestyle{fancy}
@@ -101,32 +107,20 @@
 
 \chapter*{Declaration}
 \addcontentsline{toc}{chapter}{Declaration}
-All sentences or passages quoted in this dissertation from other people's work have been specifically acknowledged by clear cross-referencing to author, work and page(s). Any illustrations that are not the work of the author of this dissertation have been used with the explicit permission of the originator and are specifically acknowledged. I understand that failure to do this amounts to plagiarism and will be considered grounds for failure in this dissertation and the degree examination as a whole.
+All sentences or passages quoted in this report from other people's work have been specifically acknowledged by clear cross-referencing to author, work and page(s). Any illustrations that are not the work of the author of this report have been used with the explicit permission of the originator and are specifically acknowledged. I understand that failure to do this amounts to plagiarism and will be considered grounds for failure in this project and the degree examination as a whole.
 
 \vspace{1.5cm}
 \noindent Signed: \rule{0.45\textwidth}{0.4pt}\hfill Date: \rule{0.22\textwidth}{0.4pt}
 
 \chapter*{Acknowledgements}
 \addcontentsline{toc}{chapter}{Acknowledgements}
-I thank my supervisor, \supervisorname, for guidance on the framing, evaluation design, and interpretation of this project. I also acknowledge the University of Sheffield research computing facilities used to run the experiments. Any remaining errors are my own.
+I thank my supervisor, \supervisorname, for guidance on the framing, evaluation design, and interpretation of this project. I also acknowledge the University of Sheffield research computing facilities used to run the experiments. The University of Sheffield logo on the title page is reproduced from the official COM dissertation template supplied for this submission. Any remaining errors are my own.
 
 \input{chapters/abstract}
 
 \tableofcontents
 \listoffigures
 \listoftables
-
-\chapter*{Abbreviations}
-\addcontentsline{toc}{chapter}{Abbreviations}
-\begin{tabular}{@{}ll@{}}
-LLM & Large language model \\
-MAS & Multi-agent system \\
-SAS & Single-agent system \\
-QA & Question answering \\
-SFT & Supervised fine-tuning \\
-CI & Confidence interval \\
-OR & Odds ratio \\
-\end{tabular}
 
 \mainmatter
 \include{chapters/01_introduction}
@@ -142,11 +136,14 @@ OR & Odds ratio \\
 \include{chapters/09_conclusion}
 
 \appendix
+\include{appendices/abbreviations}
 \include{appendices/audit_codebook}
+\include{appendices/screening_materials}
 \include{appendices/reproducibility}
 
 \backmatter
-\bibliographystyle{plainnat}
+% unsrtnat numbers the bibliography in order of first citation in the text.
+\bibliographystyle{unsrtnat}
 \bibliography{references}
 
 \end{document}

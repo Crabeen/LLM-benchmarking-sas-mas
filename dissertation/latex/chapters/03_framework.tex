@@ -14,11 +14,11 @@ Discovery is \correct{} when the stage contains an answer-equivalent statement o
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.96\textwidth]{figures/analysis_pipeline.pdf}
-  \caption{Analytical pipeline. Architecture stages are converted into Discovery and Endorsement states. Full-trace machine labels support screening; a blind human audit supports the primary Debate and Sequential transition estimates.}
+  \caption[Three evidence layers over the recorded runs]{Three evidence layers derived from the recorded benchmark runs. Deterministic final-output evaluation produces benchmark results; full-trace machine labels support breadth screening; and the blind human audit validates selected labels while independently supporting the primary Debate and Sequential transition estimates.}
   \label{fig:pipeline}
 \end{figure}
 
-\Cref{fig:pipeline} summarises the evidence flow. The analysis begins with final lexical scoring, proceeds to semantic stage screening, and then narrows to human-audited architecture boundaries. This ordering is intentional. The broad automated analysis identifies candidate failure locations, while the smaller human audit protects the central transition inference from judge error.
+\Cref{fig:pipeline} summarises three evidence layers derived from the recorded runs. Deterministic final-output evaluation produces benchmark results. Full-trace Mistral screening independently produces breadth and failure-location results. The targeted blind human audit both validates selected machine labels and supplies the primary transition estimates. The audit is therefore not merely the last transformation in a single scoring pipeline.
 
 \section{Architecture-specific source states}
 
@@ -36,7 +36,7 @@ For Parallel Roles and Ensemble, the natural source is the oracle over the candi
 
 \section{Outcome and transition metrics}
 
-Final lexical performance uses normalised exact match and token-level F1. The normalisation removes articles, punctuation, and redundant whitespace and applies the benchmark alias rules. Semantic metrics use the stage labels defined above.
+Final lexical performance is scored against the benchmark's own gold answer and its supplied aliases. The normalisation removes articles, punctuation, and redundant whitespace before comparison. Three comparison rules are used and are kept distinct throughout: normalised exact match, token-level F1, and normalised containment. \Cref{sec:lexical} defines all three formally and \Cref{tab:scoring-examples} gives worked examples of predictions that do and do not match under each. The headline benchmark figures in \Cref{chap:benchmark-results} use normalised containment and are named \emph{final normalised accuracy} there. Semantic metrics use the stage labels defined above.
 
 For $N$ evaluated items, semantic discovery rate is
 \begin{equation}
@@ -46,7 +46,12 @@ Candidate-oracle accuracy restricts the maximum to the architecture's designated
 \begin{equation}
   \mathrm{Preservation} = P\left(D(f_i)=\correct \mid \exists s \in T_i : D(s)=\correct\right),
 \end{equation}
-and drop rate is its complement. Aggregation regret is candidate-oracle accuracy minus final semantic accuracy. A positive value indicates that the final decision failed to exploit available candidates. A negative value can occur for architectures such as Sequential or Subtask Parallel when aggregation synthesises partial evidence not individually sufficient for an oracle candidate label.
+and drop rate is its complement. Aggregation regret measures the difference between what the candidate set made available and what the system finally delivered,
+\begin{equation}
+  \mathrm{Regret} = \mathrm{OracleAccuracy} - \mathrm{FinalAccuracy},
+  \label{eq:regret}
+\end{equation}
+where $\mathrm{OracleAccuracy}$ is the candidate-oracle accuracy defined above and $\mathrm{FinalAccuracy}$ is final semantic accuracy, both computed over the same $N$ items. A positive value indicates that the final decision failed to exploit available candidates. A negative value can occur for architectures such as Sequential or Subtask Parallel when aggregation synthesises partial evidence not individually sufficient for an oracle candidate label.
 
 For the human analysis, the primary harmful and beneficial transition indicators are
 \begin{align}
@@ -60,6 +65,7 @@ The rates $P(H_i=1)$ and $P(B_i=1)$ quantify damage and recovery at the final co
 The audit deliberately oversamples transitions that are rare in the full machine-screened population. Raw sample proportions therefore do not estimate population prevalence. Let $h$ index the frozen sampling strata, $N_h$ be the number of eligible items in a stratum, $n_h$ the audited sample, and $\bar{y}_h$ the audited transition rate. The finite-population weighted estimate is
 \begin{equation}
   \hat{p} = \sum_h W_h\bar{y}_h, \qquad W_h = \frac{N_h}{\sum_h N_h}.
+  \label{eq:weighting}
 \end{equation}
 An approximate stratified variance is
 \begin{equation}

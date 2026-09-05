@@ -3,7 +3,12 @@ import re
 
 
 root = Path(__file__).resolve().parent
-main_files = [root / "chapters" / "abstract.tex"] + sorted((root / "chapters").glob("[0-9][0-9]_*.tex"))
+main_tex = (root / "main.tex").read_text(encoding="utf-8")
+main_body = main_tex.split(r"\mainmatter", 1)[1].split(r"\appendix", 1)[0]
+active_includes = re.findall(r"\\include\{([^}]+)\}", main_body)
+main_files = [root / "chapters" / "abstract.tex"] + [
+    root / f"{include}.tex" for include in active_includes
+]
 all_text = "\n".join(path.read_text(encoding="utf-8") for path in main_files)
 plain = re.sub(r"(?m)^%.*$", " ", all_text)
 plain = re.sub(r"\\cite\w*\{[^}]*\}", " ", plain)

@@ -1,0 +1,63 @@
+\chapter{Abbreviations and Notation}
+\label{app:abbreviations}
+
+\section{Abbreviations}
+
+\small
+\begin{longtable}{@{}p{0.22\textwidth}p{0.72\textwidth}@{}}
+\toprule
+Abbreviation & Expansion \\
+\midrule
+\endfirsthead
+\toprule
+Abbreviation & Expansion \\
+\midrule
+\endhead
+2Wiki & Short form of 2WikiMultiHopQA used in tables and figures \\
+2WikiMultiHopQA & Multi-hop question answering dataset built over evidence from multiple Wikipedia articles \citep{ho2020twowiki} \\
+CI & Confidence interval \\
+CSV & Comma-separated values \\
+EM & Exact match; in this dissertation always \emph{normalised} exact match (\Cref{sec:lexical}) \\
+F1 & Token-level F1 score between a prediction and the best accepted reference (\Cref{sec:lexical}) \\
+GPU & Graphics processing unit \\
+JSON & JavaScript Object Notation, the output format required of the screening judge \\
+LLM & Large language model \\
+LoRA & Low-rank adaptation, the parameter-efficient fine-tuning method used for the \texttt{v3b} checkpoint \citep{hu2021lora} \\
+MAS & Multi-agent system, defined operationally in \Cref{chap:introduction} \\
+MuSiQue & Multi-hop question answering dataset composed from single-hop questions \citep{trivedi2022musique} \\
+NA & Not available; used for audit fields whose value is absent from the frozen key, never as a substitute for ``false'' \\
+OR & Odds ratio \\
+QA & Question answering \\
+RQ1--RQ3 & The three research questions stated in \Cref{chap:introduction} \\
+SAS & Single-agent system, the compute-matched baseline \\
+SFT & Supervised fine-tuning \\
+\bottomrule
+\end{longtable}
+
+\section{Notation and label values}
+
+\small
+\begin{longtable}{@{}p{0.22\textwidth}p{0.72\textwidth}@{}}
+\toprule
+Symbol & Meaning \\
+\midrule
+\endfirsthead
+\toprule
+Symbol & Meaning \\
+\midrule
+\endhead
+\correct{} & Label value \emph{correct}, for either the Discovery or the Endorsement axis \\
+\wrong{} & Label value \emph{wrong} \\
+\uncertain{} & Label value \emph{uncertain}, reserved for genuinely unresolvable cases such as truncation inside the answer-bearing statement \\
+\ctow{} & Harmful transition: the source state endorses the reference answer and the final state endorses a wrong answer \\
+\wtoc{} & Beneficial transition: the source state is wrong and the final state endorses the reference answer \\
+$D(s)$ & Discovery label of stage $s$: whether the stage contains enough content to support the reference answer \\
+$E(s)$ & Endorsement label of stage $s$: whether the stage commits to that answer \\
+$T_i$ & The ordered sequence of observable stage texts produced for item $i$, ending in the final output $f_i$ \\
+$n(x)$ & Normalisation function applied before lexical comparison: lowercasing, punctuation and article removal, whitespace collapse \\
+$G$ & Accepted reference set for an item: the gold answer together with its supplied aliases \\
+$\kappa$ & Cohen's kappa, chance-corrected agreement \citep{cohen1960coefficient} \\
+$W_h$ & Finite-population weight of frozen sampling stratum $h$ (\Cref{eq:weighting}) \\
+\texttt{v3b} & The project's merged supervised fine-tuning checkpoint of Qwen3-4B \\
+\bottomrule
+\end{longtable}

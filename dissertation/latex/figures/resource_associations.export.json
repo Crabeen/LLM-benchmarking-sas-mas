@@ -1,0 +1,40 @@
+{
+  "notice": "Export completed with explicit settings. This report does not establish visual, accessibility, scientific-integrity, or journal-submission compliance.",
+  "outputs": [
+    {
+      "format": "pdf",
+      "kind": "vector-container",
+      "path": "/sessions/rcw-0138j8c9fpskz6npgeqtou4z/figs_out/resource_associations.pdf",
+      "size_bytes": 19925
+    }
+  ],
+  "provenance": {
+    "notes": "observational associations, not causal effects",
+    "raw_data": "analysis/semantic_diagnostics/resource_associations.csv",
+    "transformations": [
+      "none; adjusted_or, ci_low, ci_high plotted as recorded"
+    ],
+    "uncertainty": "95% confidence intervals, fixed-effect stratification over dataset+model_variant+budget+system"
+  },
+  "schema_version": "1.0",
+  "settings": {
+    "bbox_inches": null,
+    "dpi": 600.0,
+    "facecolor": "white",
+    "figure_size_inches": [
+      5.275590551181102,
+      2.5196850393700787
+    ],
+    "font_mode": "truetype",
+    "formats": [
+      "pdf"
+    ],
+    "pad_inches": 0.1,
+    "transparent": false
+  },
+  "versions": {
+    "matplotlib": "3.10.9",
+    "pillow": "12.2.0"
+  },
+  "warnings": []
+}

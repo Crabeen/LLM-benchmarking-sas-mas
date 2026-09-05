@@ -5,11 +5,60 @@
 
 Large language models (LLMs) can solve many reasoning tasks through a single generated chain of thought, but an increasingly common alternative is to organise several model calls as a multi-agent system (MAS). One agent may decompose a question, several agents may work on subproblems or adopt different roles, and a final component may revise or aggregate their outputs. This design is attractive because it resembles familiar forms of collaborative problem solving. Independent proposals may increase coverage, debate may expose errors, and a dedicated aggregator may separate exploration from decision making. Frameworks such as AutoGen have made these structures straightforward to implement, while work on multi-agent debate reports gains in factuality and reasoning under some settings \citep{wu2023autogen,du2023debate,liang2023mad}.
 
+This dissertation uses an operational rather than universal boundary between a single-agent system (SAS) and an MAS. An MAS is a computational graph with multiple separately invoked role instances that retain distinct local generation states and whose outputs are exchanged, selected, or aggregated by an explicit coordination procedure. The SAS baseline instead uses one solver invocation and one continuous local state, even when that trajectory contains several reasoning steps; \Cref{sec:hop-vs-step} separates this process property from the multi-hop property of the questions themselves. Under this definition, Ensemble is an MAS because four separately sampled candidate states are passed to a separate aggregator. The five evaluated MAS architectures are Sequential, Subtask Parallel, Parallel Roles, Debate, and Ensemble.
+
+Two of them carry most of the analysis and are introduced here, because the research questions and the human audit both refer to them directly. \emph{Sequential} decomposes the question with a planner, passes the accumulated findings along an ordered chain of workers, and forms the answer with a final aggregator; the last worker is therefore the state that the aggregator either preserves or loses. \emph{Debate} has two agents produce independent proposals, exposes each agent to the opposing proposal so that it can issue a revision, and then has a separate picker choose between the two revised answers; the revised pair is the state the picker either exploits or discards. These two receive greater human-audited depth because they expose interpretable final coordination boundaries; all five remain in the broad benchmark and machine screen. \Cref{tab:architecture-overview} and \Cref{fig:architecture-example} set out all six systems side by side, and \Cref{chap:design} gives the implementation detail.
+
 The same decomposition also introduces new failure surfaces. A correct answer may be present in an early proposal but removed during revision. A final picker may prefer a polished but incorrect alternative. A sequential worker may correctly resolve a subproblem and then lose the answer when new context is appended. An aggregator may ignore a correct candidate in favour of a majority of correlated errors. These are not failures of initial answer discovery. They are failures of preservation, endorsement, and selection. A final exact-match score cannot distinguish them from cases in which no component ever produced useful evidence.
 
 This distinction matters for both scientific and engineering reasons. Scientifically, claims that ``agents reason better together'' concern a mechanism, not only an endpoint. If several agents discover more correct candidates but the system cannot preserve them, the architecture has generated information without converting it into a reliable decision. Engineering decisions are also different under these two diagnoses. A discovery problem may call for better retrieval, more diverse prompts, or a stronger base model. A preservation problem instead calls for provenance-aware aggregation, protected evidence, calibrated confidence, or a less destructive revision policy. Treating both as final-answer error hides the intervention point.
 
-Compute matching creates a second difficulty. A multi-agent graph naturally uses more model invocations than a single-agent baseline. Comparing systems without controlling computation can therefore reward the architecture that simply spends more. Conversely, assigning the same nominal token budget does not guarantee equal effective reasoning: agents can repeat context, emit boilerplate, terminate early, or spend tokens reconciling redundant outputs. Recent work by \citet{tran2026single} directly challenges the assumption that multi-agent decomposition improves multi-hop reasoning when thinking-token budgets are matched. The present dissertation reproduces that comparison with an open 4-billion-parameter model and extends it from outcome measurement to failure localisation.
+Compute matching creates a second difficulty. A multi-agent graph naturally uses more model invocations than a single-agent baseline. Comparing systems without controlling computation can therefore reward the architecture that simply spends more. Conversely, assigning the same nominal token budget does not guarantee equal effective reasoning: agents can repeat context, emit boilerplate, terminate early, or spend tokens reconciling redundant outputs. Recent work by \citet{tran2026single} directly challenges the assumption that multi-agent decomposition improves multi-hop reasoning when thinking-token budgets are matched. That work establishes \emph{that} the multi-agent systems it evaluates fail to beat a compute-matched single-agent baseline, but it scores only the final answer. It therefore identifies the failure without explaining it: the reader cannot tell whether no component ever produced a correct answer, or whether one was produced and then discarded at a later coordination step. Those two diagnoses call for different remedies, and a final-answer metric cannot separate them. The present dissertation reproduces that comparison with an open 4-billion-parameter model and supplies the missing explanation by measuring discovery, preservation, and endorsement at each architecture stage.
+
+\section{Prior work in brief}
+
+This section summarises the research the dissertation builds on and states the gap it addresses.
+\Cref{chap:related} develops each strand in full.
+
+Work on reasoning with a single model established the premise that intermediate steps matter. Chain-of-thought
+prompting showed that eliciting those steps improves performance and that the trajectory, not only the final
+string, carries information \citep{wei2022chain}. Self-consistency samples several trajectories and aggregates
+them \citep{wang2023selfconsistency}; Self-Refine and Reflexion add feedback and revision loops
+\citep{madaan2023selfrefine,shinn2023reflexion}; Tree of Thoughts searches over partial reasoning states and
+ReAct grounds steps in external actions \citep{yao2023tot,yao2023react}. These methods keep one model and one
+control flow, and they share a risk that becomes central below: later text can overwrite a correct earlier
+state.
+
+Multi-agent systems distribute inference across separately invoked roles instead. AutoGen provides a general
+conversational framework \citep{wu2023autogen}, CAMEL assigns cooperating agents complementary personas
+\citep{li2023camel}, and MetaGPT constrains their exchange to structured artefacts \citep{hong2024metagpt};
+surveys of the area observe that designs have multiplied faster than the practice for evaluating them
+\citep{guo2024survey}. Multi-agent debate is the most studied family, with reported gains in factuality and
+reasoning \citep{du2023debate,liang2023mad}, although later work finds those gains sensitive to the debate
+protocol and to the strength of the single-agent comparison \citep{smit2024mad,wang2024rethinking}.
+Decomposition is in any case not an exclusively multi-agent property, since a single model can generate and
+answer its own subquestions \citep{zhou2023leasttomost,khot2023decomposed}.
+
+Two recent results motivate this project directly. \citet{tran2026single} show that the multi-agent advantage
+can disappear once thinking-token budgets are matched, and \citet{cemri2025why} catalogue failures across
+several multi-agent frameworks, arguing that many are organisational rather than deficiencies of the
+underlying model. Neither traces the loss of a particular correct answer to a particular coordination step.
+
+The evaluation literature supplies both the task and the instruments. Multi-hop question answering provides
+questions intended to require combining facts, from HotpotQA \citep{yang2018hotpotqa} to the stricter
+constructions of MuSiQue and 2WikiMultiHopQA \citep{trivedi2022musique,ho2020twowiki}, with the caveat that
+compositional questions can often be answered without the intended reasoning \citep{min2019compositional}.
+Process supervision argues for evaluating intermediate steps rather than endpoints
+\citep{lightman2023verify,uesato2022process}. Language models used as judges make stage-level labelling
+feasible at scale \citep{zheng2023judge,liu2023geval}, but carry documented biases of position and
+self-preference \citep{wang2024fair,panickssery2024selfpref}, so their validity on a new label definition
+cannot be assumed.
+
+Taken together, this work motivates both the promise and the cost of decomposition, but stops either at
+outcome measurement or at framework-level taxonomy. What is missing is a compute-matched, architecture-aware
+account of where a correct answer is lost between its first appearance and the system's final commitment, with
+human rather than machine labels at the points where machine error would be most damaging. That is the gap
+this dissertation addresses.
 
 \section{Problem statement}
 
@@ -43,7 +92,7 @@ This dissertation makes five contributions.
   \item It demonstrates that nominally larger budgets are not automatically useful. Across 4,000 matched multi-agent pairs, moving from 1,000 to 2,000 thinking tokens increases mean wall time by 4.83 seconds while reducing both semantic discovery and final semantic accuracy.
 \end{enumerate}
 
-The numerical contributions should be read with their stated scope. The human audit supports population-weighted claims for the frozen sampling frame used to construct the audit. The full 26,873-stage semantic analysis is valuable for locating candidate failure mechanisms, but the Mistral labels do not meet the reliability standard required to convert every screened transition into ground truth.
+The numerical contributions should be read with their stated scope. The human audit supports population-weighted claims for the population defined by the frozen machine-screening and sampling snapshot. The full 26,873-stage semantic analysis is valuable for locating candidate failure mechanisms, but the Mistral labels do not meet the reliability standard required to convert every screened transition into ground truth.
 
 \section{Dissertation structure}
 

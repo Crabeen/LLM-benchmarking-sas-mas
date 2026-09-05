@@ -1,0 +1,40 @@
+{
+  "notice": "Export completed with explicit settings. This report does not establish visual, accessibility, scientific-integrity, or journal-submission compliance.",
+  "outputs": [
+    {
+      "format": "pdf",
+      "kind": "vector-container",
+      "path": "/sessions/rcw-0138j8c9fpskz6npgeqtou4z/figs_out/budget_tradeoff.pdf",
+      "size_bytes": 21799
+    }
+  ],
+  "provenance": {
+    "notes": "panel (a) uses a non-zero point-encoded axis; panel (b) bars start at zero",
+    "raw_data": "analysis/semantic_diagnostics/budget_pair_tests.csv (group=all)",
+    "transformations": [
+      "rates scaled to percent; counts plotted as recorded"
+    ],
+    "uncertainty": "exact McNemar p = 0.003465 (discovery), 0.033537 (final accuracy)"
+  },
+  "schema_version": "1.0",
+  "settings": {
+    "bbox_inches": null,
+    "dpi": 600.0,
+    "facecolor": "white",
+    "figure_size_inches": [
+      5.393700787401575,
+      2.677165354330709
+    ],
+    "font_mode": "truetype",
+    "formats": [
+      "pdf"
+    ],
+    "pad_inches": 0.1,
+    "transparent": false
+  },
+  "versions": {
+    "matplotlib": "3.10.9",
+    "pillow": "12.2.0"
+  },
+  "warnings": []
+}
