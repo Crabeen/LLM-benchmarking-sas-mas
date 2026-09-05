@@ -1,0 +1,172 @@
+{
+  "seed": 41,
+  "items": 160,
+  "stage_rows_for_analysis": 400,
+  "hidden_duplicate_rows": 20,
+  "blind_rows_total": 420,
+  "quotas": {
+    "debate_picker_c_to_w": 39,
+    "debate_picker_w_to_c": 1,
+    "debate_picker_c_to_c": 20,
+    "debate_picker_w_to_w": 20,
+    "sequential_aggregator_c_to_w": 25,
+    "sequential_aggregator_w_to_c": 15,
+    "sequential_aggregator_c_to_c": 20,
+    "sequential_aggregator_w_to_w": 20
+  },
+  "stratum_fill_order": [
+    "debate_picker_w_to_c",
+    "sequential_aggregator_c_to_w",
+    "debate_picker_c_to_w",
+    "sequential_aggregator_w_to_c",
+    "debate_picker_w_to_w",
+    "sequential_aggregator_w_to_w",
+    "sequential_aggregator_c_to_c",
+    "debate_picker_c_to_c"
+  ],
+  "stratum_pools": {
+    "debate_picker_w_to_c": {
+      "pool_total": 1,
+      "selected": 1,
+      "machine_pool_share_of_architecture": "1/1185"
+    },
+    "sequential_aggregator_c_to_w": {
+      "pool_total": 38,
+      "selected": 25,
+      "machine_pool_share_of_architecture": "38/1037"
+    },
+    "debate_picker_c_to_w": {
+      "pool_total": 111,
+      "selected": 39,
+      "machine_pool_share_of_architecture": "111/1185"
+    },
+    "sequential_aggregator_w_to_c": {
+      "pool_total": 151,
+      "selected": 15,
+      "machine_pool_share_of_architecture": "151/1037"
+    },
+    "debate_picker_w_to_w": {
+      "pool_total": 267,
+      "selected": 20,
+      "machine_pool_share_of_architecture": "267/1185"
+    },
+    "sequential_aggregator_w_to_w": {
+      "pool_total": 335,
+      "selected": 20,
+      "machine_pool_share_of_architecture": "335/1037"
+    },
+    "sequential_aggregator_c_to_c": {
+      "pool_total": 513,
+      "selected": 20,
+      "machine_pool_share_of_architecture": "513/1037"
+    },
+    "debate_picker_c_to_c": {
+      "pool_total": 806,
+      "selected": 20,
+      "machine_pool_share_of_architecture": "806/1185"
+    }
+  },
+  "shortage_records": [
+    {
+      "stratum": "debate_picker_w_to_c",
+      "requested_n": 15,
+      "available_n": 1,
+      "selected_n": 1,
+      "shortfall_n": 14,
+      "sampling_mode": "rare_event_census",
+      "reallocated_to": "debate_picker_c_to_w",
+      "reallocated_n": 14
+    }
+  ],
+  "shortage_rules": [
+    "A beneficial stratum that is short is taken as a full census first.",
+    "The shortfall moves to the primary harmful stratum of the same architecture.",
+    "If that harmful stratum is also short, split the remainder evenly across the same architecture's C->C and W->W controls.",
+    "Never move a shortfall across architectures unless every pool of that architecture is exhausted.",
+    "Never duplicate an item, relax a label definition, or reuse a benchmark id to fill a quota."
+  ],
+  "usable_items_by_architecture": {
+    "debate": 1185,
+    "sequential": 1037
+  },
+  "excluded_prior_audit_ids": 84,
+  "exclusions": {
+    "debate:final_endorsement_reuse_conflict": 20,
+    "debate:final_endorsement_uncertain_or_missing": 40,
+    "debate:prior_audit_id": 336,
+    "debate:revision_oracle_uncertain": 19,
+    "sequential:final_endorsement_reuse_conflict": 4,
+    "sequential:final_endorsement_uncertain_or_missing": 68,
+    "sequential:last_worker_uncertain": 155,
+    "sequential:prior_audit_id": 336
+  },
+  "balance_source_run": {
+    "2wiki_frozen_token": 35,
+    "2wiki_v3b_token": 36,
+    "frozen_all_mas_token": 44,
+    "v3b_all_mas_token": 45
+  },
+  "balance_dataset": {
+    "2wiki": 71,
+    "musique": 89
+  },
+  "balance_model_variant": {
+    "frozen": 79,
+    "v3b": 81
+  },
+  "balance_budget": {
+    "1000": 79,
+    "2000": 81
+  },
+  "balance_question_any_truncated": {
+    "False": 51,
+    "True": 109
+  },
+  "balance_source_truncated": {
+    "False": 73,
+    "True": 87
+  },
+  "balance_final_label_source": {
+    "identical_intermediate": 60,
+    "mistral_pending": 100
+  },
+  "unique_benchmark_ids": 160,
+  "pilot": {
+    "debate_picker_c_to_w": {
+      "requested": 5,
+      "selected": 5
+    },
+    "debate_picker_w_to_c": {
+      "requested": 5,
+      "selected": 3
+    },
+    "sequential_aggregator_c_to_w": {
+      "requested": 5,
+      "selected": 5
+    },
+    "sequential_aggregator_w_to_c": {
+      "requested": 5,
+      "selected": 5
+    }
+  },
+  "notes": [
+    "C/W in machine_sampling_stratum are Mistral labels and define the sampling stratum only; they are never a human gold label.",
+    "Population rates must be computed from stratum_pools, not from the 160 sampled items; report stratified or macro figures.",
+    "Hidden duplicate rows measure intra-rater consistency and are excluded from the 160-item analysis (in_item_analysis=false)."
+  ],
+  "pilot_requested_rows": 20,
+  "pilot_actual_rows": 18,
+  "pilot_shortfall_rows": 2,
+  "pilot_shortfall_reason": "debate_picker_w_to_c contains one eligible item with three stage outputs",
+  "authoritative_pilot_file": "analysis\\final_transition_endorsement_audit\\pilot_stage_review_18.csv",
+  "codebook_version": "final_transition_endorsement_rev4_2026-08-21",
+  "codebook_file": "analysis/final_transition_endorsement_audit/CODEBOOK_REV4.md",
+  "codebook_scope": "Rounds 1-3 are frozen under rev.1-rev.3 respectively; rev.4 applies to Round 4.",
+  "presentation_structure": {
+    "round_count": 4,
+    "round_seed": 4104,
+    "round_manifest": "analysis\\final_transition_endorsement_audit\\rounds\\round_manifest.json",
+    "max_same_item_rows_within_round": 1,
+    "hidden_duplicate_same_round_as_origin": 0
+  }
+}

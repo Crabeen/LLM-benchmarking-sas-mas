@@ -1,0 +1,152 @@
+\documentclass[11pt,oneside]{book}
+
+% This project follows the supplied COM dissertation template while extending
+% it with packages needed for reproducible tables, figures, and appendices.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=1.2in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{url}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{fancyhdr}
+
+\definecolor{uosviolet}{RGB}{68,35,89}
+\definecolor{accentblue}{RGB}{35,86,122}
+\definecolor{softgray}{RGB}{245,245,245}
+
+\newcommand{\thesistitle}{Understanding Failure Modes in Multi-Agent LLM Reasoning Under Controlled Compute Budgets}
+\newcommand{\studentname}{Youheng Xie}
+\newcommand{\supervisorname}{Robert Loftin}
+\newcommand{\degreeprogramme}{MSc Artificial Intelligence}
+\newcommand{\submissiondate}{August 2026}
+\newcommand{\reportedwordcount}{approximately 12,100 words}
+
+\hypersetup{
+  pdftitle={\thesistitle},
+  pdfauthor={\studentname},
+  pdfsubject={COM Dissertation},
+  pdfkeywords={large language models, multi-agent systems, multi-hop question answering, human audit, failure localisation}
+}
+
+\setstretch{1.35}
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0.15em}
+\setlength{\emergencystretch}{2em}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\captionsetup{font=small,labelfont=bf}
+\renewcommand{\arraystretch}{1.15}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\nouppercase{\leftmark}}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\newcommand{\correct}{\ensuremath{\mathrm{C}}}
+\newcommand{\wrong}{\ensuremath{\mathrm{W}}}
+\newcommand{\uncertain}{\ensuremath{\mathrm{U}}}
+\newcommand{\ctow}{\ensuremath{\correct\!\rightarrow\!\wrong}}
+\newcommand{\wtoc}{\ensuremath{\wrong\!\rightarrow\!\correct}}
+\newcommand{\sas}{\textsc{SAS}}
+\newcommand{\mas}{\textsc{MAS}}
+
+\begin{document}
+\hypersetup{pageanchor=false}
+
+\begin{titlepage}
+  \centering
+  \includegraphics[width=0.33\textwidth]{images/UOSLogo_Portrait_Violet_RGB.png}\par
+  \vspace{1.4cm}
+  {\Huge\bfseries\color{uosviolet}\thesistitle\par}
+  \vspace{1.3cm}
+  {\Large\studentname\par}
+  \vspace{0.7cm}
+  {\large A dissertation submitted in partial fulfilment of the requirements for the degree of\par}
+  \vspace{0.4cm}
+  {\Large\bfseries\degreeprogramme\par}
+  \vfill
+  {\large School of Computer Science\par}
+  {\large University of Sheffield\par}
+  \vspace{0.8cm}
+  {\large Supervisor: \supervisorname\par}
+  {\large \submissiondate\par}
+  \vspace{0.8cm}
+  {\small Reported word count: \reportedwordcount\par}
+\end{titlepage}
+
+\frontmatter
+\hypersetup{pageanchor=true}
+
+\chapter*{Declaration}
+\addcontentsline{toc}{chapter}{Declaration}
+All sentences or passages quoted in this dissertation from other people's work have been specifically acknowledged by clear cross-referencing to author, work and page(s). Any illustrations that are not the work of the author of this dissertation have been used with the explicit permission of the originator and are specifically acknowledged. I understand that failure to do this amounts to plagiarism and will be considered grounds for failure in this dissertation and the degree examination as a whole.
+
+\vspace{1.5cm}
+\noindent Signed: \rule{0.45\textwidth}{0.4pt}\hfill Date: \rule{0.22\textwidth}{0.4pt}
+
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+I thank my supervisor, \supervisorname, for guidance on the framing, evaluation design, and interpretation of this project. I also acknowledge the University of Sheffield research computing facilities used to run the experiments. Any remaining errors are my own.
+
+\input{chapters/abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter*{Abbreviations}
+\addcontentsline{toc}{chapter}{Abbreviations}
+\begin{tabular}{@{}ll@{}}
+LLM & Large language model \\
+MAS & Multi-agent system \\
+SAS & Single-agent system \\
+QA & Question answering \\
+SFT & Supervised fine-tuning \\
+CI & Confidence interval \\
+OR & Odds ratio \\
+\end{tabular}
+
+\mainmatter
+\include{chapters/01_introduction}
+\include{chapters/02_related_work}
+\include{chapters/03_framework}
+\include{chapters/04_experimental_design}
+\include{chapters/05_evaluation_methodology}
+\include{chapters/06_benchmark_budget_results}
+\include{chapters/07_machine_screening_results}
+\include{chapters/08_human_audit_results}
+\include{chapters/07_discussion}
+\include{chapters/08_limitations}
+\include{chapters/09_conclusion}
+
+\appendix
+\include{appendices/audit_codebook}
+\include{appendices/reproducibility}
+
+\backmatter
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

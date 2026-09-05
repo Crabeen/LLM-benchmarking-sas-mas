@@ -1,0 +1,30 @@
+# Two-question integration check before submitting the formal benchmark.
+seed: 0
+temperature: 0.0
+output_dir: results/v3b_all_mas_smoke
+
+model:
+  name: /mnt/parscratch/users/acu25yx/checkpoints/qwen3-4b-sft-merged-v3b
+  tensor_parallel_size: 1
+  max_model_len: 16384
+  enforce_eager: true
+  gpu_memory_utilization: 0.90
+
+data:
+  split: validation
+  n: 2
+  context_mode: oracle
+
+systems:
+  [sas, sequential, subtask_parallel, parallel_roles, debate, ensemble]
+
+architecture:
+  max_plan_steps: 5
+  max_parallel_tasks: 4
+  ensemble_size: 4
+  ensemble_temperature: 0.7
+
+budget:
+  mode: token
+  levels: [100]
+

@@ -1,0 +1,33 @@
+{
+  "row_count": 26873,
+  "unique_identity_count": 26873,
+  "runs": {
+    "2wiki_frozen_token": 6411,
+    "2wiki_v3b_token": 6420,
+    "frozen_all_mas_token": 7021,
+    "v3b_all_mas_token": 7021
+  },
+  "datasets": {
+    "2wiki": 12831,
+    "musique": 14042
+  },
+  "model_variants": {
+    "frozen": 13432,
+    "v3b": 13441
+  },
+  "systems": {
+    "debate": 6400,
+    "ensemble": 6400,
+    "parallel_roles": 6400,
+    "sequential": 3508,
+    "subtask_parallel": 4165
+  },
+  "budgets": {
+    "1000": 13436,
+    "2000": 13437
+  },
+  "stage_truncated": {
+    "false": 11736,
+    "true": 15137
+  }
+}

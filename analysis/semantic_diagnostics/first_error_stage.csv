@@ -1,0 +1,7 @@
+﻿system,n,proposal,revision,worker_chain,final_picker,final_aggregator,pre_final_unresolved,unresolved,none,failure_rate
+all,8000,946,73,75,173,857,0,0,5876,0.2655
+debate,1600,77,73,0,173,0,0,0,1277,0.2019
+ensemble,1600,66,0,0,0,316,0,0,1218,0.2388
+parallel_roles,1600,77,0,0,0,336,0,0,1187,0.2581
+sequential,1600,376,0,75,0,94,0,0,1055,0.3406
+subtask_parallel,1600,350,0,0,0,111,0,0,1139,0.2881

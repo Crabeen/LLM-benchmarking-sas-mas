@@ -1,0 +1,45 @@
+\chapter{Reproducibility and Evidence Map}
+\label{app:reproducibility}
+
+\section{Core configurations}
+
+The frozen and fine-tuned all-architecture token benchmarks are configured in:
+\begin{itemize}[leftmargin=*]
+  \item \path{configs/frozen_all_mas_token.yaml}
+  \item \path{configs/v3b_all_mas_token.yaml}
+  \item \path{configs/2wiki_frozen_token.yaml}
+  \item \path{configs/2wiki_v3b_token.yaml}
+\end{itemize}
+
+Each records seed, decoding settings, model path, context mode, evaluation size, systems, architecture limits, and budget levels. The corresponding wall-clock configurations preserve the architecture definitions while changing the budget mode.
+
+\section{Derived evidence files}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.38\textwidth}>{\raggedright\arraybackslash}p{0.55\textwidth}@{}}
+\toprule
+File & Role in the dissertation \\
+\midrule
+\endhead
+\path{analysis/diagnostics/*/metrics.csv} & Lexical final accuracy, F1, candidate diversity, and preliminary stage diagnostics by run. \\
+\path{analysis/semantic_diagnostics/semantic_metrics.csv} & Full-trace semantic discovery, oracle, final, preservation, regret, and architecture counters. \\
+\path{analysis/semantic_diagnostics/first_error_stage.csv} & Machine-screened first terminal failure locations. \\
+\path{analysis/semantic_diagnostics/budget_pair_tests.csv} & Matched 1,000-versus-2,000-token outcome tests and paired resource changes. \\
+\path{analysis/semantic_diagnostics/budget_wallclock_overall.csv} & Architecture-level wall time, realised tokens, truncation, discovery, preservation, and final accuracy. \\
+\path{analysis/semantic_diagnostics/resource_associations.csv} & Fixed-effect stratified resource and truncation odds ratios. \\
+\path{analysis/final_transition_endorsement_audit/blind_stage_review_400.csv} & Completed blind human labels for the 400 non-repeat records, with repeat material maintained in round files. \\
+\path{analysis/final_transition_endorsement_audit/final_transition_audit_key.jsonl} & Frozen unblinding key joining record identifiers to architecture, item, role, and stratum. \\
+\path{analysis/final_transition_endorsement_audit/unblind/item_level_unblinded_160.csv} & Item-level audit table containing the 15 documented truncation, human-state, human-transition, machine-state, and machine-transition fields used for the final boundary analysis. \\
+\path{analysis/final_transition_endorsement_audit/UNBLIND_REPORT.md} & Agreement, weighted transition estimates, uncertainty sensitivity, and audit checks. \\
+\path{analysis/final_transition_endorsement_audit/CODEBOOK_REV4.md} & Final decision rules used for Discovery and Endorsement. \\
+\bottomrule
+\end{longtable}
+
+\section{Reproduction sequence}
+
+The analysis can be reproduced in five stages. First, run the fixed benchmark configurations and retain complete stage traces. Second, apply lexical scoring and deterministic alias normalisation. Third, generate the semantic screen with the frozen judge prompt and retain uncertain outputs rather than coercing them. Fourth, reconstruct the frozen audit strata and join the completed blind sheet only after annotation. Fifth, compute weighted transitions under the three uncertain-label rules and regenerate the tables and figures.
+
+The supplied LaTeX project contains a figure-generation script that reads the committed CSV summaries and writes vector PDF figures. Running that script does not re-judge any model output and therefore cannot change semantic labels.
+
+\section{Scope exclusions}
+
+Exploratory role-conditioned \texttt{v4} training plans, incomplete ratio arms, and any post-audit prompt experimentation are excluded from the main evidence. They remain potential future work but should not be mixed with the frozen benchmark and audit when reproducing the reported claims.

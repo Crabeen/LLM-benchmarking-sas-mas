@@ -1,0 +1,527 @@
+﻿blind_id,question,reference_answer,reference_aliases,stage_output,human_label,human_notes
+STG-0001,When was the most recent Bicycle Friendly Community Award given to the city where the headquarters of the only group larger than Långa nätter's record label is located?,2013,"[""2013""]",Silver in 2013.,correct,
+STG-0002,What is the date of death of the director of film Stefanie In Rio?,22 February 1981,"[""22 February 1981""]","The director of *Stefanie in Rio* is Curtis Bernhardt, who died on 22 February 1981.",correct,
+STG-0003,When was the region immediately north of the region where Israel is located and the location of the Battle of Qurah and Umm al Maradim created?,1930,"[""1930""]","**Key Entities and Relations:**  
+- **Israel**: Located in the Middle East, on the Mediterranean and Red Sea.  
+- **Battle of Qurah and Umm al Maradim**: Occurred off the coast of Kuwait in the Persian Gulf, near the islands of Qurah and Umm al Maradim.  
+- **Region in question**: The area immediately north of Israel and the location of the Battle of Qurah and Umm al Maradim.  
+
+**Intermediate Facts Needed:**  
+1. **Geographical Relationship**:  
+   - Israel is in the southern Levant. The region immediately north of Israel includes countries like Lebanon, Syria, and Jordan.  
+   - The Battle of Qurah and Umm al Maradim is near the Persian Gulf, specifically in the area of Kuwait (north of Saudi Arabia).  
+   - The region north of Israel and the Battle of Qurah/Umm al Maradim likely refers to",incorrect,
+STG-0004,What nationality is the director of film Violet Tendencies?,Sweden,"[""Sweden""]","The director of *Violet Tendencies* is Casper Andreas. According to the context, he is described as an ""American actor, film director, screenwriter, and film producer."" Despite being born in Sweden, his nationality is American. 
+
+**Answer:** American.",incorrect,
+STG-0005,The largest city in the state the performer of Pithecanthropus Erectus was from is also the state capital. Who won the indy car race in that city?,Mario Andretti,"[""Mario Andretti""]","Phoenix  
+Mario Andretti",correct,
+STG-0006,What county contains the city with a radio station that broadcasts to the capital city of the state where the Peace center is located?,Richland County,"[""Richland County"",""Richland County, South Carolina""]","**Analysis as a Skeptic:**  
+1. **Possible Pitfalls:**  
+   - The question assumes a direct connection between the radio station's license (Forest Acres) and its broadcast reach (Columbia). While WWNQ is licensed to Forest Acres, its broadcast area may or may not include Columbia, depending on signal strength and infrastructure.  
+   - The Peace Center is in Greenville, South Carolina, but the question conflates ""the state where the Peace Center is located"" (South Carolina) with ""the capital city of that state"" (Columbia). This is logically sound, but the answer hinges on confirming that Columbia is indeed the capital of South Carolina.  
+
+2. **Unsupported Jumps:**  
+   - The assumption that WWNQ broadcasts to Columbia is not explicitly stated in the provided context. The context only notes that the station serves the Columbia, South Carolina, market. This could imply it broadcasts to Columbia, but the term """,correct,
+STG-0007,Who is Priyadarshini Raje Scindia's father-in-law?,Madhavrao Scindia,"[""Madhavrao Scindia""]","Priyadarshini Raje Scindia's father-in-law is Madhavrao Scindia, who is the father of Jyotiraditya Scindia. The answer is accurate based on the provided context.",correct,
+STG-0008,Where was the father of Hachiun born?,Khamag Mongol,"[""Khamag Mongol""]","The context provided does not explicitly state where Yesugei, the father of Hachiun, was born. However, since Yesugei was a major chief of the Khamag Mongol confederation, it is inferred that he was likely born in the region of the Khamag Mongol confederation, which was centered in the Mongolian steppes. The exact location remains unspecified in the given text. 
+
+**Answer:** The text does not specify the exact birthplace of Yesugei, but he was likely born in the region of the Khamag Mongol confederation, which encompassed the Mongolian steppes.",correct,
+STG-0009,Where is the district that the person who wanted to reform and address Bernhard Lichtenberg's religion preached a sermon on Marian devotion before his death located?,Saxony-Anhalt,"[""Saxony-Anhalt""]",Saxony-Anhalt,correct,
+STG-0010,What county is the city that shares a border with the state capital of the state where Andrew Deveaux was born located in?,Richland County,"[""Richland County"",""Richland County, South Carolina""]",South Carolina,correct,
+STG-0011,"Which film came out earlier, The Remains Of Nothing or Crime In The Streets?",Crime In The Streets,"[""Crime In The Streets""]",1956,incorrect,
+STG-0012,"Which film has the director born later, Saturn In Opposition or Daughters Of Pleasure?",Saturn In Opposition,"[""Saturn In Opposition""]",Saturn in Opposition,correct,
+STG-0013,"Which film has the director who was born later, Lost At Sea (Film) or Iris: The Movie?",Iris: The Movie,"[""Iris: The Movie""]",Yang Yun-ho (born 1966) was born later than Louis J. Gasnier (born 1875).,incorrect,
+STG-0014,Who is Albert G. Simms's father-in-law?,Mark Hanna,"[""Mark Hanna""]","Albert G. Simms's father-in-law is **Mark Hanna**. Ruth Hanna McCormick, his wife, was the daughter of Mark Hanna, a prominent politician and Senator.",correct,
+STG-0015,"Which film has the director who is older, Death For Sale or The Fitzgerald Family Christmas?",Death For Sale,"[""Death For Sale""]","The director of *Death for Sale* is Faouzi Bensaïdi, born March 14, 1967. The director of *The Fitzgerald Family Christmas* is Edward Burns, born January 29, 1968. Since Bensaïdi was born in 1967 and Burns in 1968, **Faouzi Bensaïdi is older**. Thus, **Death for Sale** has the older director. 
+
+**Answer:** Death for Sale.",correct,
+STG-0016,"Which film whose director was born first, The Fatal Encounter or Taxi Ramudu?",Taxi Ramudu,"[""Taxi Ramudu""]","The director of *Taxi Ramudu* is V. Madhusudhan Rao, born on 27 July 1917. The director of *The Fatal Encounter* is Lee Jae-kyoo, born on 7 October 1970. Since 1917 is earlier than 1970, **Taxi Ramudu** was directed by the filmmaker born first. 
+
+**Answer:** Taxi Ramudu.",correct,
+STG-0017,When was Burma's name changed to that of the country on the natural boundary between the country that hosted the tournament and the country where That Dam is from?,1235,"[""1235""]","The opponent answer incorrectly assumes the question refers to Myanmar's name change, but the query specifically asks for the name change of ""Burma"" to the country on the natural boundary between Thailand and Laos. The Mekong River is the natural boundary between Thailand and Laos, but it is not a country. The question is flawed because no country lies on the Mekong River as a natural boundary between Thailand and Laos. Myanmar (Burma) is not adjacent to this boundary. The name ""Burma"" was officially changed to ""Myanmar"" in 1989, but this does not relate to the Mekong River. The answer is **incorrect**.  
+
+**Corrected Answer:** The question contains a logical error. The Mekong River is the natural boundary between Thailand and Laos, but it is not a country. Myanmar (Burma) is not on this boundary. The name ""Burma"" was officially changed to """,incorrect,
+STG-0018,When was the region that lies to the north of the region where Strangers No More took place and the Persian Gulf created?,1930,"[""1930""]","The region in question is likely referring to the **Persian Gulf** and the **northern part of the Arabian Peninsula**. The **Persian Gulf** was formed during the **Cretaceous Period**, approximately **145 to 66 million years ago**, as a result of tectonic movements and the subsidence of the Arabian Plate. However, the specific region north of Tel Aviv (Israel) and related to the Persian Gulf would be the **Arabian Peninsula**, which has a complex geological history. The **Kingdom of Saudi Arabia**, which borders the Persian Gulf, was established in **1932** under the leadership of Abdulaziz Al Saud. 
+
+The question might be asking about the **creation of the Persian Gulf region**, but since the Gulf itself is a geological feature formed millions of years ago, the answer likely refers to the **establishment of the modern Saudi state** (1932) as",incorrect,
+STG-0019,What nationality is the director of film 3096 Days?,American,"[""American""]",The director of the film *3096 Days* is Sherry Hormann.,incorrect,
+STG-0020,"Who is Hermann, Prince Of Hohenlohe-Langenburg's paternal grandfather?",Charles Louis,"[""Charles Louis""]","Prince Charles Louis of Hohenlohe-Langenburg was Hermann, Prince of Hohenlohe-Langenburg's paternal grandfather.",correct,
+STG-0021,When did the city where Superior Drill Company is located become capitol of the state where the screenwriter of The Poor Boob was born?,1839,"[""1839""]",Springfield,incorrect,
+STG-0022,Who is the father of the director of film Mirage (1972 Film)?,Daniel Alomía Robles,"[""Daniel Alomía Robles""]","The director of the 1972 film *Mirage* is Armando Robles Godoy. According to the context, his father is Daniel Alomía Robles. 
+
+**Answer:** Daniel Alomía Robles.",correct,
+STG-0023,When was the region immediately north of the region where the country that secured southern Lebanon is located and the Persian Gulf established?,1932,"[""1932""]","The opponent answer contains several inaccuracies. First, the ""region immediately north of Israel"" is not the Hejaz region of Saudi Arabia, as Israel is located south of Saudi Arabia, not north of it. Second, the Persian Gulf is not ""established"" in the sense of being created; it is a natural body of water. Third, the Kingdom of Saudi Arabia was founded in 1932, but the Hejaz region has historical significance predating the modern Saudi state. The correct answer should identify the **Hejaz region** (part of ancient Arabia) as the area north of Israel and adjacent to the Persian Gulf, with the **Persian Gulf** itself existing since ancient times. The **Kingdom of Saudi Arabia** (1932) unified the region, but the region's historical establishment predates the modern state.  
+
+**Corrected Answer:**  
+The region immediately north of Israel (modern Israel)",incorrect,
+STG-0024,What nationality is Imperial Noble Consort Shujia's husband?,Qing dynasty,"[""Qing dynasty""]",Manchu.,correct,
+STG-0025,When was the region immediately north of the region where the country in which Aluf can be found is located and the Persian Gulf established?,1932,"[""1932""]",The region immediately north of Israel is **Lebanon**.,incorrect,
+STG-0026,Where was the place of death of Thomas Sheridan (Soldier)'s father?,London,"[""London""]","The opponent incorrectly assumes that the burial site (Westminster Abbey) equates to the place of death. The context only states Richard Brinsley Sheridan was ""buried at Poets' Corner in Westminster Abbey,"" but does not explicitly mention his place of death. While it is common for burial sites to reflect places of death, this cannot be definitively concluded without explicit evidence. The correct answer is: **The context does not specify Richard Brinsley Sheridan's place of death, only that he was buried at Poets' Corner, Westminster Abbey.**",correct,
+STG-0027,"Which film whose producer was born first, All-American Co-Ed or Lagu Kenangan?",All-American Co-Ed,"[""All-American Co-Ed""]","Since Leroy Prinz's birth date is not provided in the context, we cannot determine which producer was born first. The birth date of Djamaluddin Malik (13 February 1917) is known, but without Prinz's date, a comparison is impossible.",incorrect,
+STG-0028,Where was the place of death of the director of film Happy Go Lucky (1936 Film)?,Los Angeles,"[""Los Angeles""]","The provided context does not include information about the place of death of Aubrey Scotto. The available data specifies his birthplace (Los Angeles), career timeline (1929–1953), and the film ""Happy Go Lucky"" (1936), but no details about his death location are mentioned. Further research beyond the given context would be required to answer this question.",incorrect,
+STG-0029,When was the most recent BFC award given to the city where the only record music group larger than the recording label for The Lost Trident Sessions is located?,2013,"[""2013""]",The most recent BFC award given to Santa Monica is **Silver in 2013**.,correct,
+STG-0030,"A country's military branch, which in the US contains the Air Defense Artillery, was unprepared for the invasion of the country whose ccTLD was "".cs"". The unprepared country was the only communist country to have an embassy where?",Alfredo Stroessner's Paraguay,"[""Alfredo Stroessner's Paraguay"",""Alfredo Stroessner""]","The opponent incorrectly identifies the unprepared country as Yugoslavia, when the question specifies the country with ccTLD "".cs"" (Czechoslovakia). The context states that Yugoslavia's army was unprepared for an invasion of **Yugoslavia**, not Czechoslovakia. The correct answer for the embassy is Paraguay, as Yugoslavia was the only communist country with an embassy there. The flaw lies in conflating the unprepared country with the ccTLD. 
+
+**Answer:** Paraguay.",incorrect,
+STG-0031,"Which film has the director who died earlier, Ma And Pa Kettle Go To Town or Malibu Express?",Ma And Pa Kettle Go To Town,"[""Ma And Pa Kettle Go To Town""]","The director of *Ma and Pa Kettle Go to Town* is Charles Lamont, who died in 1993. The director of *Malibu Express* is Andy Sidaris, who died in 2007. Since Lamont died earlier, the answer is **Ma and Pa Kettle Go to Town**. 
+
+**Answer:** Ma and Pa Kettle Go to Town.",correct,
+STG-0032,What is the award that the director of film Footy Legends won?,Young Australian of the Year,"[""Young Australian of the Year""]",The award that Khoa Do won is the **Young Australian of the Year Award** in 2005.,correct,
+STG-0033,Who is Germaine Of Foix's paternal grandfather?,Gaston IV of Foix,"[""Gaston IV of Foix""]",Count Gaston IV of Foix.,correct,
+STG-0034,In what region of Germany is the district where a sermon on Marian devotion was preached by the man who wanted to reform the religion of Victor Razafimahatratra?,Saxony-Anhalt,"[""Saxony-Anhalt""]","The district where the sermon on Marian devotion was preached by Martin Luther is Wittenberg, located in Saxony-Anhalt, Germany. 
+
+**Answer:** Saxony-Anhalt.",correct,
+STG-0035,Are both Kafrahlat Jallad and Qatma located in the same country?,yes,"[""yes""]","Yes, both Kafrahlat Jallad and Qatma are located in Syria. Kafrahlat Jallad is in Idlib Province, while Qatma is in Aleppo Governorate, both within the Syrian territory. Despite Qatma's de facto autonomy since 2014 and its control by the Turkish-backed Free Syrian Army, it remains within Syria's borders.",correct,
+STG-0036,What county shares a border with the county where the singer of Hungry Eyes from the movie Dirty Dancing was born?,Cabarrus County,"[""Cabarrus County""]","The opponent incorrectly assumes that Cuyahoga County (Ohio) borders Rowan County (North Carolina), which is geographically impossible as they are in different states. Cleveland, Ohio, is in Cuyahoga County, which borders Lake County (Ohio), not Rowan County. The correct answer should identify a county in Ohio adjacent to Cuyahoga County, such as Lake County. 
+
+**Answer:** Lake County.",incorrect,
+STG-0037,"What day is the feast held in the city containing the headquarters of the company, that owns the record label that released Study in Brown?",May 4,"[""May 4""]","The opponent's answer contains a critical flaw: it incorrectly assumes Universal Music Group's headquarters is in Los Angeles, which is not stated in the provided context. The context only mentions The Right Stuff Records (a different label) being based in Santa Monica. The question asks for the feast day of Saint Monica in the city where the company (Universal Music Group) owning EmArcy Records is headquartered. Since the context does not specify Universal Music Group's headquarters, the answer must rely on the context's explicit mention of Santa Monica and its naming. The context states that Santa Monica was named in honor of Saint Monica's feast day (May 4), despite conflicting historical accounts. Thus, the correct answer is **May 4**.  
+
+**Final Answer:** The feast day is **May 4**.",correct,
+STG-0038,"Which film has the director born later, Jesse James' Women or Ride Lonesome?",Ride Lonesome,"[""Ride Lonesome""]",Budd Boetticher,incorrect,
+STG-0039,"A line with Williamsburg, Main Street and another station are in a state that's next to an ocean. When did that ocean start to open up?",around 140 million years ago,"[""around 140 million years ago""]",The state is Virginia.,incorrect,
+STG-0040,What county is the city that shares a border with the state capital of the state where the RBC Heritage Golf Tournament is played in?,Richland County,"[""Richland County"",""Richland County, South Carolina""]","Step 2: The state capital of South Carolina is **Columbia**, which is located in **Richland County**.",incorrect,
+STG-0041,"Which country George Fitzmaurice, 6Th Earl Of Orkney's father is from?",British,"[""British""]","The father of George FitzMaurice, 6th Earl of Orkney, was Thomas FitzMaurice, 5th Earl of Orkney. The title ""Earl of Orkney"" is a British peerage, and Thomas held this title as a member of the British nobility. Therefore, Thomas FitzMaurice was from the **United Kingdom**. 
+
+**Answer:** The United Kingdom.",correct,
+STG-0042,Who is Maquiztzin's sibling-in-law?,Chimalpopoca,"[""Chimalpopoca""]",Chimalpopoca and Moctezuma I,correct,
+STG-0043,What nationality is Imperial Noble Consort Shujia's husband?,Qing dynasty,"[""Qing dynasty""]",Chinese.,correct,
+STG-0044,"During British rule, what wood product was produced primarily in the country between the country that hosted the tournament and the country where That Dam is from?",75% of the world's teak,"[""75% of the world's teak""]","**Analysis:**  
+The question asks for a wood product produced primarily in Myanmar during British rule, specifically related to the countries involved in the 2020 AFC U-23 Championship (Thailand) and the location of That Dam (Laos). Myanmar is geographically between Thailand and Laos, but the question focuses on Myanmar's production.  
+
+From the context, Myanmar was known for exporting **teak** during British rule. The text states: ""Myanmar also had a wealth of natural and labour resources. British Burma began exporting crude oil in 1853... It produced 75% of the world's teak and had a highly literate population.""  
+
+**Partial Answer:**  
+During British rule, **teak** was the primary wood product produced in Myanmar. This aligns with the country's geographical position between Thailand (the tournament host) and Laos (where That Dam is located).",incorrect,
+STG-0045,What is the seat of the county sharing a border with the county whose seat is the city WAPL is licensed to broadcast to?,Green Bay,"[""Green Bay""]","The seat of the county sharing a border with the county whose seat is the city WAPL is licensed to broadcast to is **Green Bay**.  
+
+**Corrected Explanation:**  
+1. WAPL is licensed to **Appleton, Wisconsin**.  
+2. Appleton is in **Brown County, Wisconsin**.  
+3. The question asks for the seat of the county **sharing a border** with Brown County.  
+4. Brown County shares a border with **Outagamie County** (context states Pulaski High School’s district serves parts of Outagamie County).  
+5. The seat of **Outagamie County** is **Green Bay**, which is correctly identified.  
+
+**Answer:** Green Bay.",correct,
+STG-0046,Who is the child of the Italian navigator who explored the eastern coast of the continent César Gaytan was born in for the English?,Sebastian Cabot,"[""Sebastian Cabot""]","Guadalajara, Jalisco, Mexico.",incorrect,
+STG-0047,"Which film was released more recently, Return To Macon County or Nightmare Honeymoon?",Return To Macon County,"[""Return To Macon County""]",Return To Macon County,correct,
+STG-0048,In which county is the city sharing a border with the capitol of the state where WYFG is located?,Richland County,"[""Richland County"",""Richland County, South Carolina""]",Step 2 output: Richland County,correct,
+STG-0049,"Which film was released first, Assault On Dome 4 or The Battle Of The Rails?",The Battle Of The Rails,"[""The Battle Of The Rails""]",The Battle Of The Rails,correct,
+STG-0050,"Who lived longer, John-Roger Hinkins or Charles Harpur?",John-Roger Hinkins,"[""John-Roger Hinkins""]","John-Roger Hinkins was born on September 24, 1934, and died on October 22, 2014.",correct,
+STG-0051,Who is the maternal grandfather of Baldwin Iv Of Jerusalem?,Joscelin II,"[""Joscelin II""]","**Analysis as a Skeptic:**  
+The question asks for the maternal grandfather of Baldwin IV of Jerusalem. To answer this, we must carefully trace the maternal lineage.  
+
+**Key Points from Context:**  
+- Baldwin IV’s mother is **Agnes of Courtenay**.  
+- Agnes’s parents are **Joscelin II of Courtenay** (father) and **Beatrice of Saone** (mother).  
+
+**Pitfalls and Missing Constraints:**  
+1. **Confusion Between Paternal and Maternal Lines:**  
+   - **Joscelin II of Courtenay** is Agnes’s father (paternal grandfather of Baldwin IV), not her mother’s father (maternal grandfather). This is a common confusion.  
+   - The context does **not** mention Beatrice of Saone’s father, who would be the maternal grandfather of Baldwin IV.  
+
+2. **Missing Information:**  
+   - The text",incorrect,
+STG-0052,Where was the place of death of the director of film Happy Go Lucky (1936 Film)?,Los Angeles,"[""Los Angeles""]",Aubrey Scotto,incorrect,
+STG-0053,Who is the father of the director of film Mirage (1972 Film)?,Daniel Alomía Robles,"[""Daniel Alomía Robles""]",Daniel Alomía Robles,correct,
+STG-0054,Which country Heinz Heydrich's father is from?,German,"[""German""]","Heinz Heydrich's father, Richard Bruno Heydrich, was a German opera singer. Therefore, he is from Germany. 
+
+**Answer:** Germany.",correct,
+STG-0055,Who is Maria Amalia Of Naples And Sicily's father-in-law?,"Louis Philippe II, Duke of Orléans","[""Louis Philippe II, Duke of Orléans""]","Maria Amalia of Naples and Sicily's father-in-law is Louis Philippe I, King of the French, not Louis Philippe II. The opponent incorrectly identifies Louis Philippe II as her father-in-law, but Louis Philippe II was the father of Louis Philippe I, not Maria Amalia. The correct answer is Louis Philippe I, as he was her husband and thus her father-in-law.",incorrect,
+STG-0056,When was the region that lies to the north of where Israel is located and where Shamal is located established?,1932,"[""1932""]","The opponent answer incorrectly identifies the region as Iraq but mistakenly cites 1921, the start of the British mandate, rather than the establishment of the Kingdom of Iraq in 1932. The region in question is not Iraq (which is to the north of Jordan, not Israel), but **Syria** (north of Israel) and **Jordan** (where Shamal winds originate). Syria was established as a French mandate in 1920, but as an independent country, it gained sovereignty in 1946. Jordan was established in 1946 as a Hashemite kingdom. However, the question ambiguously refers to the region where Shamal occurs (Iraq) and the region north of Israel (Syria/Jordan). If referring to Iraq, the Kingdom of Iraq was established in **1932**, not 1921. If referring to Syria, it became independent in **1",correct,
+STG-0057,What is the date of death of Begga's husband?,662,"[""662""]",662 AD,correct,
+STG-0058,In which county is the city sharing a border with the capitol of the state where WYFG is located?,Richland County,"[""Richland County"",""Richland County, South Carolina""]",Step 2 output: Richland County,correct,
+STG-0059,Who is Priyadarshini Raje Scindia's father-in-law?,Madhavrao Scindia,"[""Madhavrao Scindia""]","Priyadarshini Raje Scindia's father-in-law is Jyotiraditya Scindia's father. The context explicitly states Jyotiraditya Scindia is from the Scindia family, which historically ruled Gwalior. While the context does not name his father specifically, the answer must reference the family lineage. The correct answer is **a member of the Scindia family**, as the context does not provide the name of Jyotiraditya's father.",incorrect,
+STG-0060,What is the abbreviation for Angela Merkel's original home country that once had border troops called the Deutsche Grenzpolizei?,GDR,"[""GDR"",""German Democratic Republic"",""East Germany""]","The opponent's answer correctly identifies that the Deutsche Grenzpolizei belonged to East Germany (GDR), not West Germany (FRG). However, the question explicitly asks for the abbreviation of Angela Merkel's **original home country**, which is West Germany (FRG), not the country that had the border troops. The confusion arises from the phrasing: the country with the border troops is GDR, but Merkel's original home country is FRG. The answer should reflect the original home country, not the one with the troops. 
+
+**Final Answer:** FRG",incorrect,
+STG-0061,Who is Albert G. Simms's father-in-law?,Mark Hanna,"[""Mark Hanna""]",**Step 2 Output:** The father of Albert G. Simms's spouse (Ruth Hanna McCormick) is **Mark Hanna**.,correct,
+STG-0062,"Which film has the director died first, Leave Her To Heaven or A Roman Scandal?",Leave Her To Heaven,"[""Leave Her To Heaven""]",Step 2 output: The director of *A Roman Scandal* is **Al Christie**.,incorrect,
+STG-0063,When was the region that lies to the north of where Israel is located and where The World is located established?,1932,"[""1932""]","**Analysis as a Skeptic:**  
+The question contains ambiguities and potential misinterpretations. Key issues include:  
+
+1. **Geographical Confusion:**  
+   - **Israel** is located in the Middle East, bordering the Mediterranean and Red Sea.  
+   - **The World (artificial archipelago)** is in the **Persian Gulf**, off Dubai (UAE), which is **south of Saudi Arabia**.  
+   - The phrase ""region to the north of where Israel is located and where The World is located"" is contradictory. The **World** is in the **Persian Gulf**, which is **south of Saudi Arabia**, while Israel is in the **Levant** (north of Saudi Arabia). Thus, the ""region to the north of both"" would require a location that is **north of Israel** (e.g., Lebanon, Syria) and **north of The World** (which is in the",incorrect,
+STG-0064,"In the top five largest urban areas in the US state in which the band performing Scars was formed, where does the city having Pathology rank?",third-largest,"[""third-largest""]","**Analysis:**  
+1. **Key Assumptions and Data Sources:**  
+   - The question hinges on the ranking of San Diego (where Pathology is from) within the top five largest urban areas in California. The context explicitly states that San Diego is the **third-largest urban area** in California, after Los Angeles and San Francisco. However, the context does not provide data for the full top five, so this relies on external knowledge (e.g., San Jose-Sunnyvale-Santa Clara, Orange County, or Riverside–San Bernardino).  
+
+2. **Possible Pitfalls:**  
+   - **Missing Constraints:** The context only mentions San Diego and Riverside–San Bernardino, but the question requires the top five. Without explicit data for all five, the answer depends on external knowledge, which may not be fully verified here.  
+   - **Alternative Interpretations:** The ""urban area"" vs. ""city"" distinction could matter. For example",incorrect,
+STG-0065,"Who is Charles Ii, Count Of Nevers's paternal grandmother?",Elizabeth of Nevers,"[""Elizabeth of Nevers""]","Charles II, Count of Nevers's paternal grandmother is **Elizabeth of Nevers**.  
+
+**Corrected Reasoning:**  
+- Charles II's father is **Engelbert de La Mark**, who is explicitly stated in the second context to be the son of **John I, Duke of Cleves** and **Elizabeth of Nevers**.  
+- Since Elizabeth of Nevers is Engelbert de La Mark's mother, she is also Charles II's paternal grandmother.  
+- The opponent answer is correct, but the reasoning could be clarified by explicitly linking Elizabeth of Nevers to Engelbert de La Mark and thus to Charles II. No alternative reasoning is necessary.",correct,
+STG-0066,"A country's military branch, which in the US contains the Air Defense Artillery, was unprepared for the invasion of Hana Mandlikova's birth country. When was the word ""Slavs"" used in the national anthem of the unprepared country?",1943–1992,"[""1943–1992""]","The opponent incorrectly assumes the ""Slavs"" were used in the Slovak Republic's anthem (1939–1945) for Czechoslovakia, but the question asks for the country that was unprepared (Czechoslovakia). The context only specifies the ""Slavs"" in the Slovak Republic's anthem, not Czechoslovakia's. The correct answer must reference the period when ""Slavs"" were in Czechoslovakia's anthem, which is not explicitly stated in the provided context. Since the context does not clarify Czechoslovakia's anthem, the answer cannot be definitively determined from the given information. 
+
+**Answer:** The provided context does not specify when ""Slavs"" were used in Czechoslovakia's national anthem, so the question cannot be fully answered based on the given information.",incorrect,
+STG-0067,Who is the child of the Italian navigator who explored the eastern coast of the continent César Gaytan was born in for the English?,Sebastian Cabot,"[""Sebastian Cabot""]","César Gaytan was born in Guadalajara, Jalisco, Mexico. The ""for the English"" reference likely pertains to the historical context of John Cabot's exploration of North America, but the birthplace itself is Guadalajara, Mexico. 
+
+**Step 2 Output:** Guadalajara, Jalisco, Mexico.",incorrect,
+STG-0068,"What is the date of death of William Brownlow, 3Rd Baron Lurgan's father?",15 January 1882,"[""15 January 1882""]","The date of death of William Brownlow, 3rd Baron Lurgan's father, Charles Brownlow, 2nd Baron Lurgan, is 15 January 1882.",correct,
+STG-0069,When was Burma's name changed to that of the country on the natural boundary between the country that hosted the tournament and the country where That Dam is from?,1235,"[""1235""]","The question refers to the name change of Burma (Myanmar) to its current name on the natural boundary between Thailand (host of the 2020 AFC U-23 Championship) and Laos (where That Dam is located). The natural boundary between these two countries is the **Mekong River**. 
+
+Burma's name was officially changed to **Myanmar** in **1989** under the military regime. However, the historical name ""Burma"" was used for centuries. The inscription mentioning ""Mranma"" (1235 CE) refers to an ancient name, but the modern name ""Myanmar"" (derived from ""Myanmar"" as a regional term) was formalized in 1989. 
+
+The key detail here is that the name ""Burma"" was officially replaced by ""Myanmar"" in 1989, aligning with the country's geopolitical identity. The",correct,
+STG-0070,"What is the place of birth of Pons, Count Of Toulouse's wife?",French,"[""French""]","The opponent's answer incorrectly assumes ""La Marche"" is Almodis de La Marche's birthplace without explicit textual support. The text only states she was ""of La Marche,"" which refers to her familial or regional association, not her birthplace. Majore's birthplace is entirely unmentioned. A corrected answer must acknowledge the lack of explicit information and avoid speculative inferences. 
+
+**Final Answer:** The text provides no explicit information about the birthplaces of Pons's wives, Majore or Almodis de La Marche. Therefore, their places of birth cannot be determined from the given context.",correct,
+STG-0071,Where was the place of death of Thomas Sheridan (Soldier)'s father?,London,"[""London""]","The opponent's answer correctly notes that the text does not explicitly state Richard Brinsley Sheridan's place of death, only that he was buried at Poets' Corner. However, it overlooks a key detail: the context explicitly states he was ""buried at Poets' Corner in Westminster Abbey,"" which is a location in London. While burial sites are often near places of death, the text does not confirm this. The answer should clarify that the burial location is specified, but the death location remains unmentioned. 
+
+**Improved Answer:** The context specifies that Richard Brinsley Sheridan was ""buried at Poets' Corner in Westminster Abbey,"" but it does not explicitly state where he died. While burial sites often reflect places of death, the text does not confirm his death location. Therefore, the place of death cannot be definitively determined from the provided information.",correct,
+STG-0072,"Among the top five largest urban areas in the state where Getting Away with Murder's performer was formed, where does Veoh's headquarters city rank?",third-largest,"[""third-largest""]","Step 3 output: Veoh's headquarters is located in **San Diego, California**.",incorrect,
+STG-0073,Who is the mother-in-law of Margaret Of Valois?,Jeanne d'Albret,"[""Jeanne d'Albret""]","The mother-in-law of Margaret of Valois is **Catherine de' Medici**. She was the wife of King Henry II of France and the mother of Henry III of France, who married Margaret. Thus, Catherine de' Medici was the mother of Margaret's husband, making her Margaret's mother-in-law.",incorrect,
+STG-0074,"When did the country, whose co-official language was used by the director of Group Portrait with a Lady, first attend the Olympics as an independent team?",2016,"[""2016""]","The country whose co-official language is Serbian (Bosnia and Herzegovina) first attended the Olympics as an independent team in **1992**. 
+
+**Answer:** 1992.",incorrect,
+STG-0075,What nationality is Phintys's father?,Athens,"[""Athens""]","The nationality of Phintys's father is Greek. According to Stobaeus, Phintys was the daughter of Callicrates, an ancient Greek architect active in the fifth century BC. While some scholars speculate that Callicrates might be linked to the Spartan general Callicratidas, this connection is considered ""fanciful"" by I.M. Plant. The primary evidence from Stobaeus identifies Callicrates as Greek, making Phintys's father Greek.",correct,
+STG-0076,When was the region that lies to the north of the where Israel is located and the location of Shamal created?,1930,"[""1930""]","The region to the north of Israel includes areas like Lebanon, Syria, and Jordan. The location of the Shamal wind is in the Persian Gulf states (e.g., Saudi Arabia, Kuwait). However, the question seems to reference a single region. The **Kingdom of Saudi Arabia** is situated to the south of Israel and is the primary location of the Shamal wind. The region north of Israel (Lebanon, Syria, Jordan) is part of the **Lebanon-Syria-Jordan area**, which has a complex history. 
+
+The **Kingdom of Saudi Arabia** was established in **1930** by the Al Saud family. However, the region north of Israel (Lebanon, Syria, Jordan) has been historically part of various empires and states, including the Ottoman Empire. The **modern states of Lebanon, Syria, and Jordan** were created in the early 20th century (e.g",correct,
+STG-0077,What is the PBS station in the second largest city in the state where Yuma's Library District is located?,KUAT-TV 6,"[""KUAT-TV 6"",""KUAT-TV""]",The PBS station in Tucson is **KUAT-TV 6**.,correct,
+STG-0078,What is the abbreviation for Angela Merkel's original home country that once had border troops called the Deutsche Grenzpolizei?,GDR,"[""GDR"",""German Democratic Republic"",""East Germany""]",FRG,incorrect,
+STG-0079,Who is the father-in-law of Ri Sol-Ju?,Kim Jong-il,"[""Kim Jong-il""]","The father-in-law of Ri Sol-ju is **Kim Il-sung**, the founding leader of North Korea. He is the father of Kim Jong-il, who is Ri Sol-ju's husband.",incorrect,
+STG-0080,Who is the spouse of the director of film Geordie (Film)?,Bernadette O'Farrell,"[""Bernadette O'Farrell""]","The director of *Geordie* is Frank Launder, and the context explicitly states he was married to Bernadette O'Farrell from 1950 until his death in Monaco. The answer is accurate and complete.  
+
+**Answer:** Bernadette O'Farrell.",correct,
+STG-0081,"The German priest, who wanted Abraham Shimonaya's religious denomination to reform, preached a sermon on Marian devotion soon before his death in which German state?",Saxony-Anhalt,"[""Saxony-Anhalt""]","**Analysis:**  
+1. **Pitfalls and Unsupported Jumps:**  
+   - The text mentions a sermon preached at **Wittenberg** by Luther ""only a month before his death,"" but this is explicitly tied to **Martin Luther**, not Abraham Shimonaya or his denomination. The question conflates two distinct historical figures and contexts: Luther (16th century) and Shimonaya (early 20th century).  
+   - The text does not mention any German priest associated with Abraham Shimonaya’s denomination (Assyrian Church of the East or Chaldean Catholic Church) or their reform efforts. The reference to Wittenberg is tied to Luther’s Reformation, not Shimonaya’s conversion or religious reforms.  
+
+2. **Missing Constraints:**  
+   - The question assumes a connection between Luther’s Wittenberg sermon and Shimonaya’s religious denomination, which is not supported by the provided context.",incorrect,
+STG-0082,"Which film has the director who was born later, Lost At Sea (Film) or Iris: The Movie?",Iris: The Movie,"[""Iris: The Movie""]","November 11, 1966",incorrect,
+STG-0083,What county is the city that shares a border with the state capital of the state where Darlington County located in?,Richland County,"[""Richland County"",""Richland County, South Carolina""]","The opponent's answer incorrectly assumes that Darlington is the city sharing a border with Columbia. While Darlington County borders Richland County (where Columbia is located), the county seat of Darlington County is Darlington, which is not directly adjacent to Columbia. The correct city sharing a border with Columbia is **Darlington** (in Darlington County), but the opponent conflates the county seat with the city itself. The answer is correct, but the reasoning is flawed because it misstates that Darlington is the city bordering Columbia, when in fact Darlington (the city) is in Darlington County, which borders Richland County (Columbia's county). 
+
+**Corrected Answer:** Darlington County.",incorrect,
+STG-0084,What nationality is the director of film Blood Street?,Chinese,"[""Chinese""]","**Key Entities:**  
+- Film: *Blood Street*  
+- Director: Leo Fong  
+- Question: Nationality of *Blood Street*’s director.  
+
+**Constraints/Relations:**  
+- *Blood Street* is co-directed by Leo Fong.  
+- Leo Fong’s background: Chinese American actor, martial artist, boxer, former Methodist minister.  
+
+**Intermediate Facts:**  
+- ""Chinese American"" is a nationality term indicating heritage and citizenship.  
+- Leo Fong’s nationality is explicitly stated as Chinese American in the context.  
+
+**Partial Answer:**  
+The director of *Blood Street*, Leo Fong, is **Chinese American**.",correct,
+STG-0085,Where does the city where Pathology was formed rank among the top five largest urban areas of the state where the performer of Getting Away With Murder was formed?,third-largest,"[""third-largest""]",Step 2 output: San Diego,incorrect,
+STG-0086,When was the company that published American Scientist founded?,1886,"[""1886""]",1886,correct,
+STG-0087,Where was the place of burial of Zeenat Mahal's husband?,Rangoon,"[""Rangoon""]","The husband of Zeenat Mahal was **Bahadur Shah Zafar** (Bahadur Shah II), the last Mughal emperor.",incorrect,
+STG-0088,When was the most recent Bicycle Friendly Community Award given to the city where the headquarters of the only group larger than Långa nätter's record label is located?,2013,"[""2013""]","The city where the headquarters of the largest record company (Universal Music Group) is located is Los Angeles. However, the context mentions that The Right Stuff Records, part of Universal Music Group, is based in Santa Monica. Since the question refers to the ""only group larger than Sony Music"" (Universal Music Group), and Santa Monica is associated with Universal Music Group via The Right Stuff Records, the most recent Bicycle Friendly Community Award given to Santa Monica is **Silver in 2013**. 
+
+**Answer:** 2013.",correct,
+STG-0089,What county is the city that shares a border with the state capital of the state where Darlington County located in?,Richland County,"[""Richland County"",""Richland County, South Carolina""]","The opponent answer incorrectly assumes Forest Acres shares a border with Columbia. While Forest Acres is in Richland County (which includes Columbia as its county seat), the city of Columbia is the county seat, and Forest Acres is a separate city within the same county. The question asks for the county of the city that shares a border with Columbia. The correct city sharing a border with Columbia is **Darlington**, which is in **Darlington County**. However, Darlington County is in South Carolina, and the state capital is Columbia. Thus, the correct answer is **Darlington County**.  
+
+**Corrected Answer:** Darlington County.",correct,
+STG-0090,Which county shares a border with the county where the city in which the original singer of All By Myself was born is located?,Cabarrus County,"[""Cabarrus County""]","The original singer of ""All by Myself"" is Eric Carmen. The context mentions that the Definitive Collection is by Eric Carmen, but does not explicitly state his birthplace. However, the first context entry mentions Cleveland, North Carolina, as a town in Rowan County. Since the question refers to the city where the original singer was born, and Cleveland is mentioned in the context, it is likely that Cleveland, North Carolina is the city in question. 
+
+Gold Hill is in Rowan County, and the question asks which county shares a border with the county where the city (Cleveland) is located. Rowan County borders Cabarrus County. Therefore, the answer is Cabarrus County. 
+
+**Answer:** Cabarrus County.",correct,
+STG-0091,"Which film came out first, Nadhi Karaiyinile or 9 Millimeter?",9 Millimeter,"[""9 Millimeter""]",9 Millimeter,correct,
+STG-0092,Where was the father of Helen Of Greece And Denmark born?,Athens,"[""Athens""]","The father of Helen of Greece and Denmark was King Constantine I of Greece. The context does not explicitly mention his birthplace. While general historical knowledge confirms he was born in Corfu, Greece, this information is not derived from the provided text. The answer should avoid relying on external knowledge and instead note the absence of explicit details in the context. 
+
+**Corrected improved answer:**  
+The father of Helen of Greece and Denmark was King Constantine I of Greece. The provided context does not specify his birthplace. Historical records confirm he was born in Corfu, Greece, but this information is not explicitly stated in the text.",correct,
+STG-0093,What's the longest homer in the history of the league where the team with the most titles from the event after which they give out the MLB MVP award plays?,582 feet (177 m),"[""582 feet (177 m)""]","The longest home run in the history of Major League Baseball (MLB), where the New York Yankees (the team with the most World Series titles) play, is Joey Meyer's 582 feet (177 m) hit in 1987 at Denver's Mile High Stadium. This is the longest verifiable home run in MLB history, surpassing Babe Ruth's 575 feet (175 m) record. The opponent incorrectly cited Babe Ruth's home run, omitting the more recent verified record.",correct,
+STG-0094,Who burned down the city where Dunn Dunn's artist died in the war after which the government got involved in healthcare?,Confederate Gen. John Bell Hood,"[""Confederate Gen. John Bell Hood""]","The city in question is Atlanta. During the American Civil War (1861–1865), Atlanta was targeted by Union forces. After a five-week siege by Union General William Sherman, Confederate General John Bell Hood evacuated Atlanta on September 1, 1864, and ordered the destruction of public buildings and Confederate assets, an event known as the ""Burnt Atlanta."" The government's involvement in healthcare came after the Civil War through the Freedmen's Bureau. However, Shawty Lo, a modern artist from Atlanta, did not die in the Civil War. The question likely conflates historical events with Shawty Lo's contemporary existence. The answer refers to the Confederates (Confederate Gen. John Bell Hood) who ordered the burning of Atlanta during the Civil War.",incorrect,
+STG-0095,What is the date of death of Begga's husband?,662,"[""662""]","**Key Entities:**  
+- **Begga's husband:** Ansegisel  
+- **Ansegisel's death date:** Mentioned in the context of [Ansegisel] as ""murdered before 679 or 662"" (conflicting dates).  
+
+**Constraints/Relations:**  
+- Ansegisel was the husband of Saint Begga.  
+- The text explicitly states he was ""killed sometime before 679, slain in a feud by his enemy Gundewin.""  
+- The mention of ""662"" may be an error or alternative estimate, but the primary source specifies **before 679**.  
+
+**Intermediate Fact:**  
+Ansegisel's death occurred **before 679 AD**, as confirmed by the context. The conflicting ""662"" may be a misinterpretation or typographical error.  
+
+**Partial Answer:**  
+Ansegisel, the",correct,
+STG-0096,"A line with Williamsburg, Main Street and another station are in a state that's next to an ocean. When did that ocean start to open up?",around 140 million years ago,"[""around 140 million years ago""]","The ocean in question is the Atlantic Ocean. The text states that the South Atlantic Ocean opened around 140 million years ago as Africa separated from South America. Since Virginia is bordered by the Atlantic Ocean, and the South Atlantic is part of it, the answer is **140 million years ago**. 
+
+**Answer:** 140 million years ago.",correct,
+STG-0097,Where was the place of death of the director of film Happy Go Lucky (1936 Film)?,Los Angeles,"[""Los Angeles""]",The provided context does not specify the place of death of Aubrey Scotto.,incorrect,
+STG-0098,Where is the district that the person who wanted to reform and address Bernhard Lichtenberg's religion preached a sermon on Marian devotion before his death located?,Saxony-Anhalt,"[""Saxony-Anhalt""]",The district where Bernhard Lichtenberg was located before his death is **Wittenberg**.,correct,
+STG-0099,When was the region that lies to the north of the region Israel is located and where The World is located created?,1930,"[""1930""]","The region to the north of Israel (in the Middle East) and where The World (off Dubai's coast in the Persian Gulf) is located is the **Arabian Peninsula**, not the Kingdom of Saudi Arabia. The Arabian Peninsula is a geographically defined region that has existed for millennia, predating the 1930s. The **Kingdom of Saudi Arabia** was formally established in **1932**, not 1930, and is a part of the Arabian Peninsula. The opponent conflates the creation of the Kingdom with the existence of the Peninsula. The Arabian Peninsula itself was not ""created"" but has been a historical and geographical entity since ancient times. 
+
+**Corrected Answer:** The Arabian Peninsula, which includes the region to the north of Israel and the area where The World is located, has existed for thousands of years. The Kingdom of Saudi Arabia, a political entity within the Peninsula, was established in **",incorrect,
+STG-0100,"In the top five largest urban areas in the US state in which the band performing Scars was formed, where does the city having Pathology rank?",third-largest,"[""third-largest""]","The city with Pathology, San Diego, is the **third-largest urban area** in California. The top five largest urban areas in California (as per 2010 census data) are:  
+1. Los Angeles  
+2. San Francisco  
+3. Riverside–San Bernardino  
+4. San Diego  
+5. San Jose (or Sacramento, depending on exact rankings).  
+
+Thus, **San Diego ranks third**.",correct,
+STG-0101,The MLB MVP award is given out after a competition where a team has played the most games. What is the longest win streak in the history of league that team plays for?,26,"[""26""]","The context does not provide information on the team with the most games played in MLB history. Therefore, the longest win streak for that team cannot be determined from the given data.",incorrect,
+STG-0102,"What were the Genesis's advantages over the platform with a three letter abbreviation, that had a video game named after the league in charge of the Super Bowl halftime show?",built on 16-bit architectures and offered improved graphics and sound,"[""built on 16-bit architectures and offered improved graphics and sound"",""16-bit"",""16-bit architecture""]","The Genesis (Sega Mega Drive) had advantages over the NES (Nintendo Entertainment System) in terms of 16-bit architecture, improved graphics, and enhanced sound capabilities. These features made the Genesis superior to the 8-bit NES, which was the platform for the 1989 NFL video game.",correct,
+STG-0103,"Which film has the director who died first, City Across The River or The Lure Of Heart'S Desire?",The Lure Of Heart'S Desire,"[""The Lure Of Heart'S Desire""]","July 11, 1929",incorrect,
+STG-0104,How many ethnic minorities were looked at differently in the city where the headquarters of the only group larger than Långa nätter's record label is located?,two,"[""two""]","The city in question is Santa Monica, California. The record label for *Långa nätter* is Sony Music. The only larger record label mentioned is Universal Music Group, which owns The Right Stuff Records. The headquarters of Universal Music Group is in Santa Monica. The context states that around the start of the 20th century, two ethnic minorities (Japanese and Chinese) were viewed differently by White Americans in Santa Monica. Thus, the answer is **two**. 
+
+**Answer:** 2.",correct,
+STG-0105,"Who is Charles Ii, Count Of Nevers's paternal grandmother?",Elizabeth of Nevers,"[""Elizabeth of Nevers""]","Charles II, Count of Nevers's paternal grandmother is **Elisabeth Countess of Nevers**.  
+
+**Corrected Explanation:**  
+1. **Charles II's Father:** Engelbert de La Mark (son of Engelbert of Cleves, Count of Nevers and Charlotte of Bourbon-Vendôme).  
+2. **Engelbert of Cleves's Parents:** John I, Duke of Cleves (father) and **Elisabeth Countess of Nevers** (mother).  
+3. **Elisabeth of Nevers' Line:** As the mother of Engelbert of Cleves, she is the paternal grandmother of Charles II. While her lineage ties her to Philip II, Duke of Burgundy, her direct relationship to Engelbert establishes her as Charles II's paternal grandmother.  
+
+Thus, the answer remains **Elisabeth Countess of Nevers**.",correct,
+STG-0106,"Which film was released more recently, Return To Macon County or Nightmare Honeymoon?",Return To Macon County,"[""Return To Macon County""]",Return To Macon County,correct,
+STG-0107,Who is Priyadarshini Raje Scindia's father-in-law?,Madhavrao Scindia,"[""Madhavrao Scindia""]","**Final Answer:** The father-in-law of Priyadarshini Raje Scindia is Raja Gajapati Scindia, the historical patriarch of the Scindia family. While the context does not explicitly name Jyotiraditya Scindia's father, the Scindia family's patriarch is historically recognized as Raja Gajapati Scindia.",incorrect,
+STG-0108,What's the name of the son of the Italian navigator who sailed for the English to explore the eastern coast of the continent Armando Robles was born in?,Sebastian Cabot,"[""Sebastian Cabot""]","**Analysis as a Skeptic:**  
+1. **Possible Pitfalls:**  
+   - The question conflates two distinct historical figures: **Armando Robles** (a modern Mexican boxer) and **John Cabot** (a 15th-century explorer). The connection between them is tenuous and relies on geographic overlap (both associated with North America).  
+   - The phrase ""eastern coast of the continent Armando Robles was born in"" is ambiguous. While Guadalajara is in Mexico (part of North America), ""eastern coast"" could refer to the eastern U.S. or another region, but this is speculative.  
+
+2. **Unsupported Jumps:**  
+   - The question assumes a direct link between John Cabot’s 1497 voyage (which reached present-day Newfoundland) and Armando Robles’s birthplace (Guadalajara, Mexico). This is an unsupported historical association.",incorrect,
+STG-0109,Who is the mother of Adelaide Of Normandy?,Herleva,"[""Herleva""]","**Key Entities & Relations:**  
+- **Adelaide of Normandy**: Sister of William the Conqueror.  
+- **William the Conqueror**: Son of Robert I, Duke of Normandy, and Herleva.  
+- **Herleva**: William’s mother.  
+
+**Intermediate Fact:**  
+Since Adelaide is explicitly stated as William’s sister, and William’s mother is Herleva, Adelaide’s mother must also be Herleva.  
+
+**Partial Answer:**  
+The mother of Adelaide of Normandy is **Herleva**, who was the wife of Robert I, Duke of Normandy and the mother of William the Conqueror.",correct,
+STG-0110,When did the town WLUJ is licensed in become capitol of the state where Brantley York was born?,1839,"[""1839""]",North Carolina,incorrect,
+STG-0111,"A country's military branch, which in the US contains the Air Defense Artillery, was unprepared for the invasion of the country that experienced a normalization period. The unprepared country was the only communist country to have an embassy where?",Alfredo Stroessner's Paraguay,"[""Alfredo Stroessner's Paraguay"",""Alfredo Stroessner""]","The country in question is Czechoslovakia, which experienced the Normalization period. According to the context, Yugoslavia was the only communist country allowed to have an embassy in Paraguay under Alfredo Stroessner. However, the question specifically refers to the unprepared country (Czechoslovakia) being the only communist country with an embassy. The answer is **Paraguay**. 
+
+**Answer:** Paraguay.",correct,
+STG-0112,What was the wettest year in the second largest city in the state where Yuma's Library District is located?,1905,"[""1905""]",1905,correct,
+STG-0113,"Among the top five largest urban areas in the state where Getting Away with Murder's performer was formed, where does Veoh's headquarters city rank?",third-largest,"[""third-largest""]","Step 3 output: Veoh's headquarters is located in **San Diego, California**.",incorrect,
+STG-0114,When did the country whose co-official language was used in the movie named after the place where Bela Linder died first attend the Olympics games as an independent team?,2016,"[""2016""]",Serbia,incorrect,
+STG-0115,"When is the opening day of the league, that includes the team that played in the most games. of the event that the MLB MVP award is handed out after?","March 29, 2018","[""March 29, 2018""]","The question asks for the **opening day of the league** that includes the team which played in the **most games** during the **event** when the MLB MVP award is handed out after. Here's the breakdown:
+
+1. **MLB MVP Award Timing**: The MVP award is handed out **after the World Series** (October 23–October 31, 2018). The 2018 season's World Series involved the **American League** (Yankees vs. Dodgers) and **National League** (Giants vs. Cardinals). 
+
+2. **Team with Most Games**: The **New York Yankees** are noted as the team with the most World Series appearances (40 total, 27 wins). However, the question refers to the **most games played during the event** (the 2018 season). The Yankees played in **162 games** (full season),",incorrect,
+STG-0116,"Which film has the director born first, Antonieta or Dodging The Dole?",Dodging The Dole,"[""Dodging The Dole""]","John E. Blakeley (born 1 October 1888) was born first, predating Carlos Saura (born 4 January 1932).",incorrect,
+STG-0117,What nationality is Wenceslaus I Of Legnica's father?,Poland,"[""Poland""]","The father of Wenceslaus I of Legnica is Bolesław III the Generous. Bolesław III the Generous was a Duke of Legnica and Brieg, and the regions associated with his titles (Legnica, Brieg, Wrocław) are historically part of Poland. Thus, his nationality is Polish.",correct,
+STG-0118,Which county shares a border with the county where the city in which the original singer of All By Myself was born is located?,Cabarrus County,"[""Cabarrus County""]","The original singer of ""All by Myself"" is Eric Carmen. The context mentions Cleveland, North Carolina, but does not explicitly state where Carmen was born. While general knowledge indicates he was born in Cleveland, Ohio, the context only references Cleveland, North Carolina, a town in Rowan County. The question asks for the county sharing a border with the county where the **city** (Cleveland, Ohio) is located. Cleveland, Ohio, is in Cuyahoga County, which borders Lake County, Ohio. However, the context’s mention of Rowan County (North Carolina) is unrelated to the city in Ohio. The opponent answer conflates the two Clevelands and incorrectly assumes the birthplace is Cleveland, North Carolina. The correct answer is **Lake County, Ohio** (bordering Cuyahoga County). 
+
+**Corrected Answer:** Lake County, Ohio.",incorrect,
+STG-0119,"A country's military branch, which in the US contains the Air Defense Artillery, was unprepared for the invasion of the country that experienced a normalization period. The unprepared country was the only communist country to have an embassy where?",Alfredo Stroessner's Paraguay,"[""Alfredo Stroessner's Paraguay"",""Alfredo Stroessner""]","The opponent answer conflates two distinct countries: Czechoslovakia (the country with the normalization period) and Yugoslavia (the country with an unprepared military). The question asks for the embassy location of the *only communist country* that had diplomatic relations with a right-wing, anti-Communist government. The context clarifies that Yugoslavia was the only communist country allowed to have an embassy in Paraguay. However, the question’s phrasing ambiguously links the unprepared military (Yugoslavia) to the normalization period (Czechoslovakia), which are separate entities. The correct answer remains Paraguay, but the reasoning needs to explicitly tie the embassy to Yugoslavia, not Czechoslovakia.  
+
+**Answer:** Paraguay.",correct,
+STG-0120,A country was in effective control of both political and military functions of the organization the People's Socialist Republic of Albania belonged to. When did this country agree to a unified Germany inside the organization that ran an annual event called Exercise Reforger?,May 1990,"[""May 1990"",""1990""]","The country (USSR) agreed to a unified Germany within the Warsaw Pact organization (which ran Exercise Reforger as part of NATO) in **May 1990**, when Gorbachev stated that Germany could decide its international alignments, including NATO membership.",correct,
+STG-0121,What nationality is Wenceslaus I Of Legnica's father?,Poland,"[""Poland""]",Polish.,correct,
+STG-0122,Who runs the school system in the country that is the natural boundary between the country that hosted the tournament and the country where That Dam is located?,the Ministry of Education,"[""the Ministry of Education""]",The natural boundary between Thailand and Laos is the **Nam Khan River**.,incorrect,
+STG-0123,"What is the place of birth of Pons, Count Of Toulouse's wife?",French,"[""French""]","The text does not explicitly state Almodis de La Marche's birthplace. While her name ""de La Marche"" suggests regional origin, it does not definitively indicate her birthplace. The term ""de"" in French noble names often denotes familial or regional affiliation, not necessarily birthplace. Without explicit historical records in the provided context, the birthplace cannot be conclusively determined from the given information.",correct,
+STG-0124,When was the region that lies to the north of the region Israel is located and where the Battle of Qurah and Umm al Maradim is took place established?,1932,"[""1932""]","The region to the north of Israel and associated with the Battle of Qurah and Umm al Maradim is the **Persian Gulf region**, specifically the **Arabian Peninsula**. However, the opponent's claim that the Arabian Peninsula was ""established in the 4th century BCE"" is historically inaccurate. The Arabian Peninsula as a geopolitical and cultural entity has existed for millennia, but its formal political unification into a single state (e.g., the Kingdom of Saudi Arabia) occurred in 1932. The battle itself took place in the **Persian Gulf**, near Kuwait, which is part of the Arabian Peninsula. The correct answer emphasizes the **Persian Gulf region** and the **Arabian Peninsula** as the relevant area, with the Arabian Peninsula's historical significance predating the 4th century BCE. 
+
+**Corrected Answer:**  
+The region to the north of Israel and where the Battle of Qurah and",correct,
+STG-0125,When did the town WLUJ is licensed in become capitol of the state where Brantley York was born?,1839,"[""1839""]","The town WLUJ is licensed in (Springfield, Illinois) is not the capitol of North Carolina. North Carolina's capitol is Raleigh. However, the question contains an inconsistency, as Springfield, Illinois became the capitol of Illinois in 1839, not North Carolina. The state where Brantley York was born (North Carolina) does not have Springfield as its capitol. Therefore, the answer is **not applicable** due to a geographical error in the question.",correct,
+STG-0126,There is a state A where Storm of the Century was filmed based on the book by the author who wrote a short story featuring the author of This Is My God. What is the population of state A?,"1,335,907","[""1,335,907""]",The author of the short story that features Herman Wouk is **Stephen King**.,incorrect,
+STG-0127,Where was the place of death of Thomas Sheridan (Soldier)'s father?,London,"[""London""]","The place of death of Richard Brinsley Sheridan, Thomas Sheridan's father, is not explicitly stated in the provided context. However, it is noted that he was buried at Poets' Corner in Westminster Abbey. While burial locations often reflect places of death, the context does not confirm his death location. Without additional information, the answer is based on his burial site. 
+
+**Answer:** The place of death of Richard Brinsley Sheridan is not specified in the provided context, but he was buried at Poets' Corner in Westminster Abbey.",correct,
+STG-0128,"Which film has the director who died earlier, A Little Sex or Our Crazy Aunts?",Our Crazy Aunts,"[""Our Crazy Aunts""]",Step 2 output: The director of *Our Crazy Aunts* is **Rolf Olsen**.,incorrect,
+STG-0129,What county is the city that shares a border with the state capital of the state where Darlington County located in?,Richland County,"[""Richland County"",""Richland County, South Carolina""]","Columbia, South Carolina is the state capital. The city that shares a border with Columbia is **Forest Acres**. However, Forest Acres is in Richland County, which is adjacent to Columbia. But the question might be referring to a city in a neighboring county. Wait, actually, the city that directly borders Columbia is **Darlington**. Wait, no, Darlington is in Darlington County. Let me check again.
+
+Wait, the state capital is Columbia. The county that includes Columbia is Richland County. The county adjacent to Richland County that borders Columbia is Darlington County. But Darlington County's county seat is Darlington. So the city that shares a border with Columbia (the state capital) is **Darlington**. But the context says Darlington County is in South Carolina, and its county seat is Darlington. So the answer is **Darlington**. But I need to confirm.
+
+Wait, the question is:",incorrect,
+STG-0130,"Which film was released first, Assault On Dome 4 or The Battle Of The Rails?",The Battle Of The Rails,"[""The Battle Of The Rails""]",The Battle of the Rails,correct,
+STG-0131,Who won the Indy car race in the largest city and the capital of the state of origin of the performer of A Modern Jazz Symposium of Music and Poetry?,Mario Andretti,"[""Mario Andretti""]",The largest city in the United States is **New York City**.,incorrect,
+STG-0132,What nationality is Peter Tempesta's father?,Kingdom of Sicily,"[""Kingdom of Sicily""]","Peter Tempesta's father is Charles II of Naples, who ruled the Kingdom of Naples, a kingdom in southern Italy. While the Kingdom of Naples was historically part of the broader Italian Peninsula, its political and cultural identity was distinct from the Kingdom of Sicily. However, as the ruler of a territory within Italy, his nationality is best described as **Italian**. The opponent's answer is correct, but a more precise historical nuance is that Charles II was also a count of Provence (in France) and held other titles, yet his primary nationality aligns with the kingdom he ruled. The answer remains valid.  
+
+**Final Answer:** Italian.",incorrect,
+STG-0133,Where was the father of Helen Of Greece And Denmark born?,Athens,"[""Athens""]","The father of Helen of Greece and Denmark is King Constantine I of Greece. The provided context does not explicitly state his birthplace. However, based on historical knowledge, King Constantine I was born in Athens, Greece. Since the context does not include this information, the answer cannot be determined from the given text.",correct,
+STG-0134,When did the city where Superior Drill Company is located become capitol of the state where the screenwriter of The Poor Boob was born?,1839,"[""1839""]","The city where Superior Drill Company is located is Springfield, Ohio. The screenwriter of *The Poor Boob* is Margaret Mayo, born in Brownsville, Illinois. The state where she was born is Illinois. The question asks when Springfield (Ohio) became the capital of Illinois. However, Springfield, Ohio is not the capital of Illinois. The capital of Illinois is Springfield, Illinois. The context states that Springfield, Illinois became the third and current capital of Illinois in 1839. Therefore, the answer is **1839**. 
+
+**Answer:** 1839.",correct,
+STG-0135,Which country Heinz Heydrich's father is from?,German,"[""German""]","Germany. The context explicitly states Richard Bruno Heydrich was a German opera singer and composer, confirming his nationality. The opponent's answer is correct.",correct,
+STG-0136,Who is Maria Amalia Of Naples And Sicily's father-in-law?,"Louis Philippe II, Duke of Orléans","[""Louis Philippe II, Duke of Orléans""]","Louis Philippe II, Duke of Orléans (Philippe Égalité)",correct,
+STG-0137,Who is the father-in-law of Ri Sol-Ju?,Kim Jong-il,"[""Kim Jong-il""]",The father of Ri Sol-ju's spouse (Kim Jong-un) is **Kim Jong-il**.,correct,
+STG-0138,What is the PBS station in the second largest city in the state where Oh Yeah's performer is from?,KUAT-TV 6,"[""KUAT-TV 6"",""KUAT-TV""]",Arizona.,incorrect,
+STG-0139,In which county is the city sharing a border with the capitol of the state where Borough House Plantation is located?,Richland County,"[""Richland County"",""Richland County, South Carolina""]",Sumter,incorrect,
+STG-0140,How many ethnic minorities were looked at differently in the city where the headquarters of the only group larger than Desde El Principio's record label is located?,two,"[""two""]","The city in question is Santa Monica, California. The ""only group larger than Desde El Principio's record label"" refers to Sony Music Entertainment, as it is the world's second-largest recorded music company (after Universal Music Group). The context explicitly mentions two ethnic minorities in Santa Monica: Japanese and Chinese Americans. These groups were viewed differently by White Americans, with Japanese fishermen being more favorably regarded than Chinese residents. Thus, the answer is **two**. 
+
+**Partial Answer:**  
+The city is Santa Monica, where two ethnic minorities (Japanese and Chinese Americans) were viewed differently by White Americans. The headquarters of the larger record label (Sony Music) is located there. **Answer: 2**.",correct,
+STG-0141,"Who is Charles Ii, Count Of Nevers's paternal grandmother?",Elizabeth of Nevers,"[""Elizabeth of Nevers""]","The paternal grandmother of Charles II, Count of Nevers, is **Elizabeth of Nevers** (also known as Elisabeth Countess of Nevers), who was the wife of John I, Duke of Cleves and the mother of Engelbert, Count of Nevers (Charles II's father).",correct,
+STG-0142,When was the region that lies to the north of where Israel is located and where Shamal is located established?,1932,"[""1932""]","The opponent incorrectly conflates the geographical directions. Israel's northern neighbors are Lebanon and Syria, while Shamal winds originate in Iraq (east of Israel). The question asks for the region ""to the north of where Israel is located and where Shamal is located,"" which is logically impossible since Iraq is not north of Israel. The correct answer must address the region associated with Shamal (Iraq) and its establishment. Iraq as a nation was established in 1932 under the British Mandate for Mesopotamia. However, the region's historical roots predate this, with the modern state of Iraq formed in 1932. 
+
+**Improved Answer:** The region associated with the Shamal wind (Iraq) was established as a modern nation in 1932 under the British Mandate for Mesopotamia. However, the area's historical foundations date back to ancient Mesopotamia. The question's phrasing is ambiguous",correct,
+STG-0143,Who is Germaine Of Foix's paternal grandfather?,Gaston IV of Foix,"[""Gaston IV of Foix""]",Count Gaston IV of Foix.,correct,
+STG-0144,When did the town WLUJ is licensed in become capitol of the state where Brantley York was born?,1839,"[""1839""]","The town WLUJ is licensed in (Springfield, Illinois) is not the capitol of North Carolina. Springfield, Illinois became the capitol of Illinois in 1839. However, the state where Brantley York was born (North Carolina) has its capitol in Raleigh. There is no date when Springfield, Illinois became the capitol of North Carolina.",correct,
+STG-0145,"A country's military branch, which in the US contains the Air Defense Artillery, was unprepared for the invasion of the country whose ccTLD was "".cs"". The unprepared country was the only communist country to have an embassy where?",Alfredo Stroessner's Paraguay,"[""Alfredo Stroessner's Paraguay"",""Alfredo Stroessner""]","The country in question is Czechoslovakia, which had the ccTLD "".cs"". The military branch in the US that contains the Air Defense Artillery is the Army. The context mentions that Yugoslavia was unprepared for the invasion of Czechoslovakia. The only communist country to have an embassy in Alfredo Stroessner's Paraguay is Yugoslavia. Therefore, the answer is Paraguay. 
+
+**Answer:** Paraguay.",correct,
+STG-0146,Where was the place of death of the director of film Happy Go Lucky (1936 Film)?,Los Angeles,"[""Los Angeles""]","The provided context does not specify the place of death of Aubrey Scotto. Therefore, based solely on the information given, the answer cannot be determined from the text.",incorrect,
+STG-0147,What nationality is the director of film Blood Street?,Chinese,"[""Chinese""]","The director of *Blood Street* is Leo Fong, who is described as a ""Chinese American"" in the context. While he is American by citizenship, his nationality is Chinese. 
+
+**Answer:** Chinese.",correct,
+STG-0148,Who won the Indy car race in the largest city and the capital of the state of origin of the performer of A Modern Jazz Symposium of Music and Poetry?,Mario Andretti,"[""Mario Andretti""]",Mario Andretti won the Indy car race in Phoenix.,correct,
+STG-0149,"A line with Williamsburg, Main Street and another station are in a state that's next to an ocean. When did that ocean start to open up?",around 140 million years ago,"[""around 140 million years ago""]","The opponent answer correctly identifies the Atlantic Ocean as the relevant body of water and cites the South Atlantic's opening 140 million years ago. However, the text explicitly states that the **South Atlantic Ocean opened around 140 million years ago** as Africa separated from South America, which is part of the broader Atlantic Ocean. The question asks when the ocean (Atlantic) started to open, and the text directly answers this with the South Atlantic's formation. The opponent answer is accurate.  
+
+**Answer:** 140 million years ago.",correct,
+STG-0150,"Which film has the director who died earlier, Springtime In The Rockies or Train For Durango?",Springtime In The Rockies,"[""Springtime In The Rockies""]",The director of *Train for Durango* is Mario Caiano.,incorrect,
+STG-0151,Where is the district that the person who wanted to reform and address Bernhard Lichtenberg's religion preached a sermon on Marian devotion before his death located?,Saxony-Anhalt,"[""Saxony-Anhalt""]","The district is Wittenberg, located in Saxony-Anhalt, Germany.",correct,
+STG-0152,Where was the place of death of Thomas Sheridan (Soldier)'s father?,London,"[""London""]","The opponent's answer correctly notes that the place of death is not explicitly stated, but the burial site (Poets' Corner, Westminster Abbey) is mentioned. However, the answer could be more precise by directly stating that Richard Brinsley Sheridan was buried at Poets' Corner in Westminster Abbey, which is in London. While burial sites often reflect places of death, the context does not confirm this. The answer should clarify that the burial location is specified, but the death location remains unmentioned. 
+
+**Improved Answer:** The place of death of Richard Brinsley Sheridan is not explicitly stated in the provided context. However, he was buried at Poets' Corner in Westminster Abbey, which is located in London. While burial sites often align with places of death, the context does not confirm his death location.",correct,
+STG-0153,What is the name of the child of the Italian navigator who sailed for England and explored the east coast of the continent Francisco Vázquez' birthplace is located?,Sebastian Cabot,"[""Sebastian Cabot""]","The birthplace of John Cabot is **Venice, Italy**.",incorrect,
+STG-0154,Which country Heinz Heydrich's father is from?,German,"[""German""]",Germany.,correct,
+STG-0155,Where was the place of death of the director of film Happy Go Lucky (1936 Film)?,Los Angeles,"[""Los Angeles""]","The provided context does not mention the place of death of Aubrey Scotto. Based solely on the information given, the answer cannot be determined. The opponent's answer correctly emphasizes that external knowledge (e.g., Scotto dying in Los Angeles) is irrelevant to the question's constraints. Thus, the answer remains unknown within the context provided.",correct,
+STG-0156,"What day is the feast held, in the city that holds the headquarters of the only music company that is larger than the record label of Vilaiyaadu Mankatha?",May 4,"[""May 4""]","The opponent answer incorrectly identifies Universal Music Group's headquarters as Santa Monica, when in fact Universal Music Group's headquarters is in New York City. The correct city is New York, and the feast day of Saint Monica is **May 4**. 
+
+**Answer:** May 4.",correct,
+STG-0157,"Among the top five largest urban areas in the state where Getting Away with Murder's performer was formed, where does Veoh's headquarters city rank?",third-largest,"[""third-largest""]","**Key Entities and Relations:**  
+1. **Papa Roach's Formation Location:** Vacaville, California.  
+2. **San Diego's Urban Area Rank:** Third-largest in California (after Los Angeles and San Francisco).  
+3. **Veoh's Headquarters:** San Diego, California.  
+4. **Top Five Largest Urban Areas in California:**  
+   - Los Angeles metropolitan area (1st).  
+   - San Francisco metropolitan area (2nd).  
+   - Riverside–San Bernardino metropolitan area (3rd, larger than San Diego).  
+   - San Diego metropolitan area (4th, per context).  
+   - [Additional two urban areas not explicitly named in the context, but likely including Sacramento or other major regions].  
+
+**Intermediate Facts:**  
+- The context explicitly states San Diego is the **third-largest urban area** in California.  
+- The **Riverside–San Bernardino** metropolitan area is larger than San",correct,
+STG-0158,"During British rule, what wood product was produced primarily in the country between the country that hosted the tournament and the country where That Dam is from?",75% of the world's teak,"[""75% of the world's teak""]","During British rule, the wood product primarily produced in Myanmar (the country between Thailand and Laos) was **teak**. Myanmar was noted for producing 75% of the world's teak during this period. The opponent answer is accurate and complete, as the context explicitly states Myanmar's dominance in teak production. No flaws or missing constraints exist in the reasoning.",correct,
+STG-0159,What nationality is the director of film 3096 Days?,American,"[""American""]","The director of *3096 Days* is Sherry Hormann, who is German-American.",correct,
+STG-0160,"A country's military branch, the equivalent of which in the US contains the Air Defense Artillery, was unprepared for the invasion of the country that developed the ZH-29. When was the word ""Slavs"" used in the national anthem of the unprepared country?",1943–1992,"[""1943–1992""]","The country that developed the ZH-29 is Czechoslovakia. The context mentions that in 1969, Tito removed generals in the aftermath of the invasion of Czechoslovakia due to the unpreparedness of the Yugoslav army. However, the question refers to the country that was unprepared for the invasion (Czechoslovakia) and asks when ""Slavs"" was used in its national anthem. 
+
+From the context:  
+- The **Slovak Republic** (1939–1945) and **Yugoslavia** (1943–1992) used ""Slavs"" in their national anthems.  
+- **Czechoslovakia** (the country that developed the ZH-29) is not explicitly mentioned as using ""Slavs"" in its anthem. However, **Yugoslavia** (which invaded Czechoslovak",correct,
+STG-0161,What is the date of death of Begga's husband?,662,"[""662""]","The date of death of Ansegisel is recorded as ""before 679 or 662,"" but the exact year is not specified. However, the more precise historical account states he was killed ""sometime before 679."" The conflicting reference to ""662"" may be an error. Thus, the accepted date is **before 679 AD**.",correct,
+STG-0162,"Which film has the director born first, Stella'S Oorlog or Don Juan In A Girls' School?",Don Juan In A Girls' School,"[""Don Juan In A Girls' School""]","Reinhold Schünzel was born first, on 7 November 1888, compared to Diederik van Rooijen's birth date of 26 December 1975.",incorrect,
+STG-0163,Who is Priyadarshini Raje Scindia's father-in-law?,Madhavrao Scindia,"[""Madhavrao Scindia""]","Priyadarshini Raje Scindia's father-in-law is **Madhavrao Scindia**, as Jyotiraditya Scindia's father is explicitly identified in the context as Madhavrao Scindia. The opponent's answer is correct, but the reasoning could be more precise. The context directly states Jyotiraditya is part of the Scindia family, and public records confirm his father as Madhavrao. Thus, the answer remains **Madhavrao Scindia**.",correct,
+STG-0164,"Which film has the director who died first, City Across The River or The Lure Of Heart'S Desire?",The Lure Of Heart'S Desire,"[""The Lure Of Heart'S Desire""]","The director of *The Lure of Heart's Desire* is Francis J. Grandon, who died on July 11, 1929. The director of *City Across the River* is Maxwell Shane, who died on October 25, 1983. Since Grandon died first, **The Lure of Heart's Desire** is the film with the director who died earlier. 
+
+**Answer:** The Lure of Heart's Desire.",correct,
+STG-0165,What nationality is Wenceslaus I Of Legnica's father?,Poland,"[""Poland""]","Wenceslaus I of Legnica's father is Bolesław III the Generous. Bolesław III was a Duke of Legnica and Wrocław, which were territories within the Kingdom of Poland. As a noble of the Kingdom of Poland, his nationality is Polish.",correct,
+STG-0166,In which county is the city sharing a border with the capitol of the state where WYFG is located?,Richland County,"[""Richland County"",""Richland County, South Carolina""]",Spartanburg,incorrect,
+STG-0167,Who married the man who wanted to reform the institution behind the denomination constituting 12.6% of Christians in New Zealand?,Katharina von Bora,"[""Katharina von Bora""]","**Key Entities and Relations:**  
+- **Denomination with 12.6% in New Zealand:** Roman Catholicism.  
+- **Institution behind Roman Catholicism:** Roman Catholic Church.  
+- **Man who wanted to reform this institution:** Martin Luther (as the catalyst of the Protestant Reformation, which challenged Catholic doctrines).  
+- **Marriage partner of Martin Luther:** Katharina von Bora.  
+
+**Intermediate Facts:**  
+1. The Roman Catholic Church is the denomination constituting 12.6% of New Zealand's Christians.  
+2. Martin Luther is historically associated with reforming the Catholic Church (via the Protestant Reformation).  
+3. Katharina von Bora married Martin Luther.  
+
+**Partial Answer:**  
+The man who wanted to reform the Roman Catholic Church (the institution behind the 12.6% denomination in New Zealand) is **Martin Luther**. He married **Kathar",correct,
+STG-0168,How many ethnic minorities were looked at differently where the only group larger than the record label of The Lost Trident Sessions is headquartered?,two,"[""two""]","Santa Monica, California",incorrect,
+STG-0169,How many ethnic minorities were looked at differently where the only group larger than the record label of The Lost Trident Sessions is headquartered?,two,"[""two""]","The record label of *The Lost Trident Sessions* is **Sony Music Entertainment**, which is headquartered in **Los Angeles**, not Santa Monica. However, the question refers to the **record label of The Lost Trident Sessions** (Sony Music) and asks about the **only group larger than the record label** (i.e., the record label itself) **in the area where it is headquartered** (Los Angeles). 
+
+The context about Santa Monica mentions **two ethnic minorities** (Japanese and Chinese) being viewed differently by White Americans. However, the record label (Sony Music) is headquartered in **Los Angeles**, not Santa Monica. The question seems to confuse the location of the record label with Santa Monica. Since the context specifically discusses Santa Monica's history, the answer refers to the **two ethnic minorities** (Japanese and Chinese) mentioned in the Santa Monica context. 
+
+**Answer:** 2.",correct,
+STG-0170,What county is the city that shares a border with the state capital of the state where the RBC Heritage Golf Tournament is played in?,Richland County,"[""Richland County"",""Richland County, South Carolina""]",Step 4: The county of the city (Lexington) that shares a border with Richland County is **Lexington County**.,incorrect,
+STG-0171,How were the same people who the Somali Muslim Ajuran Empire declared independence from expelled from the natural boundary between Thailand and the country where Nam Theun is found?,The dynasty regrouped and defeated the Portuguese,"[""The dynasty regrouped and defeated the Portuguese""]","The question contains a mix of unrelated historical contexts. The **Somali Muslim Ajuran Empire** declared economic independence from the **Portuguese** in the Indian Ocean, while **Nam Theun** is in **Laos**, bordering **Thailand**. The Portuguese were not directly involved in the expulsion of any group from the Thailand-Laos border, as they were focused on Indian Ocean trade routes. The **Restored Toungoo Dynasty** in Myanmar defeated the Portuguese in 1613, but this does not relate to Thailand or Laos. The natural boundary between Thailand and Laos is the **Mekong River**, but there is no historical record of the Portuguese being expelled from this region. The question may stem from conflating unrelated events. 
+
+**Answer:** The Portuguese were not expelled from the Thailand-Laos border, as they were primarily active in the Indian Ocean and did not engage in direct conflicts with Thailand or Laos. The Aj",correct,
+STG-0172,In what county is located the city that shares a border with the capital of the state that won the 2017 NCAA Basketball Tournament?,Richland County,"[""Richland County"",""Richland County, South Carolina""]","The capital of South Carolina is Columbia, which is located in **Richland County**.",correct,
+STG-0173,When did Prince Alexander Romanov's father die?,12 September 1974,"[""12 September 1974""]",12 September 1974.,correct,
+STG-0174,"Which film was released more recently, Return To Macon County or Nightmare Honeymoon?",Return To Macon County,"[""Return To Macon County""]","Return to Macon County: 1975  
+Nightmare Honeymoon: 1974",correct,
+STG-0175,"In 1900, what was the population of the second largest city in the state where the Oh Yeah performer is from?","7,531","[""7,531""]",Phoenix,incorrect,
+STG-0176,In which county is the city sharing a border with the capitol of the state where Borough House Plantation is located?,Richland County,"[""Richland County"",""Richland County, South Carolina""]",Step 3: The city that shares a border with Richland County is **Sumter**.,correct,
+STG-0177,"Which film has the director born later, Saturn In Opposition or Daughters Of Pleasure?",Saturn In Opposition,"[""Saturn In Opposition""]",Ferzan Özpetek (born 1959) was born later than William Beaudine (born 1892).,incorrect,
+STG-0178,When was the region immediately north of the region where the country that secured southern Lebanon is located and the Persian Gulf established?,1932,"[""1932""]",Israel,incorrect,
+STG-0179,What nationality is Imperial Noble Consort Shujia's husband?,Qing dynasty,"[""Qing dynasty""]","The Qianlong Emperor was of Manchu nationality, as he was the emperor of the Qing dynasty, which was founded by the Manchu people. Therefore, Imperial Noble Consort Shujia's husband, the Qianlong Emperor, was Manchu. However, since the Qing dynasty ruled China, he is also considered Chinese in the context of the empire. The answer depends on the perspective: **Manchu** (ethnicity) or **Chinese** (dynastic nationality). Given the historical context, **Manchu** is the most accurate answer. 
+
+**Answer:** Manchu.",correct,
+STG-0180,When was the region that lies to the north of the region where Strangers No More took place and the Persian Gulf created?,1930,"[""1930""]","The question is ambiguously phrased. ""Strangers No More"" is set in Tel Aviv, Israel, which is north of the Persian Gulf. The region to the **north of the Persian Gulf** is the **Red Sea** and **Saudi Arabia**. However, the **Kingdom of Saudi Arabia** was established in **1932**, as per the *History of Saudi Arabia* section. The confusion arises from misinterpreting the spatial relationship between Israel, the Persian Gulf, and Saudi Arabia. The correct answer is **1932**, when Saudi Arabia was created, which is north of the Persian Gulf and adjacent to Israel. 
+
+**Improved Answer:**  
+The Kingdom of Saudi Arabia was established in **1932** by the Al Saud family, unifying the Arabian Peninsula. This aligns with the region to the north of the Persian Gulf (as Saudi Arabia borders the Gulf) and is geographically adjacent to",incorrect,
+STG-0181,"When did Geoffrey Ii, Count Of Perche's father die?",1 March 1080,"[""1 March 1080""]","Geoffrey II, Count of Perche's father was Rotrou I, who died on 1 March 1080. The answer is accurate, as the context explicitly states Rotrou I died on that date. No flaws or missing constraints in the reasoning.",correct,
+STG-0182,Where was the mother of Elizabeth Stafford born?,English,"[""English""]","**Key Entities:**  
+- **Elizabeth Stafford** (daughter of Sir William Stafford and Dorothy Stafford)  
+- **Dorothy Stafford** (mother of Elizabeth Stafford)  
+
+**Constraints/Relations:**  
+- Dorothy Stafford is explicitly identified as Elizabeth Stafford’s mother.  
+- The context provides Dorothy’s birth date (1 October 1526) but **does not explicitly state her birthplace**.  
+
+**Intermediate Facts Needed:**  
+- The text does not mention Dorothy Stafford’s birthplace.  
+- Dorothy was an English noblewoman, but this does not confirm her birthplace (e.g., England, Geneva, or elsewhere).  
+
+**Partial Answer:**  
+The provided context does not specify the birthplace of Dorothy Stafford, Elizabeth Stafford’s mother. While Dorothy is described as an English noblewoman, her exact birth location is not mentioned in the given information. Further historical records would be required to determine this.",correct,
+STG-0183,"Which film has the director born first, Killer: Dead Or Alive or Adultery: A User'S Guide?",Adultery: A User'S Guide,"[""Adultery: A User'S Guide""]","Christine Pascal (born November 29, 1953) was born first, predating Scott Shaw (born September 23, 1958).",incorrect,
+STG-0184,When did the city where Superior Drill Company is located become capitol of the state where the screenwriter of The Poor Boob was born?,1839,"[""1839""]","The city where Superior Drill Company is located (Springfield, Ohio) is not the capital of Illinois. However, the capital of Illinois is Springfield, Illinois, which became the state capital in **1839**. 
+
+**Answer:** 1839.",correct,
+STG-0185,Who won the Indy Car Race in the largest populated city of the state where the performer of Mingus Plays Piano is from?,Mario Andretti,"[""Mario Andretti""]",Phoenix is the largest populated city in Arizona. The winner of the Indy Car Race (Desert Diamond West Valley Phoenix Grand Prix) in Phoenix is **Mario Andretti** (1993).,correct,
+STG-0186,"How many stars are on the flag of the nation that first participated in the 1952 Olympics, located near the citizen country of the author of the 2005 novel Thief?",four,"[""four""]","The opponent correctly identifies Markus Zusak as American and New Zealand as a 1952 Winter Olympics debutant. However, the question specifies ""the nation,"" implying a single country. While New Zealand and Portugal both debuted in 1952, the opponent incorrectly assumes New Zealand is the target. The author’s country (USA) is not near New Zealand geographically. The correct answer requires identifying the nation that first participated in 1952 and is near the author’s country (USA). The closest nation to the USA that debuted in 1952 is **Portugal** (geographically closer than New Zealand). Portugal’s flag has **five** white stars. 
+
+**Answer:** 5.",incorrect,
+STG-0187,Where was the place of death of the director of film Happy Go Lucky (1936 Film)?,Los Angeles,"[""Los Angeles""]","The provided context does not include information about the place of death of Aubrey Scotto. The available data only specifies his birthplace (Los Angeles) and his career timeline, but his death location is not mentioned. Further research beyond the given context would be required to answer this question accurately. 
+
+**Partial Answer:**  
+The place of death of Aubrey Scotto is not specified in the provided information.",incorrect,
+STG-0188,"The carnival in the town where Jean Mathonet died is rooted in a European culture. In Rotrude's father's era, the language of that culture was later known by what name?",Medieval Latin,"[""Medieval Latin""]",Medieval Latin.,correct,
+STG-0189,Who is Charles Ii Of Navarre's maternal grandfather?,Louis X of France,"[""Louis X of France""]","**Corrected Improved Answer:**  
+Charles II of Navarre's maternal grandfather is Louis X of France.  
+**Step-by-Step Explanation:**  
+1. **Identify Charles II's mother:** Queen Joan II of Navarre.  
+2. **Determine Joan II's parents:**  
+   - **Father:** Louis X of France.  
+   - **Mother:** Margaret of Burgundy.  
+3. **Conclusion:** Louis X of France is Joan II's father, making him Charles II's paternal grandfather. The opponent incorrectly identified Odo IV of Burgundy as Joan's maternal grandfather, but the context clarifies that Odo IV was Joan's uncle (brother of her maternal grandmother, Agnes of France), not her grandfather. Thus, Louis X, not Odo IV, is Charles II's maternal grandfather.  
+
+**Answer:** Louis X of France.",correct,
+STG-0190,"In 1900, what was the population of the second largest city in the state where the Oh Yeah performer is from?","7,531","[""7,531""]","The second largest city in Arizona is Tucson. In 1900, its population was **7,531**.",correct,
+STG-0191,"Which country George Fitzmaurice, 6Th Earl Of Orkney's father is from?",British,"[""British""]","The opponent answer incorrectly assumes the father's country of origin is Scotland based solely on the title and family name, without explicit evidence of his birthplace. The Earl of Orkney is a Scottish title, but the father, Thomas FitzMaurice, 5th Earl of Orkney, was born in England (as the 5th Earl of Orkney was born in 1784 in England). The family name ""FitzMaurice"" is of Norman French origin, not Scottish. The correct answer is **England**. 
+
+**Corrected improved answer:**  
+The country George FitzMaurice, 6th Earl of Orkney's father (Thomas FitzMaurice, 5th Earl of Orkney) is from is **England**. While the title ""Earl of Orkney"" is a Scottish peerage, Thomas FitzMaurice was born in England. The family name",correct,
+STG-0192,When was the region that lies to the north of the where Israel is located and the location of Shamal created?,1930,"[""1930""]","The opponent's answer incorrectly conflates the regions. The Shamal wind is associated with Saudi Arabia (south of Israel), while the region to the north of Israel is Lebanon, Syria, and Jordan. The question likely seeks the creation of Saudi Arabia (location of Shamal) or the northern regions (Lebanon/Syria/Jordan). The opponent mistakenly claims Saudi Arabia is ""to the north of Israel,"" which is false. The correct answer should clarify both regions and their creation dates.  
+
+**Corrected Answer:** The region to the north of Israel (Lebanon, Syria, Jordan) has existed historically as separate entities, while the Shamal wind originates in Saudi Arabia. The Kingdom of Saudi Arabia was formally established in **1932** by the Al Saud family. Thus, the region (Saudi Arabia) associated with the Shamal wind was created in **1932**, while the northern regions (Lebanon, Syria",incorrect,
+STG-0193,"Among the top five largest urban areas in the state Infest's performers were formed, what is the ranking of the city Pathology was formed in?",third-largest,"[""third-largest""]","The opponent correctly identifies San Diego as the city where Pathology was formed and notes its urban area ranks third in California. However, the question asks for the ranking **among the top five** largest urban areas. The context only explicitly mentions three (Los Angeles, San Francisco, and Riverside–San Bernardino), but the opponent's answer assumes San Diego is third without confirming that only three urban areas are in the top five. The context does not provide data on the other two (e.g., Sacramento or Orange County), so the ranking could be ambiguous. To ensure accuracy, the answer should explicitly state the ranking based on the given data, acknowledging the limited information. 
+
+**Answer:** 3rd.",correct,
+STG-0194,Where was the place of death of the director of film Happy Go Lucky (1936 Film)?,Los Angeles,"[""Los Angeles""]","The provided context does not mention the place of death of Aubrey Scotto. Therefore, based on the given information, it is not possible to determine the location of his death.",incorrect,
+STG-0195,In which county is the city sharing a border with the capitol of the state that won the Battle of Sullivan's Island?,Richland County,"[""Richland County"",""Richland County, South Carolina""]","The city in question is Forest Acres, South Carolina, which is part of Richland County. The capitol of South Carolina is Columbia, also located in Richland County. Since both Forest Acres and Columbia are in Richland County, the answer is **Richland County**. However, if the question implies a different city (e.g., Charleston), but the context specifies Forest Acres, the correct answer based on the provided data is **Richland County**. 
+
+**Answer:** Richland County.",correct,
+STG-0196,Where was the director of film Blood Father born?,Paris,"[""Paris""]","The director of *Blood Father*, Jean-François Richet, was born in France. While the context does not explicitly state his birthplace, his nationality is specified as French, and he grew up in Meaux, a suburb of Paris. Therefore, the answer is **France**.",correct,
+STG-0197,Where was the place of death of Thomas Sheridan (Soldier)'s father?,London,"[""London""]","Richard Brinsley Sheridan was buried at Poets' Corner in Westminster Abbey, indicating he died in London, England.",correct,
+STG-0198,"The carnival in the town where Jean Mathonet died is rooted in a European culture. In Rotrude's father's era, the language of that culture was later known by what name?",Medieval Latin,"[""Medieval Latin""]","**Key Entities & Relations:**  
+- **Town:** Malmedy (where Jean Mathonet died).  
+- **Carnival:** Cwarmê (rooted in Walloon and Latin culture).  
+- **Rotrude's father:** Charlemagne (775/778–810).  
+- **Language in Charlemagne's era:** Modified Latin, later termed ""Medieval Latin.""  
+
+**Intermediate Facts:**  
+1. The Cwarmê in Malmedy is tied to Walloon and Latin traditions.  
+2. During Charlemagne's reign, Latin evolved into a more flexible form for church and governance.  
+3. This form of Latin was later called **Medieval Latin**.  
+
+**Partial Answer:**  
+The language of the European culture rooted in Malmedy's carnival during Rotrude's father's era (Charlemagne's time) was **Medieval Latin**.",correct,
+STG-0199,What nationality is Wenceslaus I Of Legnica's father?,Poland,"[""Poland""]","The father of Wenceslaus I of Legnica is Bolesław III the Generous. Bolesław III was a Duke of Legnica and Brieg, and the Duchy of Legnica was part of the Kingdom of Poland. Therefore, Bolesław III's nationality is Polish. 
+
+**Step 1 Output:** Bolesław III the Generous (Polish).",correct,
+STG-0200,"Which film was released earlier, Parayanumvayya Parayathirikkanumvayya or The Witch'S Mirror?",The Witch'S Mirror,"[""The Witch'S Mirror""]","The Witch's Mirror was released earlier. It was released in 1962, while Parayanumvayya Parayathirikkanumvayya was released in 1985.",correct,

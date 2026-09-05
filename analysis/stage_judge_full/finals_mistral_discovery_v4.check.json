@@ -1,0 +1,15 @@
+{
+  "input_rows": 5703,
+  "judged_rows": 5703,
+  "missing_rows": 0,
+  "unexpected_rows": 0,
+  "duplicate_input_identities": 0,
+  "duplicate_judged_identities": 0,
+  "discovery_labels": {
+    "correct": 3970,
+    "incorrect": 1733
+  },
+  "unresolved_discovery_rows": 0,
+  "discovery_positive_rows": 3970,
+  "ungrounded_discovery_positive_rows": 0
+}

@@ -1,0 +1,25 @@
+architecture:
+  ensemble_size: 4
+  ensemble_temperature: 0.7
+  max_parallel_tasks: 4
+  max_plan_steps: 5
+budget:
+  levels:
+  - 1000
+  - 2000
+  mode: token
+data:
+  context_mode: oracle
+  n: 25
+  split: validation
+model:
+  enforce_eager: true
+  gpu_memory_utilization: 0.9
+  max_model_len: 16384
+  name: /mnt/parscratch/users/acu25yx/checkpoints/qwen3-4b-sft-merged-v3b
+  tensor_parallel_size: 1
+output_dir: results/v3b_all_mas_smoke25
+seed: 0
+systems:
+- subtask_parallel
+temperature: 0.0

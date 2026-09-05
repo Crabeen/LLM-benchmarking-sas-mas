@@ -1,0 +1,50 @@
+\chapter{Introduction}
+\label{chap:introduction}
+
+\section{Motivation}
+
+Large language models (LLMs) can solve many reasoning tasks through a single generated chain of thought, but an increasingly common alternative is to organise several model calls as a multi-agent system (MAS). One agent may decompose a question, several agents may work on subproblems or adopt different roles, and a final component may revise or aggregate their outputs. This design is attractive because it resembles familiar forms of collaborative problem solving. Independent proposals may increase coverage, debate may expose errors, and a dedicated aggregator may separate exploration from decision making. Frameworks such as AutoGen have made these structures straightforward to implement, while work on multi-agent debate reports gains in factuality and reasoning under some settings \citep{wu2023autogen,du2023debate,liang2023mad}.
+
+The same decomposition also introduces new failure surfaces. A correct answer may be present in an early proposal but removed during revision. A final picker may prefer a polished but incorrect alternative. A sequential worker may correctly resolve a subproblem and then lose the answer when new context is appended. An aggregator may ignore a correct candidate in favour of a majority of correlated errors. These are not failures of initial answer discovery. They are failures of preservation, endorsement, and selection. A final exact-match score cannot distinguish them from cases in which no component ever produced useful evidence.
+
+This distinction matters for both scientific and engineering reasons. Scientifically, claims that ``agents reason better together'' concern a mechanism, not only an endpoint. If several agents discover more correct candidates but the system cannot preserve them, the architecture has generated information without converting it into a reliable decision. Engineering decisions are also different under these two diagnoses. A discovery problem may call for better retrieval, more diverse prompts, or a stronger base model. A preservation problem instead calls for provenance-aware aggregation, protected evidence, calibrated confidence, or a less destructive revision policy. Treating both as final-answer error hides the intervention point.
+
+Compute matching creates a second difficulty. A multi-agent graph naturally uses more model invocations than a single-agent baseline. Comparing systems without controlling computation can therefore reward the architecture that simply spends more. Conversely, assigning the same nominal token budget does not guarantee equal effective reasoning: agents can repeat context, emit boilerplate, terminate early, or spend tokens reconciling redundant outputs. Recent work by \citet{tran2026single} directly challenges the assumption that multi-agent decomposition improves multi-hop reasoning when thinking-token budgets are matched. The present dissertation reproduces that comparison with an open 4-billion-parameter model and extends it from outcome measurement to failure localisation.
+
+\section{Problem statement}
+
+The central problem is to determine what happens between the first appearance of a defensible answer and the system's final commitment. In this dissertation, an intermediate output is evaluated along two separate axes. \emph{Discovery} asks whether the output contains enough content to support the reference answer, even when the answer is embedded in a longer discussion. \emph{Endorsement} asks whether the output itself commits to that answer rather than merely mentioning it as one possibility. This separation is necessary because a debate transcript may contain the gold answer while explicitly rejecting it, and an aggregator may copy relevant evidence yet conclude with the wrong entity.
+
+Let the source state be the last architecture-specific point at which the system has a meaningful opportunity to preserve a correct answer. For Debate this is the oracle over the two revised candidates; for Sequential it is the final worker output. The target is the final picker or aggregator. A harmful transition occurs when the source endorses the correct answer and the target endorses a wrong answer (\ctow). A beneficial transition occurs when the source is wrong and the target becomes correct (\wtoc). These transition rates provide a direct measure of the value or damage added by the final coordination operation.
+
+Automated semantic judges make this analysis scalable, but their errors can be especially consequential in deliberately difficult transition strata. A judge that is accurate on ordinary correct and incorrect answers may still confuse mention with endorsement, over-credit partial evidence, or behave inconsistently on truncated outputs. The project therefore adopts a hierarchy of evidence. Lexical metrics provide reproducible benchmark-level outcomes. A calibrated Mistral judge supplies a screen over all recorded stages. A blind human audit is the primary basis for the most important Debate and Sequential transition claims. This hierarchy prevents the scale of machine annotation from being mistaken for validity.
+
+\section{Research questions}
+
+The study addresses three research questions.
+
+\begin{description}[leftmargin=1.5cm,style=nextline]
+  \item[RQ1] Under matched thinking-token budgets, how do single-agent and multi-agent architectures differ in final-answer performance, answer discovery, and answer preservation on multi-hop question answering?
+  \item[RQ2] When a correct answer is available before the final decision, where do Debate and Sequential architectures lose or recover it, and are these transitions supported by human annotation?
+  \item[RQ3] Do larger nominal thinking budgets and higher observed resource use improve semantic outcomes, or can additional computation coincide with lower discovery and higher post-discovery loss?
+\end{description}
+
+The questions deliberately move from broad comparison to causal diagnosis without claiming a causal experiment where none exists. RQ1 is a benchmark comparison. RQ2 localises state changes at known architecture boundaries. RQ3 combines matched-budget tests with observational resource associations; the latter are interpreted as descriptive rather than causal.
+
+\section{Contributions}
+
+This dissertation makes five contributions.
+
+\begin{enumerate}[leftmargin=*]
+  \item It implements a controlled comparison of a single-agent baseline and five multi-agent architectures -- Sequential, Subtask Parallel, Parallel Roles, Debate, and Ensemble -- using the same Qwen3-4B base family, fixed evaluation subsets, and matched nominal thinking-token budgets.
+  \item It reframes multi-agent performance as a transition process. Discovery, oracle availability, preservation, aggregation regret, and final endorsement are measured separately, making it possible to distinguish generation failures from coordination failures.
+  \item It develops a blind audit protocol that labels both Discovery and Endorsement, includes hidden repeated records for intra-rater consistency, freezes the sampling strata before unblinding, and reports finite-population weighted estimates for the target benchmark population.
+  \item It shows an architecture-specific asymmetry in the audited data. Debate's final decision is predominantly destructive: the weighted harmful \ctow{} rate is 5.45\% and the beneficial \wtoc{} rate is 0.00\%. Sequential aggregation is less often harmful and sometimes corrective: 0.59\% harmful and 5.82\% beneficial.
+  \item It demonstrates that nominally larger budgets are not automatically useful. Across 4,000 matched multi-agent pairs, moving from 1,000 to 2,000 thinking tokens increases mean wall time by 4.83 seconds while reducing both semantic discovery and final semantic accuracy.
+\end{enumerate}
+
+The numerical contributions should be read with their stated scope. The human audit supports population-weighted claims for the frozen sampling frame used to construct the audit. The full 26,873-stage semantic analysis is valuable for locating candidate failure mechanisms, but the Mistral labels do not meet the reliability standard required to convert every screened transition into ground truth.
+
+\section{Dissertation structure}
+
+\Cref{chap:related} positions the work in research on multi-agent reasoning, multi-hop QA, process evaluation, and automated judging. \Cref{chap:framework} defines the state-transition framework and the metrics used throughout. \Cref{chap:design} describes models, datasets, architectures, budgets, and the execution protocol, while \Cref{chap:evaluation} explains lexical scoring, semantic screening, calibration, blind human annotation, and statistical analysis. The results then follow the progression of the research. \Cref{chap:benchmark-results} first reports the matched-budget benchmark, the completed fine-tuning intervention, and the budget comparison. \Cref{chap:machine-results} asks why the outcome pattern occurs by using the full-trace Mistral screen to examine discovery, preservation, and failure location. \Cref{chap:human-results} evaluates judge reliability and reports the human-audited transition estimates. \Cref{chap:discussion} interprets the combined evidence and derives design implications. \Cref{chap:limitations} bounds the claims, and \Cref{chap:conclusion} answers the research questions and identifies the most defensible next steps.

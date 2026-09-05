@@ -1,0 +1,121 @@
+\chapter{Evaluation and Human Audit Methodology}
+\label{chap:evaluation}
+
+\section{Lexical evaluation}
+
+The first evaluation layer scores final answers with normalised exact match and token-level F1. Normalisation lowercases text, removes punctuation and articles, collapses whitespace, and checks accepted aliases where provided by the dataset. Exact match is one when the normalised prediction equals an accepted answer. Token F1 is the harmonic mean of token precision and recall against the best-matching accepted answer.
+
+These metrics provide a deterministic benchmark and permit direct architecture comparisons. They do not, however, reliably score intermediate outputs. A worker may express the answer in a sentence rather than an answer field; an agent may use an alias absent from the literal gold string; and debate outputs may mention both correct and incorrect candidates. Lexical scores are therefore interpreted as the primary final-output benchmark but not as evidence of when the system first reached a correct state.
+
+\section{Semantic stage screen}
+
+A Mistral instruction model was prompted to label intermediate and final stage texts using the reference answer, aliases, question, and relevant evidence. The final prompt revision applied the same semantic-discovery rule across stages. For each stage, the judge returned a structured label and evidence rationale. Outputs that did not parse or lacked a resolvable basis were marked uncertain rather than silently coerced to correct or wrong.
+
+The full screen covers all 8,000 MAS item-configurations and 26,873 intermediate stages. When the final output text was identical to a recorded stage, its label was reused to avoid unnecessary stochastic re-judging; 2,297 final labels were reused and 5,703 were judged separately. Six uncertain intermediate labels were excluded pairwise from affected transition calculations.
+
+The screen produces four families of descriptive outputs:
+
+\begin{enumerate}[leftmargin=*]
+  \item final semantic accuracy, discovery rate, candidate-oracle accuracy, preservation, and aggregation regret for each dataset, model, architecture, and budget;
+  \item the first stage at which a terminally incorrect trajectory becomes wrong, using architecture-specific stage order;
+  \item transitions from Debate proposals to revisions and from revisions to the picker, together with Sequential worker and aggregator transitions;
+  \item associations between wall time, realised thinking tokens, truncation, discovery, and post-discovery loss.
+\end{enumerate}
+
+The machine screen is explicitly not treated as error-free annotation. It is used to summarise all traces and to create informative sampling strata for human review.
+
+\section{Calibration and the need for a targeted audit}
+
+The judge initially achieved 91.9\% evidence-valid accuracy and Cohen's $\kappa=0.829$ on a general calibration set. Those numbers suggested that large-scale semantic screening was feasible. Performance was not uniform, however: cases involving Debate beneficial flips and Sequential losses were weaker. A targeted sensitivity audit of difficult transitions later found only 73.9\% agreement across 199 resolved stage labels ($\kappa=0.478$) and 50.5\% exact agreement across 99 resolved transition pairs (multiclass $\kappa=0.364$).
+
+This difference is not paradoxical. General calibration is dominated by ordinary correct and wrong outputs. Transition-enriched cases place the decision boundary precisely where a judge is most likely to fail: partial evidence, answer mentions without commitment, disagreement between proposals, and truncated conclusions. Because a transition is a compound of two labels, one stage error can change the transition class. The targeted result therefore supersedes the broad calibration result for transition-level inference.
+
+A Qwen2.5-72B-Instruct judge was also evaluated as a stronger alternative. It reached 87.0\% stage accuracy ($\kappa=0.723$) and 79.0\% exact transition accuracy (multiclass $\kappa=0.701$) on the targeted set, with no parse or grounding failures. Although better, it did not pass the fixed acceptance thresholds. It is not used to relabel the full trace population. The decision to retain human labels was made from the reliability criteria rather than from whether machine estimates supported the desired hypothesis.
+
+\section{Human audit scope and sampling}
+
+The definitive audit focuses on Debate and Sequential because their final coordination boundaries are well defined and because the machine screen indicated substantively different transition patterns. The frozen machine-labelled population was divided into architecture and transition strata. Rare candidate transitions were oversampled so the audit would include enough difficult cases to diagnose judge direction and component behaviour. Within-stratum selection was fixed before human labels were unblinded.
+
+The final sample contains 160 unique items: 80 Debate and 80 Sequential. Each Debate item contributes two revised candidates and one final picker output; each Sequential item contributes the last worker and final aggregator output. This gives 400 non-repeat stage records. Twenty stage records were duplicated under new blind identifiers and inserted as hidden repeats, giving 420 annotated rows in total. The repeat positions and item identities were not visible during annotation.
+
+The audit is a single-annotator study. Hidden repeats therefore measure intra-rater repeatability, not agreement between independent annotators. The sampling design estimates transition rates for the frozen population only after stratum weighting; the raw 80-item architecture counts are diagnostic and are not direct prevalence estimates.
+
+\section{Item-level audit schema and the ``15 fields''}
+
+During supervision, the item-level audit columns were described informally as ``15 labels.'' The precise description is \emph{15 item-level audit fields}. They are not fifteen independently annotated error indicators and are not all binary. Four fields are Boolean truncation descriptors, eight are semantic state labels, and three are derived categorical transitions. Consequently, the fields should not be given fifteen separate prevalence interpretations.
+
+At the architecture-aligned source boundary, the Debate source state pools the two revised candidates using an any-correct candidate rule, whereas the Sequential source state is the last worker output. The destination state is the final Debate picker or Sequential aggregator output. \Cref{tab:audit-fields} records the role and scale of each field group.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption[Interpretation of the 15 audit fields]{Interpretation of the 15 named item-level audit fields. The fields are grouped by measurement role rather than treated as fifteen independent outcomes.}
+  \label{tab:audit-fields}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.25\textwidth}@{}}
+    \toprule
+    Group & Fields & Scale and analytical role \\
+    \midrule
+    Truncation descriptors (4) & \path{question_any_truncated}, \path{source_truncated}, \path{final_truncated}, \path{any_truncated} & Boolean flags for any truncated call in the original item trace, the audited source boundary, the final destination, and their union, respectively. The union is derived rather than an independent error. \\
+    \addlinespace[0.4em]
+    Human semantic states (4) & \path{human_source_discovery}, \path{human_source_endorsement}, \path{human_final_discovery}, \path{human_final_endorsement} & Human C/W/U judgements at the source and final stages on the two semantic axes. \\
+    \addlinespace[0.4em]
+    Human derived transitions (2) & \path{human_endorsement_transition_raw}, \path{human_discovery_to_final_endorsement_raw} & Categorical source-to-final paths. The first is the primary within-axis transition; the second is a cross-axis diagnostic of discovery surviving to final endorsement. \\
+    \addlinespace[0.4em]
+    Machine semantic states (4) & \path{machine_source_discovery}, \path{machine_source_endorsement}, \path{machine_final_discovery}, \path{machine_final_endorsement} & Frozen Mistral screen labels aligned to the human fields; used for sampling and agreement analysis, not as ground truth. \\
+    \addlinespace[0.4em]
+    Machine derived transition (1) & \path{machine_transition} & Categorical source-Endorsement-to-final-Endorsement transition used to define the frozen sampling strata. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The primary population comparison is therefore based on the weighted categories of \path{human_endorsement_transition_raw}. The cross-axis human transition is reported as a secondary diagnostic; truncation fields are covariates or sensitivity descriptors; and the five machine fields support sampling and human--machine validation. This hierarchy prevents derived or machine-generated columns from being counted as additional human outcomes.
+
+\section{Codebook and annotation procedure}
+
+The codebook was iterated through four revisions during pilot review and frozen before the final unblind analysis. Each record showed the question, accepted gold answer and aliases, evidence context, stage role, and stage text, but concealed architecture, run condition, transition stratum, and whether the row was a repeat. The annotator assigned Discovery and Endorsement independently.
+
+Discovery used the following decision rule:
+
+\begin{itemize}[leftmargin=*]
+  \item \correct{} if the stage states the accepted answer or supplies an unambiguous answer-equivalent relationship grounded in the provided evidence;
+  \item \wrong{} if no sufficient answer-equivalent content appears, if the relation is wrong, or if only an unsupported option reference is present;
+  \item \uncertain{} only when the available text prevents a defensible decision, particularly when truncation cuts through the answer-bearing claim.
+\end{itemize}
+
+Endorsement used a stricter commitment rule:
+
+\begin{itemize}[leftmargin=*]
+  \item \correct{} if the stage's answer-bearing statement selects the accepted answer;
+  \item \wrong{} if it selects a different answer, rejects the accepted answer, or ends without endorsing answer-equivalent content;
+  \item \uncertain{} if the commitment itself is missing because the answer-bearing sentence is truncated.
+\end{itemize}
+
+The distinction prevents a common evaluator error: crediting a stage merely because the gold string appears somewhere. Evidence fields were checked for every \correct{} label in the final audit. Reason codes were harmonised after unblinding for three records, but the C/W/U labels did not change.
+
+\section{Unblinding and quality checks}
+
+Unblinding occurred after all 420 rows had complete labels. The 20 hidden pairs matched exactly on both axes. Across all rows, Discovery counts were 240 \correct{}, 180 \wrong{}, and zero \uncertain{}; Endorsement counts were 225 \correct{}, 192 \wrong{}, and three \uncertain{}. Fourteen rows had Discovery \correct{} but Endorsement \wrong{}, directly confirming that presence and commitment are empirically distinct. No row had Endorsement \correct{} while Discovery was not \correct{}.
+
+Completeness checks confirmed that all 105 rows labelled Discovery \correct{} in the final audited round contained verbatim or answer-equivalent evidence in the corresponding stage output. The unblind process also corrected a spreadsheet wildcard-count display defect affecting static truncation summary cells. The audited labels and derived transition results were unchanged.
+
+\section{Agreement analysis}
+
+Exact agreement and Cohen's kappa are computed separately for Discovery and Endorsement \citep{cohen1960coefficient}. For hidden repeats, the two blind copies of the same stage are compared. For human-machine agreement, the 400 non-repeat human labels are aligned to the frozen Mistral labels. Percentile bootstrap intervals with resampling at the stage-record level describe uncertainty in kappa \citep{efron1994bootstrap}. Agreement direction is also retained: human \correct{}/machine \wrong{} indicates an over-strict machine judgement, while human \wrong{}/machine \correct{} indicates an over-broad judgement.
+
+Transition agreement is more demanding than stage agreement and is reported separately in the targeted sensitivity analysis. A pair is exactly correct only when both source and destination produce the same transition class under human and machine labels. This is why an approximately 80\% stage agreement cannot be interpreted as 80\% reliable transition counts.
+
+\section{Transition estimation and uncertainty handling}
+
+For each audited item, the source and final Endorsement states form one of four primary transitions: \correct$\rightarrow$\correct, \ctow, \wtoc, or \wrong$\rightarrow$\wrong. The three \uncertain{} stage labels are handled under a conservative primary rule that maps \uncertain{} to \wrong{}. Two sensitivity rules are also reported: exclude any item containing \uncertain{}, and map \uncertain{} to \correct{}. The substantive Debate-Sequential harmful-rate ordering is required to remain stable under all three rules.
+
+Population estimates use the frozen stratum sizes as described in \Cref{chap:framework}. A weighted contrast subtracts the Sequential harmful rate from the Debate harmful rate. Approximate 95\% confidence intervals use the finite-population stratified variance. Because sample selection included greedy balancing rather than pure random sampling inside every stratum, intervals are treated as descriptive. No claim of conventional randomised-treatment causality is made.
+
+\section{Budget and resource statistics}
+
+Budget outcomes are compared within matched items using two-sided exact McNemar tests. Discordant counts identify questions that change from wrong to correct and from correct to wrong when the cap rises from 1,000 to 2,000. Mean paired changes in wall time and realised thinking tokens are reported alongside accuracy differences.
+
+Resource associations use fixed-effect stratification over dataset, model variant, budget, and system. Exposure is defined relative to the within-stratum median for wall time or thinking-token use. Adjusted odds ratios compare semantic discovery and post-discovery drop between high- and low-exposure observations. A separate model tests whether truncation at a destination stage is associated with a \ctow{} transition conditional on a correct source. These analyses are diagnostic. Slower or longer outputs may be consequences of difficult items or unstable trajectories rather than causes of error.
+
+\section{Ethical and data-management considerations}
+
+The experiments use public QA benchmark content and model-generated text; they do not involve recruitment of human participants or collection of personal data. The human annotation is the researcher's analysis of model outputs. The study nevertheless retains an auditable data trail: codebook revisions, blind sheets, round-level completions, the frozen key, and the unblind report are stored separately from the main benchmark outputs. Model-generated statements are not treated as factual sources beyond the supplied benchmark evidence. The analysis reports uncertainty and failed judge acceptance tests rather than concealing them, because evaluator limitations materially affect the validity of the conclusions.

@@ -1,0 +1,14 @@
+\chapter{Conclusion}
+\label{chap:conclusion}
+
+This dissertation asked whether multi-agent language-model systems improve multi-hop question answering under matched thinking-token budgets and, more importantly, what happens after a correct answer first appears. The answer is not captured by a single global MAS-versus-SAS score. Architecture, dataset, and decision boundary all matter.
+
+For RQ1, the benchmark shows that multi-agent decomposition can increase candidate discovery and can outperform the single-agent baseline in particular cells, such as frozen Debate on 2WikiMultiHopQA. It does not provide a consistent advantage. On MuSiQue, the SAS remains highly competitive, while Ensemble and Parallel Roles exhibit large machine-screened gaps between candidate-oracle and final accuracy. Candidate generation is therefore only one half of successful collaborative reasoning.
+
+For RQ2, the blind human audit supplies the central result. Debate's final picker converts a correct source endorsement to a wrong final endorsement at a weighted rate of 5.45\%, compared with 0.59\% for the Sequential aggregator. The weighted harmful-rate difference is 4.86 percentage points. Beneficial wrong-to-correct transitions are 0.00\% for Debate and 5.82\% for Sequential. The finding is robust to all three treatments of uncertain labels. Debate is stronger at making candidate answers available, but its final selector is a measurable loss point; Sequential's final aggregator is less destructive and sometimes corrective.
+
+For RQ3, doubling the nominal thinking budget raises mean wall time by 4.83 seconds per item while reducing aggregate semantic discovery from 84.19\% to 82.84\% and final semantic accuracy from 74.08\% to 72.82\%. More available computation is not equivalent to more useful reasoning. Longer trajectories can repeat, drift, and create additional opportunities to discard an already correct state.
+
+The methodological conclusion is equally important. A broad calibration score for an LLM judge did not transfer to transition-enriched cases. Machine labels remain valuable for screening thousands of stages, but the primary transition claims require the human audit. Separating Discovery from Endorsement, validating at the pair level, and weighting frozen strata make the resulting claim more modest but more defensible.
+
+The practical direction is to build systems that preserve evidence before adding more agents. Debate needs evidence-aware selection over frozen candidates. Sequential needs persistent structured state across workers. Both need adaptive stopping rather than uniform budget expansion. Multi-agent reasoning should be judged not by how many voices it creates, but by whether its coordination mechanisms reliably convert discovered evidence into the answer it finally endorses.

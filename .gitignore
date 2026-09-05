@@ -5,3 +5,38 @@ src_backup_*/
 results/*_prebugfix/
 # checkpoints 在 fastdata 上，本来就不在项目目录里
 logs/
+
+# Local development and transcription environments
+.transcription-env/
+.whisper-models/
+_audio_check/
+node_modules/
+tmp/
+.codex-tmp/
+.codex_tmp/
+
+# Local Codex document/CV workspaces and personal media
+.codex-cv-*/
+.codex-target-cv/
+resume_photos/
+work/
+
+# Large local recordings and generated inspection/build artifacts
+*.wav
+*.inspect.ndjson
+slurm-*.out
+~$*
+
+# LaTeX build intermediates
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.lof
+*.lot
+*.log
+*.out
+*.synctex.gz
+*.toc
+output/pdf/main.pdf

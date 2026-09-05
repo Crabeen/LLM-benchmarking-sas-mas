@@ -1,0 +1,38 @@
+\chapter{Limitations}
+\label{chap:limitations}
+
+\section{Model and task scope}
+
+The main results use one 4-billion-parameter model family in frozen and project-fine-tuned forms. They do not establish that the same transition rates hold for larger proprietary models, mixture-of-experts systems, or models independently trained for each role. Shared-model agents may have unusually correlated errors. Conversely, a stronger selector might reduce aggregation regret even if candidate generation remains unchanged.
+
+Only MuSiQue and 2WikiMultiHopQA are evaluated, both with oracle context. The design isolates reasoning and coordination but omits retrieval errors, tool use, long-horizon planning, and interactive environments. Multi-agent systems may offer different benefits when agents access genuinely different tools or information sources. The 200-item fixed validation subsets also limit precision for small architecture-by-dataset effects.
+
+\section{Fine-tuning scope}
+
+The \texttt{v3b} checkpoint is not a complete multi-agent training intervention. Its supervised data primarily preserve single-agent reasoning behaviour, so comparisons cannot answer whether role-specific training would make coordination reliably beneficial. Later role-conditioned \texttt{v4} plans and ratio arms were not included because they were not part of the completed, audited result set. Excluding them avoids presenting unfinished work as evidence but leaves the training question open.
+
+\section{Semantic judge validity}
+
+The Mistral judge does not meet the required reliability for exact transition inference. General calibration performance was strong, but targeted transition agreement fell to 73.9\% at the stage level and 50.5\% at the pair level. The full-trace first-error counts, semantic oracle values, and resource associations therefore remain machine-screened estimates. They are useful for pattern discovery and prioritisation, not ground truth.
+
+The stronger Qwen2.5-72B judge also failed the predetermined thresholds. This limits claims about all 26,873 stages and prevents a fully human-validated comparison of every architecture. A larger stratified audit, particularly for Ensemble and Parallel Roles aggregation, would be needed to confirm that their machine-estimated oracle-final gaps reflect the same mechanisms.
+
+\section{Human audit limitations}
+
+The final audit uses one annotator. Perfect hidden-repeat agreement demonstrates internal consistency for 20 duplicated stages but not inter-annotator reliability or freedom from systematic bias. The codebook and evidence verification reduce ambiguity, yet an independent second annotator and adjudication process would strengthen validity.
+
+The audit sample is enriched for machine-defined transition strata and balanced greedily within strata. Population weights correct the deliberate oversampling at the stratum level, but the approximate confidence intervals assume more random sampling than the full selection procedure provides. The intervals should be read as descriptive uncertainty. The weighted point estimates apply to the frozen audit population and should not be generalised beyond it without replication.
+
+Only the final Debate and Sequential boundaries receive the primary human audit. Proposal-to-revision changes, earlier Sequential workers, and the final aggregators of other architectures are not equivalently validated. The dissertation is therefore strongest when stating that the audited Debate picker loses correct endorsements more often than the Sequential aggregator, and weaker when assigning exact prevalence to upstream machine-labelled failures.
+
+\section{Compute measurement}
+
+Thinking-token budgets are nominal caps, not perfectly equal total compute. Architectures differ in prompt length, number of calls, parallel execution, and uncounted generation overhead. Wall time for parallel systems reflects the critical path, not total GPU-seconds. Scheduler telemetry and power measurements would be required for a full cost or energy analysis.
+
+Actual token use and wall time are endogenous to the trajectory. The adjusted odds ratios cannot show that longer reasoning causes lower discovery or greater loss. The paired budget intervention provides more credible evidence that the larger cap did not help aggregate outcomes, but even that comparison mixes the effects of additional available reasoning, changed truncation, and altered stopping behaviour.
+
+\section{Metric limitations}
+
+Lexical accuracy can under-credit valid paraphrases and over-credit fortunate strings. Semantic Discovery and Endorsement improve interpretability but remain discrete abstractions of rich text. Candidate-oracle accuracy also assumes that a correct candidate is usable by an ideal selector, which may be false if the output contains contradictory claims or insufficient provenance. For Subtask Parallel, partial findings make oracle comparisons particularly difficult.
+
+Finally, this dissertation analyses observable output states rather than latent reasoning. It cannot prove that a model composed the intended evidence chain or that a correct answer was reached for the right reason. Evidence-grounded human labels reduce this risk but do not eliminate shortcut reasoning identified in prior work \citep{min2019compositional}.

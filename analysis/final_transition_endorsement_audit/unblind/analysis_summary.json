@@ -1,0 +1,350 @@
+{
+  "totals": {
+    "rows": 420,
+    "analysis_rows": 400,
+    "duplicate_rows": 20,
+    "discovery": {
+      "C": 240,
+      "W": 180,
+      "U": 0
+    },
+    "endorsement": {
+      "C": 225,
+      "W": 192,
+      "U": 3
+    },
+    "discovered_not_endorsed": 14
+  },
+  "roundHashes": [
+    {
+      "round": 1,
+      "path": "D:/thesis/outputs/final_transition_endorsement_audit/rounds/final_transition_endorsement_round_1.xlsx",
+      "sha256": "1EA268C90715B1817D0359B9E8F6FDA959E98C09ECA18631A5EDAAF15849D776"
+    },
+    {
+      "round": 2,
+      "path": "D:/thesis/outputs/final_transition_endorsement_audit/rounds/final_transition_endorsement_round_2.xlsx",
+      "sha256": "FC7C3CBDCE10820BCD200AA4A9D62CEDA152B08942B229FF913B81AA24961B8A"
+    },
+    {
+      "round": 3,
+      "path": "D:/thesis/outputs/final_transition_endorsement_audit/rounds/final_transition_endorsement_round_3.xlsx",
+      "sha256": "C7D32DAD8A0C917FFE9DC806B33A97F9EDAA08F568157F562FAE1BA2CC4DEC57"
+    },
+    {
+      "round": 4,
+      "path": "D:/thesis/outputs/final_transition_endorsement_audit/rounds/final_transition_endorsement_round_4.xlsx",
+      "sha256": "485B90B39C2C67083EB1E12487BC051023C1854E42461BDBE739FF01D6FBC318"
+    }
+  ],
+  "duplicate": {
+    "discovery": {
+      "source": "Intra-rater duplicate",
+      "axis": "Discovery",
+      "scenario": "3-class",
+      "n": 20,
+      "agreements": 20,
+      "agreement_rate": 1,
+      "expected_agreement": 0.5050000000000001,
+      "kappa": 1,
+      "kappa_ci_low": 1,
+      "kappa_ci_high": 1,
+      "CC": 11,
+      "CW": 0,
+      "CU": 0,
+      "WC": 0,
+      "WW": 9,
+      "WU": 0,
+      "UC": 0,
+      "UW": 0,
+      "UU": 0
+    },
+    "endorsement": {
+      "source": "Intra-rater duplicate",
+      "axis": "Endorsement",
+      "scenario": "3-class",
+      "n": 20,
+      "agreements": 20,
+      "agreement_rate": 1,
+      "expected_agreement": 0.5050000000000001,
+      "kappa": 1,
+      "kappa_ci_low": 1,
+      "kappa_ci_high": 1,
+      "CC": 11,
+      "CW": 0,
+      "CU": 0,
+      "WC": 0,
+      "WW": 9,
+      "WU": 0,
+      "UC": 0,
+      "UW": 0,
+      "UU": 0
+    }
+  },
+  "human_mistral": {
+    "discovery": {
+      "source": "Human vs Mistral",
+      "axis": "Discovery",
+      "scenario": "3-class",
+      "n": 400,
+      "agreements": 330,
+      "agreement_rate": 0.825,
+      "expected_agreement": 0.5242875,
+      "kappa": 0.6321307512415586,
+      "kappa_ci_low": 0.5572916666666666,
+      "kappa_ci_high": 0.7050452781371281,
+      "CC": 213,
+      "CW": 16,
+      "CU": 0,
+      "WC": 54,
+      "WW": 117,
+      "WU": 0,
+      "UC": 0,
+      "UW": 0,
+      "UU": 0
+    },
+    "endorsement": {
+      "source": "Human vs Mistral",
+      "axis": "Endorsement",
+      "scenario": "3-class",
+      "n": 400,
+      "agreements": 322,
+      "agreement_rate": 0.805,
+      "expected_agreement": 0.49070625,
+      "kappa": 0.6171168407230602,
+      "kappa_ci_low": 0.5408530851986177,
+      "kappa_ci_high": 0.6905685802338203,
+      "CC": 161,
+      "CW": 51,
+      "CU": 2,
+      "WC": 22,
+      "WW": 161,
+      "WU": 0,
+      "UC": 0,
+      "UW": 3,
+      "UU": 0
+    }
+  },
+  "primary_weighted": {
+    "debate_harmful": {
+      "system": "debate",
+      "basis": "endorsement",
+      "scenario": "U_as_W",
+      "outcome": "C>W",
+      "population_N": 1185,
+      "weighted_denominator": 1185,
+      "weighted_count": 64.58076923076923,
+      "estimate": 0.0544985394352483,
+      "se": 0.012435174836207156,
+      "ci_low": 0.030125596756282277,
+      "ci_high": 0.07887148211421433
+    },
+    "sequential_harmful": {
+      "system": "sequential",
+      "basis": "endorsement",
+      "scenario": "U_as_W",
+      "outcome": "C>W",
+      "population_N": 1037,
+      "weighted_denominator": 1037,
+      "weighted_count": 6.08,
+      "estimate": 0.005863066538090646,
+      "se": 0.0016039053335615654,
+      "ci_low": 0.002719412084309978,
+      "ci_high": 0.009006720991871314
+    },
+    "debate_beneficial": {
+      "system": "debate",
+      "basis": "endorsement",
+      "scenario": "U_as_W",
+      "outcome": "W>C",
+      "population_N": 1185,
+      "weighted_denominator": 1185,
+      "weighted_count": 0,
+      "estimate": 0,
+      "se": 0,
+      "ci_low": 0,
+      "ci_high": 0
+    },
+    "sequential_beneficial": {
+      "system": "sequential",
+      "basis": "endorsement",
+      "scenario": "U_as_W",
+      "outcome": "W>C",
+      "population_N": 1037,
+      "weighted_denominator": 1037,
+      "weighted_count": 60.4,
+      "estimate": 0.05824493731918997,
+      "se": 0.01809342458008599,
+      "ci_low": 0.022781825142221428,
+      "ci_high": 0.09370804949615852
+    },
+    "debate_discovery_drop": {
+      "system": "debate",
+      "basis": "discovery",
+      "scenario": "U_as_W",
+      "outcome": "C>W",
+      "population_N": 1185,
+      "weighted_denominator": 1185,
+      "weighted_count": 83.62307692307692,
+      "estimate": 0.07056799740344044,
+      "se": 0.01612089089399742,
+      "ci_low": 0.0389710512512055,
+      "ci_high": 0.10216494355567537
+    },
+    "sequential_discovery_drop": {
+      "system": "sequential",
+      "basis": "discovery",
+      "scenario": "U_as_W",
+      "outcome": "C>W",
+      "population_N": 1037,
+      "weighted_denominator": 1037,
+      "weighted_count": 41.1,
+      "estimate": 0.039633558341369335,
+      "se": 0.021630640349478338,
+      "ci_low": 0,
+      "ci_high": 0.08202961342634688
+    },
+    "system_difference": {
+      "contrast": "Debate minus Sequential",
+      "basis": "endorsement",
+      "scenario": "U_as_W",
+      "outcome": "C>W",
+      "difference": 0.04863547289715765,
+      "se": 0.012538185096977428,
+      "ci_low": 0.024060630107081895,
+      "ci_high": 0.07321031568723341
+    }
+  },
+  "stratum_transition_reclassification": [
+    {
+      "system": "debate",
+      "machine_sampling_stratum": "debate_picker_c_to_c",
+      "pool_N": 806,
+      "sampled_items": 20,
+      "human_CC": 20,
+      "human_CW": 0,
+      "human_WC": 0,
+      "human_WW": 0,
+      "human_U_related": 0,
+      "exact_transition_match_n": 20,
+      "exact_transition_match_rate": 1
+    },
+    {
+      "system": "debate",
+      "machine_sampling_stratum": "debate_picker_c_to_w",
+      "pool_N": 111,
+      "sampled_items": 39,
+      "human_CC": 12,
+      "human_CW": 18,
+      "human_WC": 0,
+      "human_WW": 9,
+      "human_U_related": 0,
+      "exact_transition_match_n": 18,
+      "exact_transition_match_rate": 0.46153846153846156
+    },
+    {
+      "system": "debate",
+      "machine_sampling_stratum": "debate_picker_w_to_c",
+      "pool_N": 1,
+      "sampled_items": 1,
+      "human_CC": 1,
+      "human_CW": 0,
+      "human_WC": 0,
+      "human_WW": 0,
+      "human_U_related": 0,
+      "exact_transition_match_n": 0,
+      "exact_transition_match_rate": 0
+    },
+    {
+      "system": "debate",
+      "machine_sampling_stratum": "debate_picker_w_to_w",
+      "pool_N": 267,
+      "sampled_items": 20,
+      "human_CC": 2,
+      "human_CW": 1,
+      "human_WC": 0,
+      "human_WW": 16,
+      "human_U_related": 1,
+      "exact_transition_match_n": 16,
+      "exact_transition_match_rate": 0.8
+    },
+    {
+      "system": "sequential",
+      "machine_sampling_stratum": "sequential_aggregator_c_to_c",
+      "pool_N": 513,
+      "sampled_items": 20,
+      "human_CC": 20,
+      "human_CW": 0,
+      "human_WC": 0,
+      "human_WW": 0,
+      "human_U_related": 0,
+      "exact_transition_match_n": 20,
+      "exact_transition_match_rate": 1
+    },
+    {
+      "system": "sequential",
+      "machine_sampling_stratum": "sequential_aggregator_c_to_w",
+      "pool_N": 38,
+      "sampled_items": 25,
+      "human_CC": 9,
+      "human_CW": 4,
+      "human_WC": 0,
+      "human_WW": 12,
+      "human_U_related": 0,
+      "exact_transition_match_n": 4,
+      "exact_transition_match_rate": 0.16
+    },
+    {
+      "system": "sequential",
+      "machine_sampling_stratum": "sequential_aggregator_w_to_c",
+      "pool_N": 151,
+      "sampled_items": 15,
+      "human_CC": 8,
+      "human_CW": 0,
+      "human_WC": 6,
+      "human_WW": 1,
+      "human_U_related": 0,
+      "exact_transition_match_n": 6,
+      "exact_transition_match_rate": 0.4
+    },
+    {
+      "system": "sequential",
+      "machine_sampling_stratum": "sequential_aggregator_w_to_w",
+      "pool_N": 335,
+      "sampled_items": 20,
+      "human_CC": 3,
+      "human_CW": 0,
+      "human_WC": 0,
+      "human_WW": 16,
+      "human_U_related": 1,
+      "exact_transition_match_n": 16,
+      "exact_transition_match_rate": 0.8
+    }
+  ],
+  "reason_harmonization": [
+    {
+      "blind_stage_id": "FTS-0211",
+      "axis": "Endorsement",
+      "raw_reason": "unresolved_multiple_answers",
+      "harmonized_reason_rev4": "contentless_option_reference"
+    },
+    {
+      "blind_stage_id": "FTS-0140",
+      "axis": "Endorsement",
+      "raw_reason": "wrong_number_or_date",
+      "harmonized_reason_rev4": "wrong_relation"
+    },
+    {
+      "blind_stage_id": "FTS-0218",
+      "axis": "Endorsement",
+      "raw_reason": "other",
+      "harmonized_reason_rev4": "contentless_option_reference"
+    }
+  ],
+  "outputs": {
+    "workbookPath": "D:/thesis/outputs/final_transition_endorsement_audit/final_transition_unblind_analysis.xlsx",
+    "reportPath": "D:/thesis/analysis/final_transition_endorsement_audit/UNBLIND_REPORT.md",
+    "unblindDir": "D:/thesis/analysis/final_transition_endorsement_audit/unblind"
+  },
+  "formula_errors": 0
+}

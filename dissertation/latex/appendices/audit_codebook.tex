@@ -1,0 +1,38 @@
+\chapter{Human Audit Codebook Summary}
+\label{app:codebook}
+
+\section{Blind record fields}
+
+Each annotation record contained a blind record identifier, question, accepted answer and aliases, supplied evidence, stage role, stage text, and completion status. Architecture, machine transition class, source run, sampling weight, and repeat identity were concealed until unblinding.
+
+\section{Discovery rules}
+
+\begin{longtable}{@{}p{0.15\textwidth}p{0.78\textwidth}@{}}
+\toprule
+Label & Operational rule \\
+\midrule
+\endhead
+\correct & The stage contains the accepted answer, an accepted alias, or an evidence-grounded answer-equivalent relation sufficient to identify it. Mere string overlap without the required relation is insufficient. \\
+\wrong & The answer-equivalent content is absent, points to a different entity or relation, or is only a contentless option reference. \\
+\uncertain & The evidence and stage text do not permit a defensible label, normally because truncation interrupts the answer-bearing claim. \\
+\bottomrule
+\end{longtable}
+
+\section{Endorsement rules}
+
+\begin{longtable}{@{}p{0.15\textwidth}p{0.78\textwidth}@{}}
+\toprule
+Label & Operational rule \\
+\midrule
+\endhead
+\correct & The stage's answer-bearing conclusion commits to the accepted answer or an answer-equivalent statement. \\
+\wrong & The stage commits to a different answer, rejects the accepted answer, or never endorses answer-equivalent content. Mentioning the accepted answer as an unselected possibility remains wrong. \\
+\uncertain & The commitment cannot be recovered because the answer-bearing statement is incomplete or truncated. \\
+\bottomrule
+\end{longtable}
+
+\section{Primary audit counts}
+
+The audit contains 160 unique items, 400 non-repeat stage records, and 20 hidden repeats. The 80 Debate items contain 35 \correct$\rightarrow$\correct, 19 \ctow, zero \wtoc, 25 \wrong$\rightarrow$\wrong, and one \uncertain$\rightarrow$\wrong transition. The 80 Sequential items contain 40 \correct$\rightarrow$\correct, four \ctow, six \wtoc, 29 \wrong$\rightarrow$\wrong, and one \uncertain$\rightarrow$\wrong transition. These raw counts must not be used as population rates because the sample deliberately oversamples machine-defined transition strata.
+
+Reason-code harmonisation after unblinding changed three explanatory codes only. No C/W/U label, agreement statistic, or transition estimate changed.

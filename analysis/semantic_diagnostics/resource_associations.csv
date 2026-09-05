@@ -1,0 +1,6 @@
+﻿analysis,exposure,outcome,controls,n,strata_used,adjusted_or,ci_low,ci_high,p_value,exposed_outcome,exposed_no_outcome,unexposed_outcome,unexposed_no_outcome
+higher wall time -> semantic discovery,high_wall_within_stratum,semantic_gold_discovered,dataset+model_variant+budget+system,7997,40,0.6574,0.5741,0.7527,0.0,3234,762,3443,558
+higher wall time -> drop after discovery,high_wall_within_stratum,semantic_drop_after_discovery,dataset+model_variant+budget+system,6677,40,1.7681,1.5294,2.0441,0.0,735,2499,443,3000
+more thinking tokens -> semantic discovery,high_tokens_within_stratum,semantic_gold_discovered,dataset+model_variant+budget+system,7997,30,0.5287,0.4564,0.6126,0.0,2268,723,4409,597
+more thinking tokens -> drop after discovery,high_tokens_within_stratum,semantic_drop_after_discovery,dataset+model_variant+budget+system,6677,30,2.6794,2.1531,3.3343,0.0,414,1854,764,3645
+destination truncation -> C-to-W transition,destination_truncated,drop_from_correct,dataset+model_variant+budget+system,3338,16,1.2676,0.9258,1.7355,0.139136,264,1769,165,1140

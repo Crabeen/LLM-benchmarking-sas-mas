@@ -1,0 +1,4 @@
+blind_stage_id,axis,raw_reason,harmonized_reason_rev4
+FTS-0211,Endorsement,unresolved_multiple_answers,contentless_option_reference
+FTS-0140,Endorsement,wrong_number_or_date,wrong_relation
+FTS-0218,Endorsement,other,contentless_option_reference

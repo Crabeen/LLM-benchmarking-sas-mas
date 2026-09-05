@@ -1,0 +1,13 @@
+﻿group,outcome,matched_pairs,rate_b1000,rate_b2000,b1000_wrong_to_b2000_correct,b1000_correct_to_b2000_wrong,mcnemar_exact_p,mean_wall_change_seconds,mean_thinking_token_change
+all,semantic_gold_discovered,3997,0.8419,0.8284,138,192,0.003465,4.8268,495.4646
+all,semantic_final_correct,4000,0.7408,0.7282,241,291,0.033537,4.8251,495.345
+debate,semantic_gold_discovered,800,0.955,0.9487,18,23,0.532709,7.5374,652.965
+debate,semantic_final_correct,800,0.8113,0.785,66,87,0.105592,7.5374,652.965
+ensemble,semantic_gold_discovered,800,0.9563,0.9575,16,15,1.0,3.3122,548.5987
+ensemble,semantic_final_correct,800,0.7725,0.75,34,52,0.066153,3.3122,548.5987
+parallel_roles,semantic_gold_discovered,800,0.9513,0.9413,21,29,0.322236,4.8451,659.4825
+parallel_roles,semantic_final_correct,800,0.7425,0.7412,55,56,1.0,4.8451,659.4825
+sequential,semantic_gold_discovered,800,0.7,0.6713,46,69,0.039751,4.6926,240.0825
+sequential,semantic_final_correct,800,0.665,0.6538,46,55,0.42616,4.6926,240.0825
+subtask_parallel,semantic_gold_discovered,797,0.6462,0.6223,37,56,0.061386,3.7427,375.7453
+subtask_parallel,semantic_final_correct,800,0.7125,0.7113,40,41,1.0,3.7381,375.5962

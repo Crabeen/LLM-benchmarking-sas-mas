@@ -1,0 +1,17 @@
+﻿source_uid,source_run,system,budget,id,stage_name,question,gold,stage_text,judge_label,judge_reason
+2wiki_frozen_token/subtask_parallel/1000/2wiki:8d9cf88009b311ebbdb0ac1f6bf848b6/subtask_1,2wiki_frozen_token,subtask_parallel,1000,2wiki:8d9cf88009b311ebbdb0ac1f6bf848b6,subtask_1,Are Tarucani and Ancahuachana (Quispicanchi) located in the same country?,yes,Peru,uncertain,absent
+2wiki_v3b_token/subtask_parallel/1000/2wiki:8d9cf88009b311ebbdb0ac1f6bf848b6/subtask_1,2wiki_v3b_token,subtask_parallel,1000,2wiki:8d9cf88009b311ebbdb0ac1f6bf848b6,subtask_1,Are Tarucani and Ancahuachana (Quispicanchi) located in the same country?,yes,Peru,uncertain,absent
+frozen_all_mas_token/parallel_roles/1000/4hop1__606685_508773_85832_745702/Fact Extractor,frozen_all_mas_token,parallel_roles,1000,4hop1__606685_508773_85832_745702,Fact Extractor,Whose father was a navigator who explored the east coast of the continental region where Sergio Villanueva would later be born?,Sebastian Cabot,"**Analysis:**  
+The question asks for the person whose father was a navigator who explored the **east coast of the continental region where Sergio Villanueva was born**.  
+
+**Key Entities & Constraints:**  
+1. **Sergio Villanueva** was born in **Guadalajara, Jalisco, Mexico**.  
+2. The ""continental region"" in question is **North America** (as Mexico is part of it).  
+3. The ""east coast of the continental region"" refers to the **eastern coast of North America** (e.g., the U.S. East Coast, Canada, or parts of Mexico's eastern coastline).  
+4. The target person’s **father** was a **navigator** who explored this east coast.  
+
+**Intermediate Facts:**  
+- **John Cabot** (c. 1450–c. 1500) was a Venetian navigator who explored",uncertain,absent
+v3b_all_mas_token/sequential/1000/4hop1__726152_153080_159767_81096/worker_1,v3b_all_mas_token,sequential,1000,4hop1__726152_153080_159767_81096,worker_1,Who won the Indy car race in the largest city and capital of the state where the performer of Tijuana Moods was born?,Mario Andretti,The performer of *Tijuana Moods* is Charles Mingus.,uncertain,absent
+v3b_all_mas_token/sequential/2000/4hop1__178366_229349_66759_75165/worker_2,v3b_all_mas_token,sequential,2000,4hop1__178366_229349_66759_75165,worker_2,There is a state A where Storm of the Century was filmed based on the book by the author who wrote a short story featuring the author of This Is My God. What is the population of state A?,"1,335,907",Step 2 Answer: Stephen King.,uncertain,absent
+v3b_all_mas_token/subtask_parallel/2000/4hop3__794915_466199_695123_72134/subtask_2,v3b_all_mas_token,subtask_parallel,2000,4hop3__794915_466199_695123_72134,subtask_2,When did the town WIZE is licensed in become capitol of the state where Ward Township is located?,1839,1839,uncertain,absent

@@ -1,0 +1,27 @@
+{
+  "unique_items": 8000,
+  "reused_identical_intermediate": 2297,
+  "requires_mistral_judgment": 5703,
+  "reused_by_system": {
+    "debate": 1375,
+    "ensemble": 512,
+    "parallel_roles": 4,
+    "sequential": 165,
+    "subtask_parallel": 241
+  },
+  "pending_by_system": {
+    "debate": 225,
+    "ensemble": 1088,
+    "parallel_roles": 1596,
+    "sequential": 1435,
+    "subtask_parallel": 1359
+  },
+  "endorsement_reused": 2215,
+  "endorsement_reuse_conflicts": 82,
+  "endorsement_conflicts_by_system": {
+    "debate": 23,
+    "ensemble": 44,
+    "sequential": 5,
+    "subtask_parallel": 10
+  }
+}

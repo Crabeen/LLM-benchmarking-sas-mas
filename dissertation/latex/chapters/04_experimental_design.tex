@@ -1,0 +1,87 @@
+\chapter{Experimental Design}
+\label{chap:design}
+
+\section{Overview}
+
+The experiment is a factorial comparison over dataset, model variant, architecture, and nominal thinking-token budget. Two multi-hop QA datasets are used: MuSiQue and 2WikiMultiHopQA. Two model variants are evaluated: the frozen Qwen3-4B checkpoint and a project fine-tuned variant labelled \texttt{v3b}. Six systems are compared: one single-agent baseline and five multi-agent architectures. Each system is run at budgets of 1,000 and 2,000 thinking tokens on fixed 200-item validation subsets per dataset. Temperature is zero except for the explicitly stochastic candidate generation used by Ensemble.
+
+The complete benchmark therefore contains
+\begin{equation}
+  2\ \text{datasets} \times 2\ \text{models} \times 6\ \text{systems} \times 2\ \text{budgets} \times 200\ \text{items} = 9{,}600
+\end{equation}
+item-configurations. Removing the single-agent baseline leaves 8,000 MAS configurations, from which 26,873 intermediate stage outputs are available for semantic screening. The design uses the validation split and a fixed random seed of zero. Oracle context is supplied for each question, so retrieval quality is held outside the scope of the comparison.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Factorial benchmark design.}
+  \label{tab:design}
+  \begin{tabularx}{\textwidth}{@{}lX@{}}
+    \toprule
+    Factor & Levels and implementation \\
+    \midrule
+    Dataset & MuSiQue and 2WikiMultiHopQA; 200 validation items each \\
+    Model & Qwen3-4B frozen; Qwen3-4B SFT checkpoint \texttt{v3b} \\
+    System & SAS, Sequential, Subtask Parallel, Parallel Roles, Debate, Ensemble \\
+    Budget & 1,000 and 2,000 nominal thinking tokens \\
+    Context & Oracle evidence passages supplied to every system \\
+    Decoding & Temperature 0.0, except Ensemble candidates at temperature 0.7 \\
+    Seed & 0 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Datasets}
+
+MuSiQue constructs multi-hop questions from connected single-hop components and applies checks intended to prevent models from answering through only one component \citep{trivedi2022musique}. It is the harder dataset for the evaluated 4B model and therefore offers room for differences in discovery and aggregation. 2WikiMultiHopQA uses evidence from multiple Wikipedia pages and supplies supporting-fact annotations \citep{ho2020twowiki}. It produces substantially higher final accuracy in this experiment and helps reveal whether coordination losses persist when the underlying questions are easier for the model.
+
+The use of oracle context narrows the experimental claim. The systems are not evaluated as end-to-end retrieval-augmented QA pipelines. Instead, they receive the passages needed to answer and are tested on their ability to combine evidence and maintain a correct answer through the computational graph. This improves comparability across architectures because one system cannot gain merely from a different retrieval query, but it also means the results do not estimate performance under realistic retrieval noise.
+
+All systems use the same selected items within a dataset. This pairing is essential for the budget comparison: for a given model, dataset, and architecture, the 1,000- and 2,000-token runs can be compared on the identical question. Three Subtask Parallel records lacked a resolved semantic discovery label in the paired screen, leaving 3,997 discovery pairs rather than 4,000; final semantic accuracy retains all 4,000 MAS pairs.
+
+\section{Model variants}
+
+The base model is Qwen3-4B \citep{yang2025qwen3}. The frozen condition uses the public checkpoint without task-specific parameter updates. The \texttt{v3b} condition uses a merged supervised fine-tuning checkpoint developed within the project. It was trained through a low-rank adaptation workflow, a parameter-efficient approach derived from LoRA \citep{hu2021lora}, and then merged for inference. The fine-tuning data were designed to preserve the single-agent reasoning format rather than directly train every multi-agent role.
+
+This choice creates a controlled but limited contrast. It tests whether the observed architecture patterns survive a project-specific adaptation of the same base family; it does not establish generality across unrelated model families or parameter scales. The later \texttt{v4} role-conditioned experiments described in project notes are intentionally excluded from the main dissertation because they were not part of the completed, audited evidence chain. Including incomplete fine-tuning arms would expand the narrative without a correspondingly validated result.
+
+For both variants, the configured maximum model length is 16,384 tokens, tensor parallel size is one, and the main benchmark uses deterministic decoding. The experiment records actual thinking tokens and truncation indicators at stage level, allowing the analysis to distinguish nominal limits from realised use.
+
+\section{Systems}
+
+\subsection{Single-agent system}
+
+The SAS receives the question and oracle context and produces one reasoning trajectory followed by a final answer. It is not an unreasoned one-shot control; it can use its entire thinking allowance within one coherent state. This is important because distributing the same nominal budget across multiple agents may reduce the amount of context-aware reasoning available to each individual call.
+
+\subsection{Sequential}
+
+The Sequential architecture uses a planner, an ordered chain of workers, and a final aggregator. The planner can produce at most five plan steps. Workers receive accumulated findings so that later steps can build on earlier results. This structure is well suited to genuinely compositional questions, but it creates serial dependence: an early error can propagate, and a later worker can overwrite or omit a useful previous finding. The final aggregator sees the worker chain and produces the answer. For human transition analysis, the last worker is the source and the aggregator is the target.
+
+\subsection{Subtask Parallel}
+
+Subtask Parallel also begins with a plan, but up to four tasks are executed independently before aggregation. Parallel workers cannot condition on one another's findings. The design reduces critical-path latency and propagation of early mistakes, but each output is a partial answer to a subtask rather than a full candidate for the original question. Candidate-oracle measures are therefore reported with a warning: a ``wrong'' partial output may still be useful evidence for synthesis.
+
+\subsection{Parallel Roles}
+
+Parallel Roles assigns several agents different analytical perspectives on the same question and context, with at most four parallel tasks. The intended benefit is diversity of interpretation rather than decomposition into ordered hops. A final aggregator selects or synthesises the answer. High candidate diversity is useful only if the aggregator can recognise which perspective is supported.
+
+\subsection{Debate}
+
+Two agents produce initial proposals, observe the opposing proposal, and issue revisions. A final picker chooses between the revised positions. Debate therefore contains two potential correction mechanisms and two potential loss mechanisms. Cross-exposure can turn a wrong proposal into a correct revision, or turn a correct proposal into a wrong revision. The picker can exploit a surviving correct revision, or discard it. The implementation retains both proposal and revision texts so these boundaries can be inspected separately.
+
+\subsection{Ensemble}
+
+The Ensemble produces four candidate answers using a sampling temperature of 0.7 and passes them to an aggregator. This is the most direct candidate-coverage architecture. It is expected to yield a high oracle accuracy because several stochastic samples explore different answer paths. Its main weakness should therefore appear as aggregation regret when the final component fails to use an available correct candidate.
+
+\section{Budget controller and resource measurement}
+
+The token controller applies nominal thinking budgets of 1,000 and 2,000 tokens. These levels refer to reasoning-token allowances within the architecture rather than a guarantee that every system emits exactly the limit. The controller records thinking tokens per item and flags stage truncation when generation reaches its assigned cap. Architecture overhead, final answers, and prompt tokens are not interpreted as interchangeable with productive reasoning tokens.
+
+Wall time is observed end-to-end elapsed time for an item. For parallel architectures it approximates the critical path rather than the sum of all device work. Consequently, total recorded item wall time is not GPU-seconds, and exact energy or cost comparisons cannot be reconstructed without scheduler telemetry. The dissertation reports mean and distributional wall times to describe latency, not total hardware consumption.
+
+Budget comparisons use paired items. For each system, model, and dataset cell, semantic outcomes at 1,000 and 2,000 tokens are compared with an exact McNemar test. This design asks whether increasing the cap changes correctness on the same questions. Resource association models separately compare observations above and below the median wall time or token use within dataset $\times$ model $\times$ budget $\times$ system strata. Those associations control for the design cells but remain observational because actual resource use is partly determined by the generated trajectory.
+
+\section{Trace capture and reproducibility}
+
+Every run stores the question identifier, gold answers and aliases, final prediction, stage texts, architecture metadata, budget, thinking-token count, wall time, and truncation status. Stage records are normalised into a common analysis format while retaining role names such as proposal, revision, worker, picker, and aggregator. The fixed configuration files specify models, systems, budgets, context mode, and seed. Analysis scripts then generate per-item lexical metrics, stage-level semantic files, transition tables, budget-pair tests, and audit workbooks.
+
+The main source files are listed in \Cref{app:reproducibility}. This provenance is important because the human audit was constructed from frozen machine-defined strata. Re-running a judge with a different prompt could change the screen, but it does not retroactively change the audited sample or its population weights. The final report therefore keeps generated outputs and codebook revisions alongside the analysis rather than presenting only aggregate numbers.

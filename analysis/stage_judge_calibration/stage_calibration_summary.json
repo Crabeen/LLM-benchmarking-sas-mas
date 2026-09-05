@@ -1,0 +1,53 @@
+{
+  "n": 200,
+  "seed": 17,
+  "quota": {
+    "aggregation_failure": 25,
+    "drop_after_discovery": 25,
+    "debate_beneficial_flip": 20,
+    "debate_harmful_flip": 20,
+    "sequential_c_to_w": 20,
+    "sequential_w_to_c": 20,
+    "truncated": 20,
+    "non_truncated": 20,
+    "final_correct_control": 30
+  },
+  "selection_stratum": {
+    "final_correct_control": 30,
+    "drop_after_discovery": 25,
+    "aggregation_failure": 25,
+    "debate_beneficial_flip": 20,
+    "sequential_c_to_w": 20,
+    "truncated": 20,
+    "debate_harmful_flip": 20,
+    "non_truncated": 20,
+    "sequential_w_to_c": 20
+  },
+  "dataset": {
+    "musique": 101,
+    "2wiki": 99
+  },
+  "model_variant": {
+    "v3b": 99,
+    "frozen": 101
+  },
+  "budget": {
+    "2000": 99,
+    "1000": 101
+  },
+  "system": {
+    "subtask_parallel": 25,
+    "debate": 64,
+    "parallel_roles": 23,
+    "ensemble": 24,
+    "sequential": 64
+  },
+  "stage_truncated": {
+    "true": 111,
+    "false": 89
+  },
+  "lexical_contain": {
+    "true": 125,
+    "false": 75
+  }
+}

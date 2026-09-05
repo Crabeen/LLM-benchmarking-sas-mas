@@ -1,0 +1,9 @@
+system,machine_sampling_stratum,pool_N,sampled_items,human_CC,human_CW,human_WC,human_WW,human_U_related,exact_transition_match_n,exact_transition_match_rate
+debate,debate_picker_c_to_c,806,20,20,0,0,0,0,20,1
+debate,debate_picker_c_to_w,111,39,12,18,0,9,0,18,0.46153846153846156
+debate,debate_picker_w_to_c,1,1,1,0,0,0,0,0,0
+debate,debate_picker_w_to_w,267,20,2,1,0,16,1,16,0.8
+sequential,sequential_aggregator_c_to_c,513,20,20,0,0,0,0,20,1
+sequential,sequential_aggregator_c_to_w,38,25,9,4,0,12,0,4,0.16
+sequential,sequential_aggregator_w_to_c,151,15,8,0,6,1,0,6,0.4
+sequential,sequential_aggregator_w_to_w,335,20,3,0,0,16,1,16,0.8

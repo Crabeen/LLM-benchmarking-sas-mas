@@ -1,0 +1,17 @@
+axis,human_label,machine_label,harmonized_reason_rev4,n
+Discovery,W,C,absent,32
+Discovery,W,C,wrong_relation,19
+Discovery,C,W,semantic_equivalent,13
+Discovery,C,W,exact_or_alias,3
+Discovery,W,C,insufficient_granularity,2
+Discovery,W,C,incidental_mention,1
+Endorsement,C,W,exact_or_alias,35
+Endorsement,C,W,semantic_equivalent,16
+Endorsement,W,C,wrong_entity,14
+Endorsement,W,C,wrong_relation,4
+Endorsement,C,U,exact_or_alias,2
+Endorsement,U,W,other,2
+Endorsement,W,C,refusal,2
+Endorsement,U,W,contradiction,1
+Endorsement,W,C,insufficient_granularity,1
+Endorsement,W,C,partial_step_no_verdict,1
